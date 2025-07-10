@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\Desktop\\Facultad\\ejercitacion Csharp\\Colman-ProyectoTaller1\\Colman-ProyectoTaller1.csproj": {}
+    "c:\\Users\\user\\Desktop\\Facultad\\ejercitacion Csharp\\Colman-ProyectoTaller1\\Colman-ProyectoTaller1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\Desktop\\Facultad\\ejercitacion Csharp\\Colman-ProyectoTaller1\\Colman-ProyectoTaller1.csproj": {
+    "c:\\Users\\user\\Desktop\\Facultad\\ejercitacion Csharp\\Colman-ProyectoTaller1\\Colman-ProyectoTaller1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\Desktop\\Facultad\\ejercitacion Csharp\\Colman-ProyectoTaller1\\Colman-ProyectoTaller1.csproj",
+        "projectUniqueName": "c:\\Users\\user\\Desktop\\Facultad\\ejercitacion Csharp\\Colman-ProyectoTaller1\\Colman-ProyectoTaller1.csproj",
         "projectName": "Colman-ProyectoTaller1",
-        "projectPath": "C:\\Users\\user\\Desktop\\Facultad\\ejercitacion Csharp\\Colman-ProyectoTaller1\\Colman-ProyectoTaller1.csproj",
+        "projectPath": "c:\\Users\\user\\Desktop\\Facultad\\ejercitacion Csharp\\Colman-ProyectoTaller1\\Colman-ProyectoTaller1.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\Desktop\\Facultad\\ejercitacion Csharp\\Colman-ProyectoTaller1\\obj\\",
+        "outputPath": "c:\\Users\\user\\Desktop\\Facultad\\ejercitacion Csharp\\Colman-ProyectoTaller1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -43,6 +43,12 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
+          "dependencies": {
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[9.0.7, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

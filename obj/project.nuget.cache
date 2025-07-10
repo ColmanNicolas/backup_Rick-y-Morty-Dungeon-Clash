@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "6s481rDdRRo=",
+  "dgSpecHash": "6IxPtGS4338=",
   "success": true,
-  "projectFilePath": "C:\\Users\\user\\Desktop\\Facultad\\ejercitacion Csharp\\Colman-ProyectoTaller1\\Colman-ProyectoTaller1.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "c:\\Users\\user\\Desktop\\Facultad\\ejercitacion Csharp\\Colman-ProyectoTaller1\\Colman-ProyectoTaller1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.win32.systemevents\\9.0.7\\microsoft.win32.systemevents.9.0.7.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\system.drawing.common\\9.0.7\\system.drawing.common.9.0.7.nupkg.sha512"
+  ],
   "logs": []
 }
