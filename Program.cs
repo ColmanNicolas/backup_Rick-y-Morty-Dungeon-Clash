@@ -193,11 +193,13 @@ namespace RickAndMortyApi
         public static void FiltrarPersonajesParaNuevaPartida(List<Personaje> personajesDisponibles, ref List<Personaje> personajesSeleccionados, Personaje personajeJugador, int cantidadPersonajes)
         {
             personajesDisponibles.Remove(personajeJugador);
+            personajesDisponibles.Barajar();
+            personajesSeleccionados.Add(personajeJugador);
+
             for (int i = 0; i < cantidadPersonajes - 1; i++)
             {
                 personajesSeleccionados.Add(personajesDisponibles[i]);
             }
-            personajesSeleccionados.Add(personajeJugador);
         }
 
         public static async Task<List<Personaje>> ObtenerPersonajesAPI(int cantidad, bool aleatorio)  //El segundo parametro mezcla la lista
