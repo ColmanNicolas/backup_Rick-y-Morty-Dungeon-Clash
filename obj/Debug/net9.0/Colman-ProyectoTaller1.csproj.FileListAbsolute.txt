@@ -1,0 +1,14 @@
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\bin\Debug\net9.0\Colman-ProyectoTaller1.exe
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\bin\Debug\net9.0\Colman-ProyectoTaller1.deps.json
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\bin\Debug\net9.0\Colman-ProyectoTaller1.runtimeconfig.json
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\bin\Debug\net9.0\Colman-ProyectoTaller1.dll
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\bin\Debug\net9.0\Colman-ProyectoTaller1.pdb
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\obj\Debug\net9.0\Colman-ProyectoTaller1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\obj\Debug\net9.0\Colman-ProyectoTaller1.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\obj\Debug\net9.0\Colman-ProyectoTaller1.AssemblyInfo.cs
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\obj\Debug\net9.0\Colman-ProyectoTaller1.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\obj\Debug\net9.0\Colman-ProyectoTaller1.dll
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\obj\Debug\net9.0\refint\Colman-ProyectoTaller1.dll
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\obj\Debug\net9.0\Colman-ProyectoTaller1.pdb
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\obj\Debug\net9.0\Colman-ProyectoTaller1.genruntimeconfig.cache
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\obj\Debug\net9.0\ref\Colman-ProyectoTaller1.dll
