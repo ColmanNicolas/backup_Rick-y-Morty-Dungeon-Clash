@@ -17,7 +17,7 @@ namespace UIclass
         }
         public static void ElegirNuevoPersonajeUI()
         {
-            Console.WriteLine("\nPor favor, seleccione una de las siguientes opciones para la selección de personajes:");
+            Console.WriteLine("\nPor favor, seleccione una de las siguientes opciones para la selección de personajes:\n");
             Console.WriteLine("[1] Selección manual de un personaje de la lista completa (un total de 812 personajes disponibles).");
             Console.WriteLine("[2] Selección manual de un personaje dentro de una partida personalizada (con un máximo de 512 personajes).");
             Console.WriteLine("[3] Generación aleatoria de un personaje dentro de una partida personalizada (con un máximo de 512 personajes).");
