@@ -9,11 +9,11 @@ namespace ImageClass
     public class ImageToASCII
     {
 
-        public static async Task MostrarPersonajePorId(int id)
+        public static async Task MostrarPersonajePorId(int id, int tamañoMaximo)
         {
-            await MostrarImagenComoASCII($"https://rickandmortyapi.com/api/character/avatar/{id}.jpeg");
+            await MostrarImagenComoASCII($"https://rickandmortyapi.com/api/character/avatar/{id}.jpeg", tamañoMaximo);
         }
-        private static async Task MostrarImagenComoASCII(string url, int anchoMaximo = 280)
+        private static async Task MostrarImagenComoASCII(string url, int anchoMaximo)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -26,7 +26,7 @@ namespace ImageClass
                         using (Bitmap bmp = new Bitmap(ms))
                         {
                             int nuevoAncho = anchoMaximo;
-                            
+
                             int nuevoAlto = (int)(bmp.Height / (double)bmp.Width * nuevoAncho * 0.42);
 
                             using (Bitmap reducida = new Bitmap(bmp, new Size(nuevoAncho, nuevoAlto)))

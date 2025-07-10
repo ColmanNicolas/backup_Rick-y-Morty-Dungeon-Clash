@@ -96,7 +96,8 @@ namespace RickAndMortyApi
                                     break;
                                 case 6:
                                     int id = Utils.validarOpcionMenu(1, 826, "\nIngrese el identificador(ID) de un personaje(1 al 826): ");
-                                    await ImageToASCII.MostrarPersonajePorId(id);
+                                    int anchoMaximo = Utils.validarOpcionMenu(150, 350, "\nIngrese el ancho maximo que tendra la imagen (150 al 350): ");
+                                    await ImageToASCII.MostrarPersonajePorId(id,anchoMaximo);
                                     break;
                                 case 7:
                                     // guardar partida en archivo
