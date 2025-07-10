@@ -12,3 +12,9 @@ C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\obj\De
 C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\obj\Debug\net9.0\Colman-ProyectoTaller1.pdb
 C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\obj\Debug\net9.0\Colman-ProyectoTaller1.genruntimeconfig.cache
 C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\obj\Debug\net9.0\ref\Colman-ProyectoTaller1.dll
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\bin\Debug\net9.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\bin\Debug\net9.0\System.Drawing.Common.dll
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\bin\Debug\net9.0\System.Private.Windows.Core.dll
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\bin\Debug\net9.0\runtimes\win\lib\net9.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\obj\Debug\net9.0\Colman-ProyectoTaller1.csproj.AssemblyReference.cache
+C:\Users\user\Desktop\Facultad\ejercitacion Csharp\Colman-ProyectoTaller1\obj\Debug\net9.0\Colman-P.AE5A3143.Up2Date

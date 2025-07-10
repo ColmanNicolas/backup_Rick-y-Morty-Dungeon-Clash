@@ -9,11 +9,11 @@ namespace ImageClass
     public class ImageToASCII
     {
 
-        public static async void MostrarPersonajePorId(int id)
+        public static async Task MostrarPersonajePorId(int id)
         {
             await MostrarImagenComoASCII($"https://rickandmortyapi.com/api/character/avatar/{id}.jpeg");
         }
-        private static async Task MostrarImagenComoASCII(string url, int anchoMaximo = 200)
+        private static async Task MostrarImagenComoASCII(string url, int anchoMaximo = 280)
         {
             using (HttpClient client = new HttpClient())
             {

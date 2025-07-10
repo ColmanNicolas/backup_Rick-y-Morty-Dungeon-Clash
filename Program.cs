@@ -41,7 +41,7 @@ namespace RickAndMortyApi
             do
             {
                 UI.MenuInicialUI();
-                opcionPrimaria = Utils.validarOpcionMenu(0, 3);
+                opcionPrimaria = Utils.validarOpcionMenu(0, 3, "\nSu opcion: ");
 
                 switch (opcionPrimaria)
                 {
@@ -55,7 +55,7 @@ namespace RickAndMortyApi
                         nombreJugador = UI.ElegirNombreJugador();
 
                         UI.ElegirNuevoPersonajeUI();
-                        opcionSecundaria = Utils.validarOpcionMenu(1, 3);
+                        opcionSecundaria = Utils.validarOpcionMenu(1, 3,"\nSu opcion: " );
 
                         cantidadPersonajes = Utils.validarTamanioPartida();
 
@@ -65,9 +65,9 @@ namespace RickAndMortyApi
 
                         //empieza la partida. logica de menu
                         do
-                        {
+                        { 
                             UI.MenuPrincipalUI(nombreJugador, personajesVivosEnPartida.Count);
-                            opcionTerciaria = Utils.validarOpcionMenu(0, 7);
+                            opcionTerciaria = Utils.validarOpcionMenu(0, 7,"\nSu opcion: ");
                             switch (opcionTerciaria)
                             {
                                 case 1:
@@ -95,8 +95,8 @@ namespace RickAndMortyApi
                                     // ejecutar duelos restantes o hacer partida rapida (?)
                                     break;
                                 case 6:
-                                    int id = Utils.validarOpcionMenu(1, 826);
-                                    ImageToASCII.MostrarPersonajePorId(id);
+                                    int id = Utils.validarOpcionMenu(1, 826, "\nIngrese el identificador(ID) de un personaje(1 al 826): ");
+                                    await ImageToASCII.MostrarPersonajePorId(id);
                                     break;
                                 case 7:
                                     // guardar partida en archivo
@@ -118,7 +118,7 @@ namespace RickAndMortyApi
                     default:
                         break;
                 }
-                Utils.PresioneKparaContinuar();                
+                Utils.PresioneKparaContinuar();
             } while (opcionPrimaria != 0);
 
             Console.Clear();
@@ -161,8 +161,7 @@ namespace RickAndMortyApi
                         auxContador++;
                     });
                     auxContador = 0;
-                    Console.Write("\nIngrese el identificador(ID) del personaje que quiera usar: ");
-                    identificadorPersonaje = Utils.validarOpcionMenu(1, 825);
+                    identificadorPersonaje = Utils.validarOpcionMenu(1, 825,"\nIngrese el identificador(ID) del personaje que quiera usar: ");
                     personajeJugador = personajes.Find(p => p.id == identificadorPersonaje);
 
                     if (personajeJugador == null)

@@ -14,7 +14,6 @@ namespace UIclass
             Console.WriteLine("[2] Para cargar una partida");
             Console.WriteLine("[3] Para borrar una partida");
             Console.WriteLine("[0] Para salir");
-            Console.Write("\nSu opcion: ");
         }
         public static void ElegirNuevoPersonajeUI()
         {
@@ -22,7 +21,7 @@ namespace UIclass
             Console.WriteLine("[1] Selección manual de un personaje de la lista completa (un total de 812 personajes disponibles).");
             Console.WriteLine("[2] Selección manual de un personaje dentro de una partida personalizada (con un máximo de 512 personajes).");
             Console.WriteLine("[3] Generación aleatoria de un personaje dentro de una partida personalizada (con un máximo de 512 personajes).");
-            Console.Write("\nIngrese su opción: ");
+
         }
         //public static Personaje
         public static string? ElegirNombreJugador()
@@ -64,7 +63,6 @@ namespace UIclass
             Console.WriteLine("[6] Ver imagen de un personaje");
             Console.WriteLine("[7] Guardar Partida actual");
             Console.WriteLine("[0] Salir del juego");
-            Console.Write("\nSu opcion: ");
 
         }
         public static void BarraDeVidaU(int vidaTotal, int vidaRestante)

@@ -5,11 +5,11 @@ namespace UtilsClass
 {
     public static class Utils
     {
-        public static int validarOpcionMenu(int minValor, int maxValor)
+        public static int validarOpcionMenu(int minValor, int maxValor, string mensajeConsola)
         {
             int opcionEntero;
             string? opcion;
-
+            Console.Write(mensajeConsola);
             while (true)
             {
                 opcion = Console.ReadLine();
