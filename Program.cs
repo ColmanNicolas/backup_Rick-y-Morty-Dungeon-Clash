@@ -26,7 +26,8 @@ namespace RickAndMortyApi
         {
             List<Personaje> personajes = new List<Personaje>();
             List<Personaje> personajesVivosEnPartida = new List<Personaje>();
-            List<Personaje> rivalesDerrotados = new List<Personaje>();
+            List<Personaje> personajesDerrotados = new List<Personaje>();
+            List<Personaje> personajesDerrotadosPorElJugador = new List<Personaje>();
 
             /*
                         UI.BarraDeVidaUI(100, 100);  // 100%
@@ -77,37 +78,48 @@ namespace RickAndMortyApi
                                     Personaje.MostrarTablaDeVentajas();
                                     break;
                                 case 3:
-                                    // iniciar combate
+                                    Personaje personajeVencido = EnfrentarDosPersonajes(personajesVivosEnPartida[0], personajesVivosEnPartida[1]);
+                                    personajesDerrotados.Add(personajeVencido);
+                                    personajesVivosEnPartida.Remove(personajeVencido);
                                     break;
                                 case 4:
                                     //mostrar combates del corriente turno
                                     int cantJugadoresRestantes = personajesVivosEnPartida.Count;
-
-                                    Console.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
-                                    Console.WriteLine("|             SYSTEM MESSAGE: ROUND START!        |");
-                                    Console.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
-                                    Console.WriteLine($"\n  [JUGADORES VIVOS]: {cantJugadoresRestantes}   [DUELOS EN ESTA RONDA]: {cantJugadoresRestantes / 2}  ");
-                                    Utils.GenerarPausaDeSegundos(1);
-
-                                    Console.WriteLine("\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
-                                    Console.WriteLine("|               PROXIMOS ENFRENTAMIENTOS           |");
-                                    Console.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
-
-                                    for (int i = 0; i < cantJugadoresRestantes - 1; i += 2)
+                                    if (cantJugadoresRestantes > 1)
                                     {
-                                        string jugador1Nombre = personajesVivosEnPartida[i].name;
-                                        string jugador2Nombre = personajesVivosEnPartida[i + 1].name;
 
-                                        // Ajusta el texto "PLAYER UNIT" para que solo aparezca si es el primer personaje
-                                        string display1 = (i == 0) ? $"{jugador1Nombre.ToUpper()} <JUGADOR>" : $"{jugador1Nombre.ToUpper()} <IA>";
+                                        Console.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                                        Console.WriteLine("|             SYSTEM MESSAGE: ROUND START!        |");
+                                        Console.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                                        Console.WriteLine($"\n  [JUGADORES VIVOS]: {cantJugadoresRestantes}   [DUELOS EN ESTA RONDA]: {cantJugadoresRestantes / 2}  ");
+                                        Utils.GenerarPausaDeSegundos(1);
 
-                                        Console.Write($"\n  [DUELO #{(i / 2) + 1:D2}]: ");
-                                        Console.Write($"PESONAJE: {display1,-30} "); // Usamos alineación a la izquierda con padding
-                                        Console.WriteLine($"OPONENTE: {jugador2Nombre.ToUpper()} <IA>"); // Usamos alineación a la izquierda con padding
-                                        Utils.GenerarPausaDeSegundos(0.005); // Pausa rápida
+                                        Console.WriteLine("\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                                        Console.WriteLine("|               PROXIMOS ENFRENTAMIENTOS          |");
+                                        Console.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+
+                                        for (int i = 0; i < cantJugadoresRestantes - 1; i += 2)
+                                        {
+                                            string jugador1Nombre = personajesVivosEnPartida[i].name;
+                                            string jugador2Nombre = personajesVivosEnPartida[i + 1].name;
+
+                                            // Ajusta el texto "PLAYER UNIT" para que solo aparezca si es el primer personaje
+                                            string display1 = (i == 0) ? $"{jugador1Nombre.ToUpper()} <JUGADOR>" : $"{jugador1Nombre.ToUpper()} <IA>";
+
+                                            Console.Write($"\n  [DUELO #{(i / 2) + 1:D2}]: ");
+                                            Console.Write($"PESONAJE: {display1,-30} "); // Usamos alineación a la izquierda con padding
+                                            Console.WriteLine($"OPONENTE: {jugador2Nombre.ToUpper()} <IA>"); // Usamos alineación a la izquierda con padding
+                                            Utils.GenerarPausaDeSegundos(0.005); // Pausa rápida
+                                        }
+
+                                        Console.WriteLine("\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                                    }
+                                    else if (cantJugadoresRestantes == 1)
+                                    {
+                                        Console.WriteLine("PERSONAJE GANADOR DE LA PARTIDA");
+                                        personajesVivosEnPartida[0].MostrarUnPersonaje();
                                     }
 
-                                    Console.WriteLine("\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
                                     Utils.GenerarPausaDeSegundos(1.5);
                                     break;
                                 case 5:
@@ -205,9 +217,47 @@ namespace RickAndMortyApi
             personajeJugador.MostrarUnPersonaje();
             Console.WriteLine("\n\nProcesando.... ");
 
-            Utils.GenerarPausaDeSegundos(3.5);
+            Utils.GenerarPausaDeSegundos(4);
             Console.Clear();
             return personajeJugador;
+        }
+        public static Personaje EnfrentarDosPersonajes(Personaje personaje1, Personaje rival)
+        {
+            int hpPersonaje1 = personaje1.hp;
+            int hpRival = rival.hp;
+            Personaje personajeVencido;
+            int auxContador = 0;
+            do
+            {
+                if (personaje1.velocidad > rival.velocidad)     // ataca primero personaje 1
+                {
+                    hpRival = Personaje.RecibirDaño(hpRival, personaje1.CalcularAtaque());
+
+                    if (hpRival >= 0)
+                    {
+                        hpPersonaje1 = Personaje.RecibirDaño(hpPersonaje1, rival.CalcularAtaque());
+                    }
+                }
+                else            // ataca primero el rival
+                {                                        
+                    hpPersonaje1 = Personaje.RecibirDaño(hpPersonaje1, rival.CalcularAtaque());
+
+                    if (hpRival >= 0)
+                    {
+                        hpRival = Personaje.RecibirDaño(hpRival, personaje1.CalcularAtaque());
+                    }
+                }
+                Console.WriteLine("FIN DEl TURNO: " + ++auxContador);
+            } while (hpRival > 0 && hpPersonaje1 > 0);
+
+            if (hpRival <= 0) personajeVencido = rival;
+            else personajeVencido = personaje1;
+
+            Console.WriteLine("\nEl siguiente personaje Perdio la batalla: \n");
+            personajeVencido.MostrarMasivamentePersonajes();
+            Utils.PresioneKparaContinuar();
+
+            return personajeVencido;  // retorno derrotado para removerlo de lista de jugadores
         }
 
         public static void FiltrarPersonajesParaNuevaPartida(List<Personaje> personajesDisponibles, ref List<Personaje> personajesSeleccionados, Personaje personajeJugador, int cantidadPersonajes)

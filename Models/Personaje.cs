@@ -48,13 +48,15 @@ namespace PersonajeClass
         public int CalcularAtaque()
         {
             //logica de cantidad de daño
-            return 10;
+            Random rng = new Random();
+            return this.ataquebase * rng.Next(1,2); // cambiar en el futuro
         }
-        public void RecibirDaño(int cantidad)
+        public static int RecibirDaño(int hpRestante, int danio)
         {
             //falta posibilidad de evitar ataque
-            hp -= cantidad;
-            if (hp < 0) hp = 0;
+            hpRestante -= danio;
+            if (hpRestante < 0) hpRestante = 0;
+            return hpRestante;
         }
         public bool CalcularGolpeCritico()  // puedo recibir boolean de tiene ventaja o no
         {

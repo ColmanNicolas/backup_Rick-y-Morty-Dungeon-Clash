@@ -51,7 +51,7 @@ namespace UtilsClass
             string? inputUsuario;
             do
             {
-                Console.WriteLine("\nPresione K para continuar: ");
+                Console.Write("\nPresione K para continuar: ");
                 inputUsuario = Console.ReadLine();
 
                 if (inputUsuario != null && string.Equals(inputUsuario.ToLower(), "k")) return;
