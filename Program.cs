@@ -193,7 +193,7 @@ namespace RickAndMortyApi
 
                 } while (personajeJugador == null);
 
-                Console.Write("\nPersonaje elegido: ");
+                Console.Write("\nPersonaje elegido: \n\n");
             }
 
             if (opcionElegirPersonaje == 1) //mezclar y limitar lista de personajes al final solo para opcion 3

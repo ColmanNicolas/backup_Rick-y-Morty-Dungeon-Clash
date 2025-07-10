@@ -33,7 +33,17 @@ namespace PersonajeClass
         }
         public void MostrarUnPersonaje()
         {
-            Console.Write($"ID: + {id}  Nombre: {name} - Especie: {species} - Genero: {gender} ▸  hp: {hp} - velocidad: {velocidad} - ataque base: {ataquebase} - inteligencia: {inteligencia} - defensa: {defensa}");
+            Console.WriteLine("╠═════════════════════════════════════════════════════════════╣");
+            Console.WriteLine($"║ <DETALLE PERSONAJE>                                         ║");
+            Console.WriteLine("╠═════════════════════════════════════════════════════════════╣");
+            Console.WriteLine($"║ ID: {id,-3} | Nombre: {name,-41} ║");
+            Console.WriteLine($"║ Especie: {species,-26} | Género: {gender,-13} ║");
+            Console.WriteLine("╠═════════════════════════════════════════════════════════════╣");
+            Console.WriteLine($"║ [ESTADISTICAS]                                              ║");
+            Console.WriteLine("╠═════════════════════════════════════════════════════════════╣");
+            Console.WriteLine($"║ HP: {hp,-4} | Velocidad: {velocidad,-4} | Ataque: {ataquebase,-4}                   ║");
+            Console.WriteLine($"║ Defensa: {defensa,-4} | Inteligencia: {inteligencia,-4}                          ║");
+            Console.WriteLine("╠═════════════════════════════════════════════════════════════╣");
         }
         public int CalcularAtaque()
         {
@@ -101,7 +111,7 @@ namespace PersonajeClass
                 this.velocidad = (int)Math.Floor(this.velocidad * mult.Velocidad);
             }
         }
-        private static readonly Dictionary<string, List<string>> ventajas = new() 
+        private static readonly Dictionary<string, List<string>> ventajas = new()
         {
             { "Human", new List<string> { "Robot", "Disease" } },
             { "Robot", new List<string> { "Animal", "Humanoid" } },
