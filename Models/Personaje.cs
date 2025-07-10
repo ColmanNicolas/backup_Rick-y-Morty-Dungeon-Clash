@@ -1,3 +1,5 @@
+using UtilsClass;
+
 namespace PersonajeClass
 {
     public class Personaje
@@ -27,6 +29,7 @@ namespace PersonajeClass
         public void MostrarMasivamentePersonajes()
         {
             Console.Write($"{"ID:" + id,-6} - Nombre: {name,-41} - Especie: {species,-21} - Genero: {gender,-10}  ▸  hp: {hp,5} - velocidad: {velocidad,4} - ataque base: {ataquebase,4} - inteligencia: {inteligencia,3} - defensa: {defensa,3}\n");
+            Utils.GenerarPausaDeSegundos(0.0025);
         }
         public void MostrarUnPersonaje()
         {

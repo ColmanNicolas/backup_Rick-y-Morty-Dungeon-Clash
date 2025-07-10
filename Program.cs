@@ -55,7 +55,7 @@ namespace RickAndMortyApi
                         nombreJugador = UI.ElegirNombreJugador();
 
                         UI.ElegirNuevoPersonajeUI();
-                        opcionSecundaria = Utils.validarOpcionMenu(1, 3,"\nSu opcion: " );
+                        opcionSecundaria = Utils.validarOpcionMenu(1, 3, "\nSu opcion: ");
 
                         cantidadPersonajes = Utils.validarTamanioPartida();
 
@@ -65,9 +65,9 @@ namespace RickAndMortyApi
 
                         //empieza la partida. logica de menu
                         do
-                        { 
+                        {
                             UI.MenuPrincipalUI(nombreJugador, personajesVivosEnPartida.Count);
-                            opcionTerciaria = Utils.validarOpcionMenu(0, 7,"\nSu opcion: ");
+                            opcionTerciaria = Utils.validarOpcionMenu(0, 7, "\nSu opcion: ");
                             switch (opcionTerciaria)
                             {
                                 case 1:
@@ -96,7 +96,7 @@ namespace RickAndMortyApi
                                 case 6:
                                     int id = Utils.validarOpcionMenu(1, 826, "\nIngrese el identificador(ID) de un personaje(1 al 826): ");
                                     int anchoMaximo = Utils.validarOpcionMenu(150, 350, "\nIngrese el ancho maximo que tendra la imagen (150 al 350): ");
-                                    
+
                                     await ImageToASCII.MostrarPersonajePorId(id, anchoMaximo);
 
                                     break;
@@ -106,7 +106,8 @@ namespace RickAndMortyApi
                                 default:
                                     break;
                             }
-                            if (opcionTerciaria != 0  ) Utils.PresioneKparaContinuar();
+
+                            if (opcionTerciaria != 0) Utils.PresioneKparaContinuar();
 
                         } while (opcionTerciaria != 0);
 
@@ -125,8 +126,6 @@ namespace RickAndMortyApi
             } while (opcionPrimaria != 0);
 
             Console.Clear();
-
-
         }
         public static Personaje UsuarioEligeSuPersonaje(int opcionElegirPersonaje, ref List<Personaje> personajes, int cantidadPersonajes)
         {
@@ -163,7 +162,7 @@ namespace RickAndMortyApi
                         auxContador++;
                     });
                     auxContador = 0;
-                    identificadorPersonaje = Utils.validarOpcionMenu(1, 825,"\nIngrese el identificador(ID) del personaje que quiera usar: ");
+                    identificadorPersonaje = Utils.validarOpcionMenu(1, 825, "\nIngrese el identificador(ID) del personaje que quiera usar: ");
                     personajeJugador = personajes.Find(p => p.id == identificadorPersonaje);
 
                     if (personajeJugador == null)
