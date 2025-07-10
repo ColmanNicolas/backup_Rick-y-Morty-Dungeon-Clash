@@ -81,14 +81,34 @@ namespace RickAndMortyApi
                                     break;
                                 case 4:
                                     //mostrar combates del corriente turno
-                                    Console.WriteLine($"Cantidad de personajes vivos en la partida: {personajesVivosEnPartida.Count} - Duelos restantes: {personajesVivosEnPartida.Count / 2} ");
-                                    int auxContador = 0;
-                                    personajesVivosEnPartida.ForEach(personaje =>
+                                    int cantJugadoresRestantes = personajesVivosEnPartida.Count;
+
+                                    Console.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                                    Console.WriteLine("|             SYSTEM MESSAGE: ROUND START!        |");
+                                    Console.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                                    Console.WriteLine($"\n  [JUGADORES VIVOS]: {cantJugadoresRestantes}   [DUELOS EN ESTA RONDA]: {cantJugadoresRestantes / 2}  ");
+                                    Utils.GenerarPausaDeSegundos(1);
+
+                                    Console.WriteLine("\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                                    Console.WriteLine("|               PROXIMOS ENFRENTAMIENTOS           |");
+                                    Console.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+
+                                    for (int i = 0; i < cantJugadoresRestantes - 1; i += 2)
                                     {
-                                        Console.Write($"{"[" + (auxContador + 1) + "]",-7}");
-                                        personaje.MostrarMasivamentePersonajes();
-                                        auxContador++;
-                                    });
+                                        string jugador1Nombre = personajesVivosEnPartida[i].name;
+                                        string jugador2Nombre = personajesVivosEnPartida[i + 1].name;
+
+                                        // Ajusta el texto "PLAYER UNIT" para que solo aparezca si es el primer personaje
+                                        string display1 = (i == 0) ? $"{jugador1Nombre.ToUpper()} <JUGADOR>" : $"{jugador1Nombre.ToUpper()} <IA>";
+
+                                        Console.Write($"\n  [DUELO #{(i / 2) + 1:D2}]: ");
+                                        Console.Write($"PESONAJE: {display1,-30} "); // Usamos alineación a la izquierda con padding
+                                        Console.WriteLine($"OPONENTE: {jugador2Nombre.ToUpper()} <IA>"); // Usamos alineación a la izquierda con padding
+                                        Utils.GenerarPausaDeSegundos(0.005); // Pausa rápida
+                                    }
+
+                                    Console.WriteLine("\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                                    Utils.GenerarPausaDeSegundos(1.5);
                                     break;
                                 case 5:
                                     // ejecutar duelos restantes o hacer partida rapida (?)
@@ -154,7 +174,7 @@ namespace RickAndMortyApi
                 do
                 {
                     Console.WriteLine("\nPERSONAJES Y CARACTERISICAS (las caracteristicas varian en cada nueva partida)\n");
-                    Utils.GenerarPausaDeSegundos(2);
+                    Utils.GenerarPausaDeSegundos(1.5);
                     personajes.ForEach(personaje =>
                     {
                         Console.Write($"{"[" + (auxContador + 1) + "]",-7}");
@@ -183,9 +203,9 @@ namespace RickAndMortyApi
             }
 
             personajeJugador.MostrarUnPersonaje();
-            Console.WriteLine("\nProcesando.... ");
+            Console.WriteLine("\n\nProcesando.... ");
 
-            Utils.GenerarPausaDeSegundos(4);
+            Utils.GenerarPausaDeSegundos(3.5);
             Console.Clear();
             return personajeJugador;
         }
