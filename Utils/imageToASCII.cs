@@ -1,17 +1,17 @@
 using System;
 using System.Drawing; // Necesitás instalar System.Drawing.Common si usás .NET Core
-using System.Net.Http;
-using System.IO;
-using System.Threading.Tasks;
+using UtilsClass;
 
 namespace ImageClass
 {
     public class ImageToASCII
     {
 
-        public static async Task MostrarPersonajePorId(int id, int tamañoMaximo)
+        public static async Task MostrarPersonajePorId()
         {
-            await MostrarImagenComoASCII($"https://rickandmortyapi.com/api/character/avatar/{id}.jpeg", tamañoMaximo);
+            int id = Utils.ValidarOpcionMenu(1, 826, "\nIngrese el identificador(ID) de un personaje(1 al 826): ");
+            int anchoMaximo = Utils.ValidarOpcionMenu(150, 350, "\nIngrese el ancho maximo que tendra la imagen (150 al 350): ");
+            await MostrarImagenComoASCII($"https://rickandmortyapi.com/api/character/avatar/{id}.jpeg", anchoMaximo);
         }
         private static async Task MostrarImagenComoASCII(string url, int anchoMaximo)
         {

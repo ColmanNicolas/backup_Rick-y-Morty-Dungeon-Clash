@@ -5,7 +5,7 @@ namespace UtilsClass
 {
     public static class Utils
     {
-        public static int validarOpcionMenu(int minValor, int maxValor, string mensajeConsola)
+        public static int ValidarOpcionMenu(int minValor, int maxValor, string mensajeConsola)
         {
             int opcionEntero;
             string? opcion;
@@ -22,7 +22,7 @@ namespace UtilsClass
                 }
             }
         }
-        public static int validarTamanioPartida()
+        public static int ValidarTamanioPartida()
         {
             int opcionEntero;
             string? opcion;
