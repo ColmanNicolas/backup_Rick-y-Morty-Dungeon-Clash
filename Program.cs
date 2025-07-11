@@ -28,7 +28,7 @@ namespace RickAndMortyDC
         public static async Task Main(string[] args)
         {
             Partida partidaActual = new Partida("", new Personaje(), [], [], []);
-            int opcionPrimaria, opcionSecundaria, opcionTerciaria, taminioPartida;
+            int opcionPrimaria, opcionSecundaria, taminioPartida;
 
             do
             {
@@ -42,50 +42,7 @@ namespace RickAndMortyDC
 
                         partidaActual = await Gameplay.GenerarUnaNuevaPartida(partidaActual);
 
-                        do //empieza la partida. logica iterativa de menu
-                        {
-                            UIUX.MenuPrincipalUI(partidaActual.NombreJugador, partidaActual.PersonajesVivos.Count);
-                            opcionTerciaria = Utils.ValidarOpcionMenu(0, 7, "\nSu opcion: ");
-
-                            switch (opcionTerciaria)
-                            {
-                                case 1:
-                                    partidaActual.PersonajeJugador.MostrarUnPersonajeDetallado();
-
-                                    break;
-                                case 2:
-                                    Personaje.MostrarTablaDeVentajas();
-
-                                    break;
-                                case 3:
-                                    Gameplay.EjecutarCombatesDeLaRonda(partidaActual.PersonajesVivos.Count, ref partidaActual);
-
-                                    break;
-                                case 4:
-                                    Gameplay.MostrarCombatesDeLaRonda(partidaActual.PersonajesVivos.Count, partidaActual);
-
-                                    break;
-                                case 5:
-                                    partidaActual.MostrarResumen();
-                                    break;
-                                case 6:
-                                    await ImageToASCII.MostrarPersonajePorId();
-
-                                    break;
-                                case 7:
-                                    Almacenamiento.GuardarUnaPartida(partidaActual);
-
-                                    break;
-                                case 0:
-
-                                    break;
-                                default:
-                                    break;
-                            }
-
-                            if (opcionTerciaria != 0) Utils.PresioneKparaContinuar();
-
-                        } while (opcionTerciaria != 0);
+                        await Gameplay.RunGameLoop(partidaActual);
 
                         break;
                     case 2:
@@ -97,55 +54,11 @@ namespace RickAndMortyDC
                             Utils.GenerarPausaDeSegundos(4);
                             break;
                         }
-                        do //empieza la partida. logica iterativa de menu
-                        {
-                            UIUX.MenuPrincipalUI(partidaActual.NombreJugador, partidaActual.PersonajesVivos.Count);
-                            opcionTerciaria = Utils.ValidarOpcionMenu(0, 7, "\nSu opcion: ");
 
-                            switch (opcionTerciaria)
-                            {
-                                case 1:
-                                    partidaActual.PersonajeJugador.MostrarUnPersonajeDetallado();
-
-                                    break;
-                                case 2:
-                                    Personaje.MostrarTablaDeVentajas();
-
-                                    break;
-                                case 3:
-                                    Gameplay.EjecutarCombatesDeLaRonda(partidaActual.PersonajesVivos.Count, ref partidaActual);
-
-                                    break;
-                                case 4:
-                                    Gameplay.MostrarCombatesDeLaRonda(partidaActual.PersonajesVivos.Count, partidaActual);
-
-                                    break;
-                                case 5:
-                                    partidaActual.MostrarResumen();
-                                    break;
-                                case 6:
-                                    await ImageToASCII.MostrarPersonajePorId();
-
-                                    break;
-                                case 7:
-                                    Almacenamiento.GuardarUnaPartida(partidaActual);
-
-                                    break;
-                                case 0:
-
-                                    break;
-                                default:
-                                    break;
-                            }
-
-                            if (opcionTerciaria != 0) Utils.PresioneKparaContinuar();
-
-                        } while (opcionTerciaria != 0);
+                        await Gameplay.RunGameLoop( partidaActual);
 
                         break;
                     case 3:
-
-                        if (opcionPrimaria != 0) Utils.PresioneKparaContinuar();
                         break;
                     case 0:
                         break;
