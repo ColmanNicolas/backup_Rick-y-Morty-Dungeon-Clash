@@ -34,7 +34,7 @@ namespace RickAndMortyApi
                         UI.BarraDeVidaUI(100, 45);   // 45%
                         UI.BarraDeVidaUI(100, 1);    // 0% 
                         */
-            int opcionPrimaria, opcionSecundaria, opcionTerciaria, cantidadPersonajes;
+            int opcionPrimaria, opcionSecundaria, opcionTerciaria, cantidadPersonajesPartida;
             string? nombreJugador;
             Personaje? personajeJugador = new Personaje();
             Personaje? personajeGanador = new Personaje();
@@ -62,11 +62,11 @@ namespace RickAndMortyApi
                         UI.ElegirNuevoPersonajeUI();
                         opcionSecundaria = Utils.validarOpcionMenu(1, 3, "\nSu opcion: ");
 
-                        cantidadPersonajes = Utils.validarTamanioPartida();
+                        cantidadPersonajesPartida = Utils.validarTamanioPartida();
 
-                        personajeJugador = UsuarioEligeSuPersonaje(opcionSecundaria, ref personajes, cantidadPersonajes);
+                        personajeJugador = UsuarioEligeSuPersonaje(opcionSecundaria, ref personajes, cantidadPersonajesPartida);
 
-                        FiltrarPersonajesParaNuevaPartida(personajes, ref personajesVivosEnPartida, personajeJugador, cantidadPersonajes);
+                        FiltrarPersonajesParaNuevaPartida(personajes, ref personajesVivosEnPartida, personajeJugador, cantidadPersonajesPartida);
 
                         //empieza la partida. logica de menu
                         do
@@ -82,44 +82,61 @@ namespace RickAndMortyApi
                                     Personaje.MostrarTablaDeVentajas();
                                     break;
                                 case 3:
-                                    Personaje personajeVencido = EnfrentarDosPersonajes(personajesVivosEnPartida[0], personajesVivosEnPartida[1]);
-                                    personajesDerrotados.Add(personajeVencido);
-                                    personajesVivosEnPartida.Remove(personajeVencido);
-                                    break;
-                                case 4:
-                                    //mostrar combates del corriente turno
                                     int cantJugadoresRestantes = personajesVivosEnPartida.Count;
                                     if (cantJugadoresRestantes > 1)
                                     {
 
+                                        List<Personaje> personajesVencidosTemporal = [];
+                                        for (int i = 0; i < cantJugadoresRestantes - 1; i += 2)
+                                        {
+                                            Personaje personajeVencido = EnfrentarDosPersonajes(personajesVivosEnPartida[i], personajesVivosEnPartida[i + 1]);
+                                            personajesDerrotados.Add(personajeVencido);
+                                            personajesVencidosTemporal.Add(personajeVencido);
+                                        }
+                                        personajesVencidosTemporal.ForEach(perso => personajesVivosEnPartida.Remove(perso));
+                                    }
+                                    else
+                                    {
+                                        {
+                                            Console.WriteLine("PERSONAJE GANADOR DE LA PARTIDA");
+                                            personajesVivosEnPartida[0].MostrarUnPersonaje();
+                                        }
+                                    }
+
+                                    break;
+                                case 4:
+                                    //mostrar combates del corriente turno
+                                    int cantJugadoresRestante = personajesVivosEnPartida.Count;
+                                    if (cantJugadoresRestante > 1)
+                                    {
+
 
                                         Console.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
-                                        Console.WriteLine($"\n  [JUGADORES VIVOS]: {cantJugadoresRestantes}   [DUELOS EN ESTA RONDA]: {cantJugadoresRestantes / 2}  ");
+                                        Console.WriteLine($"\n  [JUGADORES VIVOS]: {cantJugadoresRestante}   [DUELOS EN ESTA RONDA]: {cantJugadoresRestante / 2}  ");
                                         Utils.GenerarPausaDeSegundos(1);
 
                                         Console.WriteLine("\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
                                         Console.WriteLine("|               PROXIMOS ENFRENTAMIENTOS          |");
                                         Console.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
 
-                                        for (int i = 0; i < cantJugadoresRestantes - 1; i += 2)
+                                        for (int i = 0; i < cantJugadoresRestante - 1; i += 2)
                                         {
                                             string jugador1Nombre = personajesVivosEnPartida[i].name;
                                             string jugador1Especie = personajesVivosEnPartida[i].species;
                                             string jugador2Nombre = personajesVivosEnPartida[i + 1].name;
                                             string jugador2Especie = personajesVivosEnPartida[i + 1].species;
 
-                                            // Ajusta el texto "PLAYER UNIT" para que solo aparezca si es el primer personaje
                                             string display1 = (i == 0) ? $"<JUGADOR> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie} " : $"<IA> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie}";
 
                                             Console.Write($"\n  [DUELO #{(i / 2) + 1:D2}]: ");
-                                            Console.Write($"{display1,-60}  vs                        "); // Usamos alineación a la izquierda con padding
-                                            Console.WriteLine($"<IA> {jugador2Nombre.ToUpper()} ▸ {jugador2Especie} "); // Usamos alineación a la izquierda con padding
-                                            Utils.GenerarPausaDeSegundos(0.005); // Pausa rápida
+                                            Console.Write($"{display1,-60}  vs                        ");
+                                            Console.WriteLine($"<IA> {jugador2Nombre.ToUpper()} ▸ {jugador2Especie} ");
+                                            Utils.GenerarPausaDeSegundos(0.01); // Pausa rápida
                                         }
 
                                         Console.WriteLine("\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
                                     }
-                                    else if (cantJugadoresRestantes == 1)
+                                    else if (cantJugadoresRestante == 1)
                                     {
                                         Console.WriteLine("PERSONAJE GANADOR DE LA PARTIDA");
                                         personajesVivosEnPartida[0].MostrarUnPersonaje();
@@ -244,7 +261,7 @@ namespace RickAndMortyApi
                     }
                 }
                 else            // ataca primero el rival
-                {                                        
+                {
                     hpPersonaje1 = Personaje.RecibirDaño(hpPersonaje1, rival.CalcularAtaque());
 
                     if (hpRival >= 0)
