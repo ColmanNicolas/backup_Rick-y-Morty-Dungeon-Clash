@@ -1,0 +1,125 @@
+{
+  "NombreJugador": "nicolas",
+  "PersonajeJugador": {
+    "id": 767,
+    "name": "President Turkey",
+    "status": "Dead",
+    "species": "Humanoid",
+    "gender": "Male",
+    "image": "https://rickandmortyapi.com/api/character/avatar/767.jpeg",
+    "hp": 1315,
+    "ataquebase": 97,
+    "velocidad": 133,
+    "inteligencia": 24,
+    "defensa": 28
+  },
+  "PersonajesVivos": [
+    {
+      "id": 675,
+      "name": "Japheth",
+      "status": "Dead",
+      "species": "Humanoid",
+      "gender": "Male",
+      "image": "https://rickandmortyapi.com/api/character/avatar/675.jpeg",
+      "hp": 1390,
+      "ataquebase": 103,
+      "velocidad": 102,
+      "inteligencia": 42,
+      "defensa": 7
+    },
+    {
+      "id": 42,
+      "name": "Big Head Morty",
+      "status": "unknown",
+      "species": "Human",
+      "gender": "Male",
+      "image": "https://rickandmortyapi.com/api/character/avatar/42.jpeg",
+      "hp": 1345,
+      "ataquebase": 139,
+      "velocidad": 103,
+      "inteligencia": 54,
+      "defensa": 25
+    },
+    {
+      "id": 534,
+      "name": "Tony\u0027s Dad",
+      "status": "Alive",
+      "species": "Alien",
+      "gender": "Male",
+      "image": "https://rickandmortyapi.com/api/character/avatar/534.jpeg",
+      "hp": 808,
+      "ataquebase": 169,
+      "velocidad": 99,
+      "inteligencia": 24,
+      "defensa": 10
+    },
+    {
+      "id": 345,
+      "name": "Teacher Rick",
+      "status": "Alive",
+      "species": "Human",
+      "gender": "Male",
+      "image": "https://rickandmortyapi.com/api/character/avatar/345.jpeg",
+      "hp": 1137,
+      "ataquebase": 113,
+      "velocidad": 92,
+      "inteligencia": 51,
+      "defensa": 10
+    }
+  ],
+  "PersonajesDerrotadosPorElJugador": [],
+  "PersonajesQuePerdieron": [
+    {
+      "id": 767,
+      "name": "President Turkey",
+      "status": "Dead",
+      "species": "Humanoid",
+      "gender": "Male",
+      "image": "https://rickandmortyapi.com/api/character/avatar/767.jpeg",
+      "hp": 1315,
+      "ataquebase": 97,
+      "velocidad": 133,
+      "inteligencia": 24,
+      "defensa": 28
+    },
+    {
+      "id": 558,
+      "name": "Elon Tusk",
+      "status": "Alive",
+      "species": "Human",
+      "gender": "Male",
+      "image": "https://rickandmortyapi.com/api/character/avatar/558.jpeg",
+      "hp": 1215,
+      "ataquebase": 149,
+      "velocidad": 84,
+      "inteligencia": 40,
+      "defensa": 11
+    },
+    {
+      "id": 182,
+      "name": "Jim",
+      "status": "Alive",
+      "species": "Human",
+      "gender": "Male",
+      "image": "https://rickandmortyapi.com/api/character/avatar/182.jpeg",
+      "hp": 960,
+      "ataquebase": 80,
+      "velocidad": 102,
+      "inteligencia": 57,
+      "defensa": 34
+    },
+    {
+      "id": 76,
+      "name": "Cousin Nicky",
+      "status": "Dead",
+      "species": "Alien",
+      "gender": "Male",
+      "image": "https://rickandmortyapi.com/api/character/avatar/76.jpeg",
+      "hp": 870,
+      "ataquebase": 131,
+      "velocidad": 85,
+      "inteligencia": 34,
+      "defensa": 16
+    }
+  ]
+}

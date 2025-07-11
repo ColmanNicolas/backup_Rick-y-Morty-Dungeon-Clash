@@ -18,6 +18,7 @@ using UtilsClass;
 using System.ComponentModel;
 using PersonajeClass;
 using PartidaClass;
+using StorageClass;
 
 namespace RickAndMortyApi
 {
@@ -131,17 +132,15 @@ namespace RickAndMortyApi
                                     partidaActual.Mostrar();
                                     break;
                                 case 6:
-                                    // ver personajes que perdieron
-                                    break;
-                                case 7:
                                     int id = Utils.validarOpcionMenu(1, 826, "\nIngrese el identificador(ID) de un personaje(1 al 826): ");
                                     int anchoMaximo = Utils.validarOpcionMenu(150, 350, "\nIngrese el ancho maximo que tendra la imagen (150 al 350): ");
 
                                     await ImageToASCII.MostrarPersonajePorId(id, anchoMaximo);
 
                                     break;
-                                case 8:
-                                    // guardar partida en archivo
+                                case 7:
+
+                                    Storage.guardarUnaPartida(partidaActual);
                                     break;
                                 case 0:
 
