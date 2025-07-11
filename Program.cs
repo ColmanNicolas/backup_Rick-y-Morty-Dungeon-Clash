@@ -17,14 +17,17 @@ using System.ComponentModel.DataAnnotations;
 using UtilsClass;
 using System.ComponentModel;
 using PersonajeClass;
+using PartidaClass;
 
 namespace RickAndMortyApi
 {
     public class Program
     {
         public static async Task Main(string[] args)
-        {
+        {  
             List<Personaje> personajes = new List<Personaje>();
+
+            Partida partidaActual = new Partida();
             List<Personaje> personajesVivosEnPartida = new List<Personaje>();
             List<Personaje> personajesDerrotados = new List<Personaje>();
             List<Personaje> personajesDerrotadosPorElJugador = new List<Personaje>();
@@ -34,6 +37,7 @@ namespace RickAndMortyApi
                         UI.BarraDeVidaUI(100, 45);   // 45%
                         UI.BarraDeVidaUI(100, 1);    // 0% 
                         */
+
             int opcionPrimaria, opcionSecundaria, opcionTerciaria, cantidadPersonajesPartida;
             string? nombreJugador;
             Personaje? personajeJugador = new Personaje();
@@ -82,27 +86,7 @@ namespace RickAndMortyApi
                                     Personaje.MostrarTablaDeVentajas();
                                     break;
                                 case 3:
-                                    int cantJugadoresRestantes = personajesVivosEnPartida.Count;
-                                    if (cantJugadoresRestantes > 1)
-                                    {
-
-                                        List<Personaje> personajesVencidosTemporal = [];
-                                        for (int i = 0; i < cantJugadoresRestantes - 1; i += 2)
-                                        {
-                                            Personaje personajeVencido = EnfrentarDosPersonajes(personajesVivosEnPartida[i], personajesVivosEnPartida[i + 1]);
-                                            personajesDerrotados.Add(personajeVencido);
-                                            personajesVencidosTemporal.Add(personajeVencido);
-                                        }
-                                        personajesVencidosTemporal.ForEach(perso => personajesVivosEnPartida.Remove(perso));
-                                    }
-                                    else
-                                    {
-                                        {
-                                            Console.WriteLine("PERSONAJE GANADOR DE LA PARTIDA");
-                                            personajesVivosEnPartida[0].MostrarUnPersonaje();
-                                        }
-                                    }
-
+                                    EjecutarCombatesDeLaRonda(personajesVivosEnPartida.Count, ref personajesVivosEnPartida, ref personajesDerrotados);
                                     break;
                                 case 4:
                                     //mostrar combates del corriente turno
@@ -145,17 +129,23 @@ namespace RickAndMortyApi
                                     Utils.GenerarPausaDeSegundos(1.5);
                                     break;
                                 case 5:
-                                    // ejecutar duelos restantes o hacer partida rapida (?)
+                                    // ver derrotados por mi
                                     break;
                                 case 6:
+                                    // ver personajes que perdieron
+                                    break;
+                                case 7:
                                     int id = Utils.validarOpcionMenu(1, 826, "\nIngrese el identificador(ID) de un personaje(1 al 826): ");
                                     int anchoMaximo = Utils.validarOpcionMenu(150, 350, "\nIngrese el ancho maximo que tendra la imagen (150 al 350): ");
 
                                     await ImageToASCII.MostrarPersonajePorId(id, anchoMaximo);
 
                                     break;
-                                case 7:
+                                case 8:
                                     // guardar partida en archivo
+                                    break;
+                                case 0:
+                                    
                                     break;
                                 default:
                                     break;
@@ -180,6 +170,38 @@ namespace RickAndMortyApi
             } while (opcionPrimaria != 0);
 
             Console.Clear();
+        }
+        public static void EjecutarCombatesDeLaRonda(int cantJugadoresRestantes, ref List<Personaje> personajesVivosEnPartida, ref List<Personaje> personajesDerrotados)
+        {
+            if (cantJugadoresRestantes > 1)
+            {
+
+                List<Personaje> personajesVencidosTemporal = [];
+                for (int i = 0; i < cantJugadoresRestantes - 1; i += 2)
+                {
+                    if (i + 1 < personajesVivosEnPartida.Count)
+                    {
+                        Personaje personajeVencido = EnfrentarDosPersonajes(personajesVivosEnPartida[i], personajesVivosEnPartida[i + 1]);
+                        personajesDerrotados.Add(personajeVencido);
+                        personajesVencidosTemporal.Add(personajeVencido);
+                    }
+                    else break;
+                }
+
+                for (int i = personajesVivosEnPartida.Count - 1; i >= 0; i--)
+                {
+                    if (personajesVencidosTemporal.Contains(personajesVivosEnPartida[i]))
+                    {
+                        personajesVivosEnPartida.RemoveAt(i);
+                    }
+                }
+
+            }
+            else if (cantJugadoresRestantes == 1)
+            {
+                Console.WriteLine("PERSONAJE GANADOR DE LA PARTIDA");
+                personajesVivosEnPartida[0].MostrarUnPersonaje();
+            }
         }
         public static Personaje UsuarioEligeSuPersonaje(int opcionElegirPersonaje, ref List<Personaje> personajes, int cantidadPersonajes)
         {

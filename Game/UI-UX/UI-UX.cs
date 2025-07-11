@@ -57,11 +57,12 @@ namespace UIclass
             Console.WriteLine("──────────────────────────────────────────────");
             Console.WriteLine("[1] Ver mi personaje");
             Console.WriteLine("[2] Consultar tabla de ventajas por especie");
-            Console.WriteLine("[3] Iniciar mi próximo combate");
+            Console.WriteLine("[3] Comenzar con la ronda de enfrentamientos");
             Console.WriteLine("[4] Ver emparejamientos de batallas de esta ronda");
-            Console.WriteLine("[5] Simular todos los duelos restantes");
-            Console.WriteLine("[6] Ver imagen de un personaje");
-            Console.WriteLine("[7] Guardar Partida actual");
+            Console.WriteLine("[5] Ver personajes derrotados por el jugador");
+            Console.WriteLine("[6] Ver personajes que perdieron sus enfrentamientos");
+            Console.WriteLine("[7] Ver imagen de un personaje");
+            Console.WriteLine("[8] Guardar Partida actual");
             Console.WriteLine("[0] Salir de la partida actual");
 
         }
