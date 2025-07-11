@@ -24,12 +24,11 @@ namespace RickAndMortyApi
     public class Program
     {
         public static async Task Main(string[] args)
-        {  
+        {
             List<Personaje> personajes = new List<Personaje>();
 
-            Partida partidaActual = new Partida();
-            List<Personaje> personajesVivosEnPartida = new List<Personaje>();
-            List<Personaje> personajesDerrotados = new List<Personaje>();
+            Partida partidaActual = new Partida("", new Personaje(), [], [], []);
+
             List<Personaje> personajesDerrotadosPorElJugador = new List<Personaje>();
 
             /*
@@ -39,20 +38,18 @@ namespace RickAndMortyApi
                         */
 
             int opcionPrimaria, opcionSecundaria, opcionTerciaria, cantidadPersonajesPartida;
-            string? nombreJugador;
-            Personaje? personajeJugador = new Personaje();
-            Personaje? personajeGanador = new Personaje();
+
 
             do
             {
-                UI.MenuInicialUI();
+                UIUX.MenuInicialUI();
                 opcionPrimaria = Utils.validarOpcionMenu(0, 3, "\nSu opcion: ");
 
                 switch (opcionPrimaria)
                 {
 
                     case 1:   // logica partida nueva
-                        personajesVivosEnPartida.Clear();
+
                         personajes = await ObtenerPersonajesAPI(812, false);  //comunicacion con la api
 
                         personajes.ForEach(p =>
@@ -61,36 +58,37 @@ namespace RickAndMortyApi
                             p.BalancearEstadisticasPorEspecie();
                         });
 
-                        nombreJugador = UI.ElegirNombreJugador();
+                        partidaActual.NombreJugador = UIUX.ElegirNombreJugador();
 
-                        UI.ElegirNuevoPersonajeUI();
+
+                        UIUX.ElegirNuevoPersonajeUI();
                         opcionSecundaria = Utils.validarOpcionMenu(1, 3, "\nSu opcion: ");
 
                         cantidadPersonajesPartida = Utils.validarTamanioPartida();
 
-                        personajeJugador = UsuarioEligeSuPersonaje(opcionSecundaria, ref personajes, cantidadPersonajesPartida);
+                        partidaActual.PersonajeJugador = UsuarioEligeSuPersonaje(opcionSecundaria, ref personajes, cantidadPersonajesPartida);
 
-                        FiltrarPersonajesParaNuevaPartida(personajes, ref personajesVivosEnPartida, personajeJugador, cantidadPersonajesPartida);
+                        FiltrarPersonajesParaNuevaPartida(personajes, ref partidaActual, cantidadPersonajesPartida);
 
                         //empieza la partida. logica de menu
                         do
                         {
-                            UI.MenuPrincipalUI(nombreJugador, personajesVivosEnPartida.Count);
+                            UIUX.MenuPrincipalUI(partidaActual.NombreJugador, partidaActual.PersonajesVivos.Count);
                             opcionTerciaria = Utils.validarOpcionMenu(0, 7, "\nSu opcion: ");
                             switch (opcionTerciaria)
                             {
                                 case 1:
-                                    personajeJugador.MostrarUnPersonaje();
+                                    partidaActual.PersonajeJugador.MostrarUnPersonaje();
                                     break;
                                 case 2:
                                     Personaje.MostrarTablaDeVentajas();
                                     break;
                                 case 3:
-                                    EjecutarCombatesDeLaRonda(personajesVivosEnPartida.Count, ref personajesVivosEnPartida, ref personajesDerrotados);
+                                    EjecutarCombatesDeLaRonda(partidaActual.PersonajesVivos.Count, ref partidaActual);
                                     break;
                                 case 4:
                                     //mostrar combates del corriente turno
-                                    int cantJugadoresRestante = personajesVivosEnPartida.Count;
+                                    int cantJugadoresRestante = partidaActual.PersonajesVivos.Count;
                                     if (cantJugadoresRestante > 1)
                                     {
 
@@ -105,11 +103,11 @@ namespace RickAndMortyApi
 
                                         for (int i = 0; i < cantJugadoresRestante - 1; i += 2)
                                         {
-                                            string jugador1Nombre = personajesVivosEnPartida[i].name;
-                                            string jugador1Especie = personajesVivosEnPartida[i].species;
-                                            string jugador2Nombre = personajesVivosEnPartida[i + 1].name;
-                                            string jugador2Especie = personajesVivosEnPartida[i + 1].species;
-
+                                            string jugador1Nombre = partidaActual.PersonajesVivos[i].name;
+                                            string jugador1Especie = partidaActual.PersonajesVivos[i].species;
+                                            string jugador2Nombre = partidaActual.PersonajesVivos[i + 1].name;
+                                            string jugador2Especie = partidaActual.PersonajesVivos[i + 1].species;
+                                            // bug cuando muere el jugador en mostrar el duelo
                                             string display1 = (i == 0) ? $"<JUGADOR> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie} " : $"<IA> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie}";
 
                                             Console.Write($"\n  [DUELO #{(i / 2) + 1:D2}]: ");
@@ -123,13 +121,14 @@ namespace RickAndMortyApi
                                     else if (cantJugadoresRestante == 1)
                                     {
                                         Console.WriteLine("PERSONAJE GANADOR DE LA PARTIDA");
-                                        personajesVivosEnPartida[0].MostrarUnPersonaje();
+                                        partidaActual.PersonajesVivos[0].MostrarUnPersonaje();
                                     }
 
                                     Utils.GenerarPausaDeSegundos(1.5);
                                     break;
                                 case 5:
-                                    // ver derrotados por mi
+                                
+                                    partidaActual.Mostrar();
                                     break;
                                 case 6:
                                     // ver personajes que perdieron
@@ -145,7 +144,7 @@ namespace RickAndMortyApi
                                     // guardar partida en archivo
                                     break;
                                 case 0:
-                                    
+
                                     break;
                                 default:
                                     break;
@@ -171,28 +170,27 @@ namespace RickAndMortyApi
 
             Console.Clear();
         }
-        public static void EjecutarCombatesDeLaRonda(int cantJugadoresRestantes, ref List<Personaje> personajesVivosEnPartida, ref List<Personaje> personajesDerrotados)
+        public static void EjecutarCombatesDeLaRonda(int cantJugadoresRestantes, ref Partida miPartida)
         {
             if (cantJugadoresRestantes > 1)
             {
-
                 List<Personaje> personajesVencidosTemporal = [];
                 for (int i = 0; i < cantJugadoresRestantes - 1; i += 2)
                 {
-                    if (i + 1 < personajesVivosEnPartida.Count)
+                    if (i + 1 < miPartida.PersonajesVivos.Count)
                     {
-                        Personaje personajeVencido = EnfrentarDosPersonajes(personajesVivosEnPartida[i], personajesVivosEnPartida[i + 1]);
-                        personajesDerrotados.Add(personajeVencido);
+                        Personaje personajeVencido = EnfrentarDosPersonajes(miPartida.PersonajesVivos[i], miPartida.PersonajesVivos[i + 1]);
+                        miPartida.PersonajesQuePerdieron.Add(personajeVencido);
                         personajesVencidosTemporal.Add(personajeVencido);
                     }
                     else break;
                 }
 
-                for (int i = personajesVivosEnPartida.Count - 1; i >= 0; i--)
+                for (int i = miPartida.PersonajesVivos.Count - 1; i >= 0; i--)
                 {
-                    if (personajesVencidosTemporal.Contains(personajesVivosEnPartida[i]))
+                    if (personajesVencidosTemporal.Contains(miPartida.PersonajesVivos[i]))
                     {
-                        personajesVivosEnPartida.RemoveAt(i);
+                        miPartida.PersonajesVivos.RemoveAt(i);
                     }
                 }
 
@@ -200,7 +198,7 @@ namespace RickAndMortyApi
             else if (cantJugadoresRestantes == 1)
             {
                 Console.WriteLine("PERSONAJE GANADOR DE LA PARTIDA");
-                personajesVivosEnPartida[0].MostrarUnPersonaje();
+                miPartida.PersonajesVivos[0].MostrarUnPersonaje();
             }
         }
         public static Personaje UsuarioEligeSuPersonaje(int opcionElegirPersonaje, ref List<Personaje> personajes, int cantidadPersonajes)
@@ -210,7 +208,7 @@ namespace RickAndMortyApi
 
 
 
-            if (opcionElegirPersonaje == 3)
+            if (opcionElegirPersonaje == 3) //para opcion 3 retorno un personaje al azar
             {
                 personajes.Barajar();
 
@@ -227,7 +225,7 @@ namespace RickAndMortyApi
                     personajes = personajes.Take(cantidadPersonajes).ToList();
                 }
 
-                do
+                do  // logica para elegir el personaje
                 {
                     Console.WriteLine("\nPERSONAJES Y CARACTERISICAS (las caracteristicas varian en cada nueva partida)\n");
                     Utils.GenerarPausaDeSegundos(1.5);
@@ -304,15 +302,15 @@ namespace RickAndMortyApi
             return personajeVencido;  // retorno derrotado para removerlo de lista de jugadores
         }
 
-        public static void FiltrarPersonajesParaNuevaPartida(List<Personaje> personajesDisponibles, ref List<Personaje> personajesSeleccionados, Personaje personajeJugador, int cantidadPersonajes)
+        public static void FiltrarPersonajesParaNuevaPartida(List<Personaje> personajesDisponibles, ref Partida miPartida , int cantidadPersonajes)
         {
-            personajesDisponibles.Remove(personajeJugador);
+            personajesDisponibles.Remove(miPartida.PersonajeJugador);
             personajesDisponibles.Barajar();
-            personajesSeleccionados.Add(personajeJugador);
+            miPartida.PersonajesVivos.Add(miPartida.PersonajeJugador);
 
             for (int i = 0; i < cantidadPersonajes - 1; i++)
             {
-                personajesSeleccionados.Add(personajesDisponibles[i]);
+                miPartida.PersonajesVivos.Add(personajesDisponibles[i]);
             }
         }
 

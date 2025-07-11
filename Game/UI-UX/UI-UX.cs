@@ -4,7 +4,7 @@ using PersonajeClass;
 
 namespace UIclass
 {
-    public static class UI
+    public static class UIUX
     {
         public static void MenuInicialUI()
         {
@@ -24,9 +24,9 @@ namespace UIclass
 
         }
         //public static Personaje
-        public static string? ElegirNombreJugador()
+        public static string ElegirNombreJugador()
         {
-            string? nombre;
+            string nombre;
             bool nombreValido = false;
 
             do
@@ -59,7 +59,7 @@ namespace UIclass
             Console.WriteLine("[2] Consultar tabla de ventajas por especie");
             Console.WriteLine("[3] Comenzar con la ronda de enfrentamientos");
             Console.WriteLine("[4] Ver emparejamientos de batallas de esta ronda");
-            Console.WriteLine("[5] Ver personajes derrotados por el jugador");
+            Console.WriteLine("[5] Ver partida actual");
             Console.WriteLine("[6] Ver personajes que perdieron sus enfrentamientos");
             Console.WriteLine("[7] Ver imagen de un personaje");
             Console.WriteLine("[8] Guardar Partida actual");

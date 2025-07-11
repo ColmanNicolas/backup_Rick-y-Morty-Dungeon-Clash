@@ -7,15 +7,15 @@ namespace StorageClass
     {
         public static void guardarUnaPartida(Partida miPartida)
         {
-            
+
             //logica para guardar partida en storage
         }
 
-        public static Partida CargarUnaPartida(string nombrePartida)
+        /*public static Partida CargarUnaPartida(string nombrePartida)
         {
             //logica para traer la partida
             Partida partidaCargada = new Partida();
             return partidaCargada;
-        }
+        }*/
     }
 }
