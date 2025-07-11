@@ -32,15 +32,16 @@ namespace GameplayClass
 
                         break;
                     case 3:
-                        Gameplay.EjecutarCombatesDeLaRonda(partidaActual.PersonajesVivos.Count, ref partidaActual);
+                        EjecutarCombatesDeLaRonda(partidaActual.PersonajesVivos.Count, ref partidaActual);
 
                         break;
                     case 4:
-                        Gameplay.MostrarCombatesDeLaRonda(partidaActual.PersonajesVivos.Count, partidaActual);
+                        MostrarCombatesDeLaRonda(partidaActual.PersonajesVivos.Count, partidaActual);
 
                         break;
                     case 5:
                         partidaActual.MostrarResumen();
+
                         break;
                     case 6:
                         await ImageToASCII.MostrarPersonajePorId();
@@ -102,7 +103,7 @@ namespace GameplayClass
 
 
 
-        public static void MostrarCombatesDeLaRonda(int cantJugadoresRestante, Partida partidaActual)
+        private static void MostrarCombatesDeLaRonda(int cantJugadoresRestante, Partida partidaActual)
         {
             if (cantJugadoresRestante > 1)
             {
@@ -139,7 +140,7 @@ namespace GameplayClass
                 partidaActual.PersonajesVivos[0].MostrarUnPersonajeDetallado();
             }
         }
-        public static void EjecutarCombatesDeLaRonda(int cantJugadoresRestantes, ref Partida miPartida)
+        private static void EjecutarCombatesDeLaRonda(int cantJugadoresRestantes, ref Partida miPartida)
         {
             if (cantJugadoresRestantes > 1)
             {
@@ -231,7 +232,7 @@ namespace GameplayClass
             return personajeJugador;
         }
 
-        public static Personaje EnfrentarDosPersonajes(Personaje personaje1, Personaje rival)
+        private static Personaje EnfrentarDosPersonajes(Personaje personaje1, Personaje rival)
         {
             int hpPersonaje1 = personaje1.hp;
             int hpRival = rival.hp;

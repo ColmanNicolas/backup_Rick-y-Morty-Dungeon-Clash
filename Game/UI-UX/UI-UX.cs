@@ -12,7 +12,7 @@ namespace UIclass
             Console.WriteLine("BIEVENIDO A RICK Y MORTY DUNGEON CLASH\n");
             Console.WriteLine("[1] Para iniciar una partida nueva");
             Console.WriteLine("[2] Para cargar una partida");
-            Console.WriteLine("[3] Para borrar una partida");
+            Console.WriteLine("[3] Para borrar una partida (No desarrollada)");
             Console.WriteLine("[0] Para salir");
         }
         public static void ElegirNuevoPersonajeUI()
@@ -65,7 +65,7 @@ namespace UIclass
             Console.WriteLine("[0] Salir de la partida actual");
 
         }
-        public static void BarraDeVidaU(int vidaTotal, int vidaRestante)
+        public static void BarraDeVidaUI(int vidaTotal, int vidaRestante)
         {
             double hpRestante = vidaRestante / (double)vidaTotal;
             int largoBordes = 200;
