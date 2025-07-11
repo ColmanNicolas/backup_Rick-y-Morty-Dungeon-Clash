@@ -33,23 +33,16 @@ namespace PartidaClass
             Console.WriteLine($"Nombre del Jugador: **{NombreJugador}**");
 
             Console.WriteLine("\n--- Personaje del Jugador ---");
-            if (PersonajeJugador != null)
-            {
-                // Intenta llamar a un método Mostrar() del personaje, o al menos mostrar su nombre
-                // Asumo que Personaje tiene un método Mostrar()
-                PersonajeJugador.MostrarUnPersonaje();
-            }
-            else
-            {
-                Console.WriteLine("El personaje del jugador no está definido.");
-            }
+
+            if (PersonajeJugador != null) PersonajeJugador.MostrarUnPersonajeDetallado();
+            else Console.WriteLine("El personaje del jugador no está definido.");
 
             Console.WriteLine("\n--- Personajes Vivos ---");
             if (PersonajesVivos != null && PersonajesVivos.Count > 0)
             {
                 foreach (var p in PersonajesVivos)
                 {
-                    p.MostrarMasivamentePersonajes(); // Asumo que Personaje tiene un método Mostrar()
+                    p.MostrarMasivamentePersonaje(); 
                 }
             }
             else
@@ -62,7 +55,7 @@ namespace PartidaClass
             {
                 foreach (var p in PersonajesDerrotadosPorElJugador)
                 {
-                    p.MostrarMasivamentePersonajes(); // Asumo que Personaje tiene un método Mostrar()
+                    p.MostrarMasivamentePersonaje(); 
                 }
             }
             else
@@ -75,7 +68,7 @@ namespace PartidaClass
             {
                 foreach (var p in PersonajesQuePerdieron)
                 {
-                    p.MostrarMasivamentePersonajes(); // Asumo que Personaje tiene un método Mostrar()
+                    p.MostrarMasivamentePersonaje(); 
                 }
             }
             else

@@ -40,12 +40,16 @@ namespace PersonajeClass
             this.inteligencia = rng.Next(10, 41);
             this.defensa = rng.Next(5, 36);
         }
-        public void MostrarMasivamentePersonajes()
+        public void MostrarMasivamentePersonaje()
         {
             Console.Write($"{"ID:" + id,-6} - Nombre: {name,-41} - Especie: {species,-21} - Genero: {gender,-10}  ▸  hp: {hp,5} - velocidad: {velocidad,4} - ataque base: {ataquebase,4} - inteligencia: {inteligencia,3} - defensa: {defensa,3}\n");
             Utils.GenerarPausaDeSegundos(0.0025);
         }
-        public void MostrarUnPersonaje()
+        public void MostrarUnPersonajeSencillo()
+        {
+            Console.Write($"{"ID:" + id,-6} - Nombre: {name} - Especie: {species} - Genero: {gender}  ▸  hp: {hp} - velocidad: {velocidad} - ataque base: {ataquebase} - inteligencia: {inteligencia} - defensa: {defensa}\n");
+        }
+        public void MostrarUnPersonajeDetallado()
         {
             Console.WriteLine("╠═════════════════════════════════════════════════════════════╣");
             Console.WriteLine($"║ <DETALLE PERSONAJE>                                         ║");

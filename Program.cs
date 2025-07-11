@@ -50,7 +50,7 @@ namespace RickAndMortyDC
                             switch (opcionTerciaria)
                             {
                                 case 1:
-                                    partidaActual.PersonajeJugador.MostrarUnPersonaje();
+                                    partidaActual.PersonajeJugador.MostrarUnPersonajeDetallado();
 
                                     break;
                                 case 2:

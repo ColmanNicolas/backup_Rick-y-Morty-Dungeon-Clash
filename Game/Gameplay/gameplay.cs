@@ -89,7 +89,7 @@ namespace GameplayClass
             else if (cantJugadoresRestante == 1)
             {
                 Console.WriteLine("PERSONAJE GANADOR DE LA PARTIDA");
-                partidaActual.PersonajesVivos[0].MostrarUnPersonaje();
+                partidaActual.PersonajesVivos[0].MostrarUnPersonajeDetallado();
             }
         }
         public static void EjecutarCombatesDeLaRonda(int cantJugadoresRestantes, ref Partida miPartida)
@@ -120,7 +120,7 @@ namespace GameplayClass
             else if (cantJugadoresRestantes == 1)
             {
                 Console.WriteLine("PERSONAJE GANADOR DE LA PARTIDA");
-                miPartida.PersonajesVivos[0].MostrarUnPersonaje();
+                miPartida.PersonajesVivos[0].MostrarUnPersonajeDetallado();
             }
         }
         private static Personaje UsuarioEligeSuPersonaje(int opcionElegirPersonaje, ref List<Personaje> personajes, int cantidadPersonajes)
@@ -152,7 +152,7 @@ namespace GameplayClass
                     personajes.ForEach(personaje =>
                     {
                         Console.Write($"{"[" + (auxContador + 1) + "]",-7}");
-                        personaje.MostrarMasivamentePersonajes();
+                        personaje.MostrarMasivamentePersonaje();
                         auxContador++;
                     });
                     auxContador = 0;
@@ -176,7 +176,7 @@ namespace GameplayClass
                 personajes = personajes.Take(cantidadPersonajes).ToList();
             }
 
-            personajeJugador.MostrarUnPersonaje();
+            personajeJugador.MostrarUnPersonajeDetallado();
             Console.WriteLine("\n\nProcesando.... ");
 
             Utils.GenerarPausaDeSegundos(4);
@@ -217,7 +217,7 @@ namespace GameplayClass
             else personajeVencido = personaje1;
 
             Console.WriteLine("\nEl siguiente personaje Perdio la batalla: \n");
-            personajeVencido.MostrarMasivamentePersonajes();
+            personajeVencido.MostrarUnPersonajeSencillo();
             Utils.PresioneKparaContinuar();
 
             return personajeVencido;  // retorno derrotado para removerlo de lista de jugadores

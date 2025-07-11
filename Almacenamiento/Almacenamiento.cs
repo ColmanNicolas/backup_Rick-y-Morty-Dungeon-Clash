@@ -54,7 +54,7 @@ namespace AlmacenamientoClass
                 string[] rutasArchivos = Directory.GetFiles(rutaAlmacenamiento);
                 Console.Clear();
 
-                
+
                 foreach (var unaRuta in rutasArchivos)
                 {
                     string jsonString = File.ReadAllText(unaRuta);
@@ -66,7 +66,7 @@ namespace AlmacenamientoClass
                         Console.WriteLine(new string('=', 200));
                         Console.WriteLine($"Partida de Jugador: <{unaPartida.NombreJugador}>");
                         Console.Write("Personaje: ");
-                        unaPartida.PersonajeJugador.MostrarMasivamentePersonajes();
+                        unaPartida.PersonajeJugador.MostrarUnPersonajeSencillo();
                         Console.WriteLine("Avance:  **  50%  **");
                         Console.WriteLine(new string('=', 180));
 
