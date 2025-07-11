@@ -11,6 +11,7 @@ namespace ImageClass
         {
             int id = Utils.ValidarOpcionMenu(1, 826, "\nIngrese el identificador(ID) de un personaje(1 al 826): ");
             int anchoMaximo = Utils.ValidarOpcionMenu(150, 350, "\nIngrese el ancho maximo que tendra la imagen (150 al 350): ");
+            Console.Clear();
             await MostrarImagenComoASCII($"https://rickandmortyapi.com/api/character/avatar/{id}.jpeg", anchoMaximo);
         }
         private static async Task MostrarImagenComoASCII(string url, int anchoMaximo)
@@ -22,7 +23,7 @@ namespace ImageClass
                     byte[] datos = await client.GetByteArrayAsync(url);
 
                     using (MemoryStream ms = new MemoryStream(datos))
-                    {
+                    {   
                         using (Bitmap bmp = new Bitmap(ms))
                         {
                             int nuevoAncho = anchoMaximo;

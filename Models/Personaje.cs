@@ -145,21 +145,31 @@ namespace PersonajeClass
         };
         public static void MostrarTablaDeVentajas()
         {
-            Console.WriteLine("\n--- Tabla de Ventajas por especie ---");
+            Console.WriteLine("              ..::[ TABLA DE VENTAJAS ESTRATEGICAS ]::..");
+            Console.WriteLine(" =====================================================================");
+
             if (ventajas.Count == 0)
             {
-                Console.WriteLine("El diccionario de ventajas está vacío.");
+                Console.WriteLine("|          EL SISTEMA NO             |");
+                Console.WriteLine("|      DETECTA DATOS DE VENTAJA        |");
+                Console.WriteLine(" =====================================================================");
                 return;
             }
 
+            Console.WriteLine("/---------------------------------------------------------------------\\");
             foreach (var unaVentaja in ventajas)
             {
-                string clave = unaVentaja.Key;
+                string clave = unaVentaja.Key.ToUpper(); // Convertimos a mayúsculas para un look más de terminal
                 List<string> valores = unaVentaja.Value;
 
-                Console.WriteLine($"  {clave} tiene ventaja sobre: {string.Join(", ", valores)}");
+                // Preparamos la línea de salida con un formato específico
+                string lineaVentaja = $"| {clave.PadRight(21)} > VENTAJA SOBRE: {string.Join(", ", valores)}";
+
+                // Nos aseguramos de que la línea se ajuste al marco
+                Console.WriteLine(lineaVentaja.PadRight(70) + "|");
             }
-            Console.WriteLine("---------------------------------------------------");
+            Console.WriteLine("\\---------------------------------------------------------------------/");
+            Console.WriteLine("                     [ TRANSMISION FINALIZADA ]");
         }
     }
 

@@ -1,6 +1,4 @@
 
-
-
 using AlmacenamientoClass;
 using APIClass;
 using ImageClass;
@@ -20,7 +18,8 @@ namespace GameplayClass
             {
                 UIUX.MenuPrincipalUI(partidaActual.NombreJugador, partidaActual.PersonajesVivos.Count);
                 opcionTerciaria = Utils.ValidarOpcionMenu(0, 7, "\nSu opcion: ");
-
+                Console.Clear();
+                
                 switch (opcionTerciaria)
                 {
                     case 1:

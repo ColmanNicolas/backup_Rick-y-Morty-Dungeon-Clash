@@ -40,7 +40,7 @@ namespace RickAndMortyDC
                     case 1:   // logica partida nueva
 
                         partidaActual = await Gameplay.GenerarUnaNuevaPartida(partidaActual);
-                        
+
                         await Gameplay.RunGameLoop(partidaActual);
 
                         break;
