@@ -45,10 +45,7 @@ namespace PartidaClass
                     p.MostrarMasivamentePersonaje(); 
                 }
             }
-            else
-            {
-                Console.WriteLine("No hay personajes vivos en esta lista.");
-            }
+            else{ Console.WriteLine("No hay personajes vivos en esta lista.");}
 
             Console.WriteLine("\n--- Personajes Derrotados por el Jugador ---");
             if (PersonajesDerrotadosPorElJugador != null && PersonajesDerrotadosPorElJugador.Count > 0)
@@ -58,10 +55,8 @@ namespace PartidaClass
                     p.MostrarMasivamentePersonaje(); 
                 }
             }
-            else
-            {
-                Console.WriteLine("El jugador no ha derrotado a ningún personaje en esta lista.");
-            }
+            
+            else { Console.WriteLine("El jugador no ha derrotado a ningún personaje en esta lista."); }
 
             Console.WriteLine("\n--- Personajes que Perdieron (Vencidos) ---");
             if (PersonajesQuePerdieron != null && PersonajesQuePerdieron.Count > 0)
@@ -71,10 +66,9 @@ namespace PartidaClass
                     p.MostrarMasivamentePersonaje(); 
                 }
             }
-            else
-            {
-                Console.WriteLine("No hay personajes vencidos en esta lista.");
-            }
+            
+            else { Console.WriteLine("No hay personajes vencidos en esta lista."); }
+
             Console.WriteLine("-----------------------------");
         }
     }
