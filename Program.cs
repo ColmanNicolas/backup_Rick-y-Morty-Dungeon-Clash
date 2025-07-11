@@ -51,7 +51,11 @@ namespace RickAndMortyApi
                         personajesVivosEnPartida.Clear();
                         personajes = await ObtenerPersonajesAPI(812, false);  //comunicacion con la api
 
-                        personajes.ForEach(p => p.inicializarEstadisticas());
+                        personajes.ForEach(p =>
+                        {
+                            p.inicializarEstadisticas();
+                            p.BalancearEstadisticasPorEspecie();
+                        });
 
                         nombreJugador = UI.ElegirNombreJugador();
 
@@ -88,8 +92,7 @@ namespace RickAndMortyApi
                                     if (cantJugadoresRestantes > 1)
                                     {
 
-                                        Console.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
-                                        Console.WriteLine("|             SYSTEM MESSAGE: ROUND START!        |");
+
                                         Console.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
                                         Console.WriteLine($"\n  [JUGADORES VIVOS]: {cantJugadoresRestantes}   [DUELOS EN ESTA RONDA]: {cantJugadoresRestantes / 2}  ");
                                         Utils.GenerarPausaDeSegundos(1);
@@ -101,14 +104,16 @@ namespace RickAndMortyApi
                                         for (int i = 0; i < cantJugadoresRestantes - 1; i += 2)
                                         {
                                             string jugador1Nombre = personajesVivosEnPartida[i].name;
+                                            string jugador1Especie = personajesVivosEnPartida[i].species;
                                             string jugador2Nombre = personajesVivosEnPartida[i + 1].name;
+                                            string jugador2Especie = personajesVivosEnPartida[i + 1].species;
 
                                             // Ajusta el texto "PLAYER UNIT" para que solo aparezca si es el primer personaje
-                                            string display1 = (i == 0) ? $"{jugador1Nombre.ToUpper()} <JUGADOR>" : $"{jugador1Nombre.ToUpper()} <IA>";
+                                            string display1 = (i == 0) ? $"<JUGADOR> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie} " : $"<IA> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie}";
 
                                             Console.Write($"\n  [DUELO #{(i / 2) + 1:D2}]: ");
-                                            Console.Write($"PESONAJE: {display1,-30} "); // Usamos alineación a la izquierda con padding
-                                            Console.WriteLine($"OPONENTE: {jugador2Nombre.ToUpper()} <IA>"); // Usamos alineación a la izquierda con padding
+                                            Console.Write($"{display1,-60}  vs                        "); // Usamos alineación a la izquierda con padding
+                                            Console.WriteLine($"<IA> {jugador2Nombre.ToUpper()} ▸ {jugador2Especie} "); // Usamos alineación a la izquierda con padding
                                             Utils.GenerarPausaDeSegundos(0.005); // Pausa rápida
                                         }
 
@@ -153,7 +158,7 @@ namespace RickAndMortyApi
                     default:
                         break;
                 }
-                if (opcionPrimaria != 0) Utils.PresioneKparaContinuar();
+                //if (opcionPrimaria != 0) Utils.PresioneKparaContinuar();
 
             } while (opcionPrimaria != 0);
 
@@ -173,7 +178,7 @@ namespace RickAndMortyApi
 
                 personajeJugador = personajes[0];
                 Utils.GenerarPausaDeSegundos(1);
-                Console.Write("\nSu personaje fue asignado: ");
+                Console.Write("\nSu personaje fue asignado:\n");
             }
             else
             {
