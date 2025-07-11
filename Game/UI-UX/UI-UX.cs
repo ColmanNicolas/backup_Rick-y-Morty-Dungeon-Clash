@@ -24,14 +24,14 @@ namespace UIclass
 
         }
         //public static Personaje
-        public static string ElegirNombreJugador()   //DEBO FILTRAR QUE NO SE REPITA CON LOS NOMBRES DE PARTIDAS YA CREADAS
+        public static string ElegirNombreJugador(string mensaje)   //DEBO FILTRAR QUE NO SE REPITA CON LOS NOMBRES DE PARTIDAS YA CREADAS
         {
             string nombre;
             bool nombreValido = false;
 
             do
             {
-                Console.Write("\nIngrese su nombre dentro del juego (4 a 30 caracteres, solo letras y números): ");
+                Console.Write(mensaje);
                 nombre = Console.ReadLine();
 
                 if (!string.IsNullOrEmpty(nombre) &&

@@ -1,6 +1,7 @@
 
 
 
+using AlmacenamientoClass;
 using APIClass;
 using PartidaClass;
 using PersonajeClass;
@@ -22,7 +23,7 @@ namespace GameplayClass
                 p.BalancearEstadisticasPorEspecie();
             });
 
-            partidaActual.NombreJugador = UIUX.ElegirNombreJugador();
+            partidaActual.NombreJugador = UIUX.ElegirNombreJugador("\nIngrese su nombre dentro del juego (4 a 30 caracteres, solo letras y números): ");
 
             UIUX.ElegirNuevoPersonajeUI();
 
@@ -36,25 +37,22 @@ namespace GameplayClass
 
             return partidaActual;
         }
+
         public static Partida CargarUnaPartidaGuardada(Partida partidaActual)
         {
-            string rutaBase = Directory.GetCurrentDirectory();
-            string rutaAlmacenamiento = Path.Combine(rutaBase, "partidasGuardadas");
+            string nombrePartida;
 
-            if (File.Exists(rutaAlmacenamiento))
-            {
-                string[] rutasArchivos = Directory.GetFiles(rutaAlmacenamiento);
-                foreach (var unaRuta in rutasArchivos)
-                {
-                    Console.WriteLine(Path.GetFileName(unaRuta));
-                }
-            }
+            Almacenamiento.MostrarPartidasGuardadas();
 
+            nombrePartida = UIUX.ElegirNombreJugador("\nIngrese el nombre de la partida: ");  // reutilizo esta funcion para tener las mismas restricciones de nombre
 
+            partidaActual = Almacenamiento.BuscarUnaPartida(nombrePartida.Trim());
 
-            
-           return partidaActual;
+            return partidaActual;
         }
+
+
+
         public static void MostrarCombatesDeLaRonda(int cantJugadoresRestante, Partida partidaActual)
         {
             if (cantJugadoresRestante > 1)

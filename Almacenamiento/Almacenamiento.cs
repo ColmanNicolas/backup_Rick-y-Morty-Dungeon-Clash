@@ -80,5 +80,75 @@ namespace AlmacenamientoClass
             else Console.WriteLine("No existe la carpeta partidasGuardadas. Cree una nueva partida para poder empezar a jugar");
 
         }
+        public static Partida BuscarUnaPartida(string nombreBuscado)
+        {
+            string rutaBase = Directory.GetCurrentDirectory();
+            string rutaAlmacenamiento = Path.Combine(rutaBase, "partidasGuardadas");
+
+            try
+            {
+                if (Directory.Exists(rutaAlmacenamiento))
+                {
+                    string[] rutasArchivos = Directory.GetFiles(rutaAlmacenamiento);
+
+                    if (rutasArchivos.Length == 0)
+                    {
+                        Console.WriteLine($"No hay partidas guardadas en '{rutaAlmacenamiento}'.");
+                        return null; 
+                    }
+
+                    foreach (var unaRuta in rutasArchivos)
+                    {
+                        Partida unaPartida = null; 
+
+                        try
+                        {
+                            string jsonString = File.ReadAllText(unaRuta);
+                            unaPartida = JsonSerializer.Deserialize<Partida>(jsonString);
+
+                            if (unaPartida != null)
+                            {
+                                if (string.Equals(unaPartida.NombreJugador, nombreBuscado))
+                                {
+                                    Console.WriteLine($"¡Partida '{nombreBuscado}' encontrada!");
+                                    return unaPartida; 
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Advertencia: El archivo '{unaRuta}' no contiene una partida válida.");
+                            }
+                        }
+                        catch (JsonException ex)
+                        {
+                            Console.WriteLine($"Error de formato JSON al leer '{unaRuta}': {ex.Message}");
+                        }
+                        catch (IOException ex) 
+                        {
+                            Console.WriteLine($"Error de E/S al leer '{unaRuta}': {ex.Message}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Ocurrió un error inesperado al procesar '{unaRuta}': {ex.Message}");
+                        }
+                    }
+
+                    Console.WriteLine($"No se encontró la partida con el nombre '{nombreBuscado}'. Intente nuevamente...");
+                    return null;
+                }
+                else
+                {
+
+                    Console.WriteLine($"No existe la carpeta '{rutaAlmacenamiento}'. Cree una nueva partida para poder empezar a jugar.");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Ocurrió un error general al buscar partidas: {ex.Message}");
+                return null;
+            }
+        }
     }
 }

@@ -89,8 +89,14 @@ namespace RickAndMortyDC
 
                         break;
                     case 2:
-                        //partidaActual = Gameplay.CargarUnaPartidaGuardada(partidaActual);
 
+                        partidaActual = Gameplay.CargarUnaPartidaGuardada(partidaActual);
+
+                        if (partidaActual == null)
+                        {
+                            Utils.GenerarPausaDeSegundos(4);
+                            break;
+                        }
                         do //empieza la partida. logica iterativa de menu
                         {
                             UIUX.MenuPrincipalUI(partidaActual.NombreJugador, partidaActual.PersonajesVivos.Count);
@@ -138,7 +144,7 @@ namespace RickAndMortyDC
 
                         break;
                     case 3:
-                        Almacenamiento.MostrarPartidasGuardadas();
+
                         if (opcionPrimaria != 0) Utils.PresioneKparaContinuar();
                         break;
                     case 0:

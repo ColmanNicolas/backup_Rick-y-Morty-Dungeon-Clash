@@ -27,7 +27,7 @@ namespace UtilsClass
             int opcionEntero;
             string? opcion;
             int[] valoresAceptados = [2, 4, 8, 16, 32, 64, 128, 256, 512];
-            
+
             Console.Write("\nSeleccione cuantos personajes tendrá la partida (2, 4, 8, 16, 32, 64, 128, 256, 512): ");
             while (true)
             {
