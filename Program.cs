@@ -40,8 +40,8 @@ namespace RickAndMortyDC
 
                     case 1:   // logica partida nueva
 
-                       partidaActual = await Gameplay.GenerarUnaNuevaPartida(partidaActual);
-                        
+                        partidaActual = await Gameplay.GenerarUnaNuevaPartida(partidaActual);
+
                         do //empieza la partida. logica iterativa de menu
                         {
                             UIUX.MenuPrincipalUI(partidaActual.NombreJugador, partidaActual.PersonajesVivos.Count);
@@ -66,15 +66,15 @@ namespace RickAndMortyDC
 
                                     break;
                                 case 5:
-                                    partidaActual.Mostrar();
+                                    partidaActual.MostrarResumen();
                                     break;
                                 case 6:
                                     await ImageToASCII.MostrarPersonajePorId();
 
                                     break;
                                 case 7:
-                                    Almacenamiento.guardarUnaPartida(partidaActual);
-                                    
+                                    Almacenamiento.GuardarUnaPartida(partidaActual);
+
                                     break;
                                 case 0:
 
@@ -88,21 +88,70 @@ namespace RickAndMortyDC
                         } while (opcionTerciaria != 0);
 
                         break;
-                    case 2: // Logica cargar partida
+                    case 2:
+                        //partidaActual = Gameplay.CargarUnaPartidaGuardada(partidaActual);
+
+                        do //empieza la partida. logica iterativa de menu
+                        {
+                            UIUX.MenuPrincipalUI(partidaActual.NombreJugador, partidaActual.PersonajesVivos.Count);
+                            opcionTerciaria = Utils.ValidarOpcionMenu(0, 7, "\nSu opcion: ");
+
+                            switch (opcionTerciaria)
+                            {
+                                case 1:
+                                    partidaActual.PersonajeJugador.MostrarUnPersonaje();
+
+                                    break;
+                                case 2:
+                                    Personaje.MostrarTablaDeVentajas();
+
+                                    break;
+                                case 3:
+                                    Gameplay.EjecutarCombatesDeLaRonda(partidaActual.PersonajesVivos.Count, ref partidaActual);
+
+                                    break;
+                                case 4:
+                                    Gameplay.MostrarCombatesDeLaRonda(partidaActual.PersonajesVivos.Count, partidaActual);
+
+                                    break;
+                                case 5:
+                                    partidaActual.MostrarResumen();
+                                    break;
+                                case 6:
+                                    await ImageToASCII.MostrarPersonajePorId();
+
+                                    break;
+                                case 7:
+                                    Almacenamiento.GuardarUnaPartida(partidaActual);
+
+                                    break;
+                                case 0:
+
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            if (opcionTerciaria != 0) Utils.PresioneKparaContinuar();
+
+                        } while (opcionTerciaria != 0);
+
                         break;
                     case 3:
+                        Almacenamiento.MostrarPartidasGuardadas();
+                        if (opcionPrimaria != 0) Utils.PresioneKparaContinuar();
                         break;
                     case 0:
                         break;
                     default:
                         break;
                 }
-                //if (opcionPrimaria != 0) Utils.PresioneKparaContinuar();
+
 
             } while (opcionPrimaria != 0);
 
             Console.Clear();
         }
-        
+
     }
 }

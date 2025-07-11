@@ -11,7 +11,7 @@ namespace AlmacenamientoClass
     {
         private const string NombreCarpetaPartidas = "partidasGuardadas";
 
-        public static void guardarUnaPartida(Partida miPartida)
+        public static void GuardarUnaPartida(Partida miPartida)
         {
             string jsonString = JsonSerializer.Serialize(miPartida, new JsonSerializerOptions { WriteIndented = true });
             string rutaBase = Directory.GetCurrentDirectory();
@@ -44,5 +44,41 @@ namespace AlmacenamientoClass
             Partida partidaCargada = new Partida();
             return partidaCargada;
         }*/
+        public static void MostrarPartidasGuardadas()
+        {
+            string rutaBase = Directory.GetCurrentDirectory();
+            string rutaAlmacenamiento = Path.Combine(rutaBase, "partidasGuardadas");
+
+            if (!File.Exists(rutaAlmacenamiento))
+            {
+                string[] rutasArchivos = Directory.GetFiles(rutaAlmacenamiento);
+                Console.Clear();
+
+                
+                foreach (var unaRuta in rutasArchivos)
+                {
+                    string jsonString = File.ReadAllText(unaRuta);
+                    Partida unaPartida = JsonSerializer.Deserialize<Partida>(jsonString);
+
+                    if (unaPartida != null)
+                    {
+                        double avancePartida;
+                        Console.WriteLine(new string('=', 200));
+                        Console.WriteLine($"Partida de Jugador: <{unaPartida.NombreJugador}>");
+                        Console.Write("Personaje: ");
+                        unaPartida.PersonajeJugador.MostrarMasivamentePersonajes();
+                        Console.WriteLine("Avance:  **  50%  **");
+                        Console.WriteLine(new string('=', 180));
+
+                    }
+
+                    else Console.WriteLine("El archivo de la partida guardada esta corrompido. ");
+
+                }
+            }
+
+            else Console.WriteLine("No existe la carpeta partidasGuardadas. Cree una nueva partida para poder empezar a jugar");
+
+        }
     }
 }

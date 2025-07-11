@@ -10,6 +10,15 @@ namespace PartidaClass
         public List<Personaje> PersonajesDerrotadosPorElJugador { get; set; }
         public List<Personaje> PersonajesQuePerdieron { get; set; }
 
+        public Partida()
+        {
+            NombreJugador = "";
+            PersonajeJugador = new Personaje();
+            PersonajesVivos = new List<Personaje>();
+            PersonajesDerrotadosPorElJugador = new List<Personaje>();
+            PersonajesQuePerdieron = new List<Personaje>();
+            
+        }
         public Partida(string nombre, Personaje jugador, List<Personaje> Pvivos, List<Personaje> PderrotadosPorJugaodr, List<Personaje> Pvencidos)
         {
             NombreJugador = nombre;
@@ -18,7 +27,7 @@ namespace PartidaClass
             PersonajesDerrotadosPorElJugador = PderrotadosPorJugaodr;
             PersonajesQuePerdieron = Pvencidos;
         }
-        public void Mostrar()
+        public void MostrarResumen()
         {
             Console.WriteLine("--- Detalles de la Partida ---");
             Console.WriteLine($"Nombre del Jugador: **{NombreJugador}**");

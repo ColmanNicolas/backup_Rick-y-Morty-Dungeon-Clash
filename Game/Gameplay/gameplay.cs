@@ -36,6 +36,25 @@ namespace GameplayClass
 
             return partidaActual;
         }
+        public static Partida CargarUnaPartidaGuardada(Partida partidaActual)
+        {
+            string rutaBase = Directory.GetCurrentDirectory();
+            string rutaAlmacenamiento = Path.Combine(rutaBase, "partidasGuardadas");
+
+            if (File.Exists(rutaAlmacenamiento))
+            {
+                string[] rutasArchivos = Directory.GetFiles(rutaAlmacenamiento);
+                foreach (var unaRuta in rutasArchivos)
+                {
+                    Console.WriteLine(Path.GetFileName(unaRuta));
+                }
+            }
+
+
+
+            
+           return partidaActual;
+        }
         public static void MostrarCombatesDeLaRonda(int cantJugadoresRestante, Partida partidaActual)
         {
             if (cantJugadoresRestante > 1)
@@ -106,7 +125,7 @@ namespace GameplayClass
         }
         private static Personaje UsuarioEligeSuPersonaje(int opcionElegirPersonaje, ref List<Personaje> personajes, int cantidadPersonajes)
         {
-            Personaje personajeJugador;
+            Personaje? personajeJugador;
             int auxContador = 0, identificadorPersonaje;
 
             if (opcionElegirPersonaje == 3) //para opcion 3 retorno un personaje al azar

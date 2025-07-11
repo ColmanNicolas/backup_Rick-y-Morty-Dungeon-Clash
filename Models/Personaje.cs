@@ -17,6 +17,20 @@ namespace PersonajeClass
         public int inteligencia { get; set; }  //para calcular golpe critico
         public int defensa { get; set; }  //para calcular evasion
 
+        public Personaje() // contructor de clase
+        {
+            id = 0;
+            name = "";
+            status = "";
+            species = "";
+            gender = "";
+            image = "";
+            hp = 0;
+            ataquebase = 0;
+            velocidad = 0;
+            inteligencia = 0;
+            defensa = 0;
+        }
         public void inicializarEstadisticas()
         {
             Random rng = new Random();
@@ -49,7 +63,7 @@ namespace PersonajeClass
         {
             //logica de cantidad de daño
             Random rng = new Random();
-            return this.ataquebase * rng.Next(1,2); // cambiar en el futuro
+            return this.ataquebase * rng.Next(1, 2); // cambiar en el futuro
         }
         public static int RecibirDaño(int hpRestante, int danio)
         {
