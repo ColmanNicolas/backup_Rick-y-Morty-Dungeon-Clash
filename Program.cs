@@ -28,7 +28,7 @@ namespace RickAndMortyDC
         public static async Task Main(string[] args)
         {
             Partida partidaActual = new Partida("", new Personaje(), [], [], []);
-            int opcionPrimaria, opcionSecundaria, taminioPartida;
+            int opcionPrimaria;
 
             do
             {
@@ -37,25 +37,18 @@ namespace RickAndMortyDC
 
                 switch (opcionPrimaria)
                 {
-
                     case 1:   // logica partida nueva
 
                         partidaActual = await Gameplay.GenerarUnaNuevaPartida(partidaActual);
-
+                        
                         await Gameplay.RunGameLoop(partidaActual);
 
                         break;
                     case 2:
 
                         partidaActual = Gameplay.CargarUnaPartidaGuardada(partidaActual);
-
-                        if (partidaActual == null)
-                        {
-                            Utils.GenerarPausaDeSegundos(4);
-                            break;
-                        }
-
-                        await Gameplay.RunGameLoop( partidaActual);
+                        
+                        if (partidaActual != null) await Gameplay.RunGameLoop(partidaActual);
 
                         break;
                     case 3:

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Colman-ProyectoTaller1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d40d4f0daf408abce9ba0fd543bfabc1ddb1a664")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+93a5580e1bfe529240511c95c7c48164d1d7fc46")]
 [assembly: System.Reflection.AssemblyProductAttribute("Colman-ProyectoTaller1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Colman-ProyectoTaller1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

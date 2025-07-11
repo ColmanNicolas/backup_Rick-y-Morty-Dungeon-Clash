@@ -13,7 +13,7 @@ namespace GameplayClass
 {
     public static class Gameplay
     {
-        public static async Task RunGameLoop( Partida partidaActual)
+        public static async Task RunGameLoop(Partida partidaActual)
         {
             int opcionTerciaria;
             do //empieza la partida. logica iterativa de menu
@@ -101,14 +101,10 @@ namespace GameplayClass
             return partidaActual;
         }
 
-
-
         private static void MostrarCombatesDeLaRonda(int cantJugadoresRestante, Partida partidaActual)
         {
             if (cantJugadoresRestante > 1)
             {
-
-
                 Console.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
                 Console.WriteLine($"\n  [JUGADORES VIVOS]: {cantJugadoresRestante}   [DUELOS EN ESTA RONDA]: {cantJugadoresRestante / 2}  ");
                 Utils.GenerarPausaDeSegundos(1);
@@ -123,17 +119,23 @@ namespace GameplayClass
                     string jugador1Especie = partidaActual.PersonajesVivos[i].species;
                     string jugador2Nombre = partidaActual.PersonajesVivos[i + 1].name;
                     string jugador2Especie = partidaActual.PersonajesVivos[i + 1].species;
-                    // bug cuando muere el jugador en mostrar el duelo
-                    string display1 = (i == 0) ? $"<JUGADOR> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie} " : $"<IA> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie}";
+
+                    if (i == 0)
+                    {
+                        if (partidaActual.PersonajesVivos[i] == partidaActual.PersonajeJugador) jugador1Nombre = $"<JUGADOR> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie} ";
+                        else jugador1Nombre = $"<IA> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie}";
+                    }
+                    else jugador1Nombre = $"<IA> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie}"; 
 
                     Console.Write($"\n  [DUELO #{(i / 2) + 1:D2}]: ");
-                    Console.Write($"{display1,-60}  vs                        ");
+                    Console.Write($"{jugador1Nombre,-60}  vs                        ");
                     Console.WriteLine($"<IA> {jugador2Nombre.ToUpper()} ▸ {jugador2Especie} ");
                     Utils.GenerarPausaDeSegundos(0.01); // Pausa rápida
                 }
 
                 Console.WriteLine("\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
             }
+
             else if (cantJugadoresRestante == 1)
             {
                 Console.WriteLine("PERSONAJE GANADOR DE LA PARTIDA");
@@ -179,8 +181,6 @@ namespace GameplayClass
             if (opcionElegirPersonaje == 3) //para opcion 3 retorno un personaje al azar
             {
                 personajes.Barajar();
-
-
                 personajeJugador = personajes[0];
                 Utils.GenerarPausaDeSegundos(1);
                 Console.Write("\nSu personaje fue asignado:\n");
@@ -197,13 +197,14 @@ namespace GameplayClass
                 {
                     Console.WriteLine("\nPERSONAJES Y CARACTERISICAS (las caracteristicas varian en cada nueva partida)\n");
                     Utils.GenerarPausaDeSegundos(1.5);
+
                     personajes.ForEach(personaje =>
                     {
                         Console.Write($"{"[" + (auxContador + 1) + "]",-7}");
                         personaje.MostrarMasivamentePersonaje();
                         auxContador++;
                     });
-                    auxContador = 0;
+                    auxContador = 0; // no borrar
                     identificadorPersonaje = Utils.ValidarOpcionMenu(1, 825, "\nIngrese el identificador(ID) del personaje que quiera usar: ");
                     personajeJugador = personajes.Find(p => p.id == identificadorPersonaje);
 
@@ -282,6 +283,5 @@ namespace GameplayClass
                 miPartida.PersonajesVivos.Add(personajesDisponibles[i]);
             }
         }
-
     }
 }
