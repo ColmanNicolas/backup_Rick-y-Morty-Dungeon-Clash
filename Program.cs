@@ -21,26 +21,14 @@ using AlmacenamientoClass;
 using APIClass;
 using GameplayClass;
 
-namespace RickAndMortyApi
+namespace RickAndMortyDC
 {
     public class Program
     {
         public static async Task Main(string[] args)
         {
-            List<Personaje> personajes = new List<Personaje>();
-
             Partida partidaActual = new Partida("", new Personaje(), [], [], []);
-
-            List<Personaje> personajesDerrotadosPorElJugador = new List<Personaje>();
-
-            /*
-                        UI.BarraDeVidaUI(100, 100);  // 100%
-                        UI.BarraDeVidaUI(100, 45);   // 45%
-                        UI.BarraDeVidaUI(100, 1);    // 0% 
-                        */
-
-            int opcionPrimaria, opcionSecundaria, opcionTerciaria, cantidadPersonajesPartida;
-
+            int opcionPrimaria, opcionSecundaria, opcionTerciaria, taminioPartida;
 
             do
             {
@@ -52,28 +40,9 @@ namespace RickAndMortyApi
 
                     case 1:   // logica partida nueva
 
-                        personajes = await API.ObtenerPersonajesAPI(812, false);  //comunicacion con la api
-
-                        personajes.ForEach(p =>
-                        {
-                            p.inicializarEstadisticas();
-                            p.BalancearEstadisticasPorEspecie();
-                        });
-
-                        partidaActual.NombreJugador = UIUX.ElegirNombreJugador();
-
-
-                        UIUX.ElegirNuevoPersonajeUI();
-                        opcionSecundaria = Utils.ValidarOpcionMenu(1, 3, "\nSu opcion: ");
-
-                        cantidadPersonajesPartida = Utils.ValidarTamanioPartida();
-
-                        partidaActual.PersonajeJugador = Gameplay.UsuarioEligeSuPersonaje(opcionSecundaria, ref personajes, cantidadPersonajesPartida);
-
-                        Gameplay.FiltrarPersonajesParaNuevaPartida(personajes, ref partidaActual, cantidadPersonajesPartida);
-
-                        //empieza la partida. logica de menu
-                        do
+                       partidaActual = await Gameplay.GenerarUnaNuevaPartida(partidaActual);
+                        
+                        do //empieza la partida. logica iterativa de menu
                         {
                             UIUX.MenuPrincipalUI(partidaActual.NombreJugador, partidaActual.PersonajesVivos.Count);
                             opcionTerciaria = Utils.ValidarOpcionMenu(0, 7, "\nSu opcion: ");

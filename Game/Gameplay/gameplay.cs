@@ -1,14 +1,41 @@
 
 
 
+using APIClass;
 using PartidaClass;
 using PersonajeClass;
+using UIclass;
 using UtilsClass;
 
 namespace GameplayClass
 {
-    public class Gameplay
+    public static class Gameplay
     {
+        public static async Task<Partida> GenerarUnaNuevaPartida(Partida partidaActual)
+        {
+            List<Personaje> personajes = await API.ObtenerPersonajesAPI(812, false);   //comunicacion con la API
+            int opcionSecundaria, taminioPartida;
+
+            personajes.ForEach(p =>
+            {
+                p.inicializarEstadisticas();
+                p.BalancearEstadisticasPorEspecie();
+            });
+
+            partidaActual.NombreJugador = UIUX.ElegirNombreJugador();
+
+            UIUX.ElegirNuevoPersonajeUI();
+
+            opcionSecundaria = Utils.ValidarOpcionMenu(1, 3, "\nSu opcion: ");
+
+            taminioPartida = Utils.ValidarTamanioPartida();
+
+            partidaActual.PersonajeJugador = UsuarioEligeSuPersonaje(opcionSecundaria, ref personajes, taminioPartida);
+
+            FiltrarPersonajesParaNuevaPartida(personajes, ref partidaActual, taminioPartida);
+
+            return partidaActual;
+        }
         public static void MostrarCombatesDeLaRonda(int cantJugadoresRestante, Partida partidaActual)
         {
             if (cantJugadoresRestante > 1)
@@ -77,12 +104,10 @@ namespace GameplayClass
                 miPartida.PersonajesVivos[0].MostrarUnPersonaje();
             }
         }
-        public static Personaje UsuarioEligeSuPersonaje(int opcionElegirPersonaje, ref List<Personaje> personajes, int cantidadPersonajes)
+        private static Personaje UsuarioEligeSuPersonaje(int opcionElegirPersonaje, ref List<Personaje> personajes, int cantidadPersonajes)
         {
             Personaje personajeJugador;
             int auxContador = 0, identificadorPersonaje;
-
-
 
             if (opcionElegirPersonaje == 3) //para opcion 3 retorno un personaje al azar
             {
@@ -139,7 +164,7 @@ namespace GameplayClass
             Console.Clear();
             return personajeJugador;
         }
-        
+
         public static Personaje EnfrentarDosPersonajes(Personaje personaje1, Personaje rival)
         {
             int hpPersonaje1 = personaje1.hp;
@@ -179,7 +204,7 @@ namespace GameplayClass
             return personajeVencido;  // retorno derrotado para removerlo de lista de jugadores
         }
 
-        public static void FiltrarPersonajesParaNuevaPartida(List<Personaje> personajesDisponibles, ref Partida miPartida, int cantidadPersonajes)
+        private static void FiltrarPersonajesParaNuevaPartida(List<Personaje> personajesDisponibles, ref Partida miPartida, int cantidadPersonajes)
         {
             personajesDisponibles.Remove(miPartida.PersonajeJugador);
             personajesDisponibles.Barajar();
