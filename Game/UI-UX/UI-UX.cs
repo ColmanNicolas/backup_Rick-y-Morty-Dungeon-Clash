@@ -24,7 +24,7 @@ namespace UIclass
 
         }
         //public static Personaje
-        public static string ElegirNombreJugador()
+        public static string ElegirNombreJugador()   //DEBO FILTRAR QUE NO SE REPITA CON LOS NOMBRES DE PARTIDAS YA CREADAS
         {
             string nombre;
             bool nombreValido = false;

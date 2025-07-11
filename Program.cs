@@ -18,7 +18,7 @@ using UtilsClass;
 using System.ComponentModel;
 using PersonajeClass;
 using PartidaClass;
-using StorageClass;
+using AlmacenamientoClass;
 
 namespace RickAndMortyApi
 {
@@ -140,7 +140,7 @@ namespace RickAndMortyApi
                                     break;
                                 case 7:
 
-                                    Storage.guardarUnaPartida(partidaActual);
+                                    Almacenamiento.guardarUnaPartida(partidaActual);
                                     break;
                                 case 0:
 

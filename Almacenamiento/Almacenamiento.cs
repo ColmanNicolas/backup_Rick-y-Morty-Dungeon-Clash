@@ -5,9 +5,9 @@ using System;
 using System.IO; // Necesario para Directory y File
 
 
-namespace StorageClass
+namespace AlmacenamientoClass
 {
-    public static class Storage
+    public static class Almacenamiento
     {
         private const string NombreCarpetaPartidas = "partidasGuardadas";
 
