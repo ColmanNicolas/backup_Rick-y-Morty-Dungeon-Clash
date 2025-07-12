@@ -7,15 +7,15 @@ namespace PersonajeClass
     {
         public int id { get; set; }
         public string name { get; set; }
-        public string status { get; set; }
+        public string status { get; set; }  // se podrai aprovechar de alguna manera
         public string species { get; set; }
         public string gender { get; set; }
-        public string image { get; set; }
         public int hp { get; set; }
         public int ataquebase { get; set; }
         public int velocidad { get; set; }  //determina quien ataca primero y se usa para calcular golpe critico y evasion
         public int inteligencia { get; set; }  //para calcular golpe critico
         public int defensa { get; set; }  //para calcular evasion
+        public int nivel { get; set; }  //inicia en 1, se incrementa en 1 por ronda
 
         public Personaje() // contructor de clase
         {
@@ -24,12 +24,12 @@ namespace PersonajeClass
             status = "";
             species = "";
             gender = "";
-            image = "";
             hp = 0;
             ataquebase = 0;
             velocidad = 0;
             inteligencia = 0;
             defensa = 0;
+            nivel = 1;
         }
         public void inicializarEstadisticas()
         {
@@ -47,12 +47,16 @@ namespace PersonajeClass
         }
         public void MostrarUnPersonajeSencillo()
         {
-            Console.Write($"{"ID:" + id,-6} - Nombre: {name} - Especie: {species} - Genero: {gender}  ▸  hp: {hp} - velocidad: {velocidad} - ataque base: {ataquebase} - inteligencia: {inteligencia} - defensa: {defensa}\n");
+            Console.Write($"{"ID:" + id,-6} - Nombre: {name} - Especie: {species} - Genero: {gender}  ▸ hp: {hp} - velocidad: {velocidad} - ataque base: {ataquebase} - inteligencia: {inteligencia} - defensa: {defensa}\n");
+        }
+        public void MostrarEstadisticas()
+        {
+            Console.Write($" ▸ nivel: {nivel} - hp: {hp} - velocidad: {velocidad} - ataque base: {ataquebase} - inteligencia: {inteligencia} - defensa: {defensa}\n");
         }
         public void MostrarUnPersonajeDetallado()
         {
-            Console.WriteLine("╔════════════════════════════════════════════════════════════ ╗");
-            Console.WriteLine($"║ <DETALLE PERSONAJE>                                         ║");
+            Console.WriteLine("╔═════════════════════════════════════════════════════════════╗");
+            Console.WriteLine($"║ <DETALLE PERSONAJE>            NIVEL: {nivel}                     ║");
             Console.WriteLine("╠═════════════════════════════════════════════════════════════╣");
             Console.WriteLine($"║ ID: {id,-3} | Nombre: {name,-41} ║");
             Console.WriteLine($"║ Especie: {species,-26} | Género: {gender,-13} ║");
@@ -108,6 +112,44 @@ namespace PersonajeClass
             public double Defensa { get; set; } = 1.0;
         }
 
+        public void AumentarNivelPersonaje()
+        {
+            Random rng = new Random();
+            int[] indicesOpciones = [1, 2, 3, 4, 5];
+
+            indicesOpciones.Barajar();  // aumento 2 estadisticas al azar
+            nivel++;
+            for (int i = 0; i < 2; i++)
+            {
+                double porcenajeIncrementeo;
+                switch (indicesOpciones[i])
+                {
+                    case 1:  // 1 mejoro hp entre 0.2 y 0.5
+                        porcenajeIncrementeo = rng.Next(2, 6) / 10.0;
+
+                        hp = (int)Math.Round(hp + (hp * porcenajeIncrementeo));
+                        break;
+                    case 2:  // 2 mejoro ataquebase entre 0.2 y 0.5
+                        porcenajeIncrementeo = rng.Next(2, 6) / 10.0;
+                        ataquebase = (int)Math.Round(ataquebase + (ataquebase * porcenajeIncrementeo));
+                        break;
+                    case 3:   // 3 mejora inteligencia entre 0.2 y 0.3
+                        porcenajeIncrementeo = rng.Next(2, 4) / 10.0;
+                        inteligencia = (int)Math.Round(inteligencia + (inteligencia * porcenajeIncrementeo));
+                        break;
+                    case 4:   // mejora defensa entre 0.2 y 0.3
+                        porcenajeIncrementeo = rng.Next(2, 4) / 10.0;
+                        defensa = (int)Math.Round(defensa + (defensa * porcenajeIncrementeo));
+                        break;
+                    case 5:   // mejora velocidad 0.2  **afecta varias habilidades puede genear desbalanceo
+                        porcenajeIncrementeo = 0.2;
+                        inteligencia = (int)Math.Round(inteligencia + (inteligencia * porcenajeIncrementeo));
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
         public void BalancearEstadisticasPorEspecie()
         {
             var multiplicadoresPorEspecie = new Dictionary<string, Multiplicadores>()

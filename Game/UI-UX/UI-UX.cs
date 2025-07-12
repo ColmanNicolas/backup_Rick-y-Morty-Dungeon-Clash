@@ -2,7 +2,7 @@ using System.Reflection.PortableExecutable;
 using System.Text.RegularExpressions;
 using PersonajeClass;
 
-namespace UIclass
+namespace UIUXclass
 {
     public static class UIUX
     {

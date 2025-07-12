@@ -1,20 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-
-using System.Text.Json;
-using System.Security.Cryptography.X509Certificates;
-using UIclass;
-
-using System;
-using System.Net.Http;
-using System.IO;
-using System.Threading.Tasks;
-using ImageClass;
-using System.ComponentModel.DataAnnotations;
+﻿
+using UIUXclass;
 using UtilsClass;
-using System.ComponentModel;
 using PersonajeClass;
 using PartidaClass;
 using AlmacenamientoClass;
@@ -47,7 +33,7 @@ namespace RickAndMortyDC
                     case 2:
 
                         partidaActual = Gameplay.CargarUnaPartidaGuardada(partidaActual);
-                        
+
                         if (partidaActual != null) await Gameplay.RunGameLoop(partidaActual);
 
                         break;

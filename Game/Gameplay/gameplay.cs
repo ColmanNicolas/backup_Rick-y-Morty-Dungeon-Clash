@@ -4,7 +4,7 @@ using APIClass;
 using ImageClass;
 using PartidaClass;
 using PersonajeClass;
-using UIclass;
+using UIUXclass;
 using UtilsClass;
 
 namespace GameplayClass
@@ -17,7 +17,7 @@ namespace GameplayClass
             do //empieza la partida. logica iterativa de menu
             {
                 UIUX.MenuPrincipalUI(partidaActual.NombreJugador, partidaActual.PersonajesVivos.Count);
-                opcionTerciaria = Utils.ValidarOpcionMenu(0, 7,"\n Seleccione una opción y presione ENTER ▸ ");
+                opcionTerciaria = Utils.ValidarOpcionMenu(0, 7, "\n Seleccione una opción y presione ENTER ▸ ");
                 Console.Clear();
 
                 switch (opcionTerciaria)
@@ -124,7 +124,7 @@ namespace GameplayClass
                         if (partidaActual.PersonajesVivos[i] == partidaActual.PersonajeJugador) jugador1Nombre = $"<JUGADOR> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie} ";
                         else jugador1Nombre = $"<IA> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie}";
                     }
-                    else jugador1Nombre = $"<IA> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie}"; 
+                    else jugador1Nombre = $"<IA> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie}";
 
                     Console.Write($"\n  [DUELO #{(i / 2) + 1:D2}]: ");
                     Console.Write($"{jugador1Nombre,-60}  vs                        ");
@@ -150,7 +150,10 @@ namespace GameplayClass
                 {
                     if (i + 1 < miPartida.PersonajesVivos.Count)
                     {
-                        Personaje personajeVencido = EnfrentarDosPersonajes(miPartida.PersonajesVivos[i], miPartida.PersonajesVivos[i + 1]);
+                        Personaje p1 = miPartida.PersonajesVivos[i];  // ojo con esta parte ***************************************************************
+                        Personaje p2 = miPartida.PersonajesVivos[i+1];
+                        Personaje personajeVencido = EnfrentarDosPersonajes(ref p1, ref p2);
+
                         miPartida.PersonajesQuePerdieron.Add(personajeVencido);
                         personajesVencidosTemporal.Add(personajeVencido);
                     }
@@ -232,11 +235,11 @@ namespace GameplayClass
             return personajeJugador;
         }
 
-        private static Personaje EnfrentarDosPersonajes(Personaje personaje1, Personaje rival)
+        private static Personaje EnfrentarDosPersonajes(ref Personaje personaje1, ref Personaje rival)
         {
             int hpPersonaje1 = personaje1.hp;
             int hpRival = rival.hp;
-            Personaje personajeVencido;
+            //Personaje personajeVencido,personajeGanador;
             int auxContador = 0;
             do
             {
@@ -261,14 +264,26 @@ namespace GameplayClass
                 Console.WriteLine("FIN DEl TURNO: " + ++auxContador);
             } while (hpRival > 0 && hpPersonaje1 > 0);
 
-            if (hpRival <= 0) personajeVencido = rival;
-            else personajeVencido = personaje1;
+            if (hpRival <= 0)
+            {
+                Console.WriteLine("\nEl siguiente personaje Perdio la batalla: \n");
+                rival.MostrarUnPersonajeSencillo();
 
-            Console.WriteLine("\nEl siguiente personaje Perdio la batalla: \n");
-            personajeVencido.MostrarUnPersonajeSencillo();
-            Utils.PresioneKparaContinuar();
+                Console.WriteLine("\nPersonaje Ganador: \n");
+                personaje1.MostrarUnPersonajeSencillo();
 
-            return personajeVencido;  // retorno derrotado para removerlo de lista de jugadores
+                return rival;
+            }
+            else
+            {
+                Console.WriteLine("\nEl siguiente personaje Perdio la batalla: \n");
+                personaje1.MostrarUnPersonajeSencillo();
+                Console.WriteLine("\nPersonaje Ganador: \n");
+                rival.MostrarUnPersonajeSencillo();
+
+                return personaje1;
+            }
+
         }
 
         private static void FiltrarPersonajesParaNuevaPartida(List<Personaje> personajesDisponibles, ref Partida miPartida, int cantidadPersonajes)
