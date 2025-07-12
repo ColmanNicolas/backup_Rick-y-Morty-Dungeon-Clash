@@ -267,14 +267,13 @@ namespace GameplayClass
             if (hpRival <= 0)
             {
                 Console.WriteLine("\nEl siguiente personaje Perdio la batalla: \n");
-                rival.MostrarUnPersonajeSencillo();
-
+                rival.MostrarUnPersonajeDetallado();
                 Console.WriteLine("\nPersonaje Ganador: \n");
-                personaje1.MostrarUnPersonajeSencillo();
-                Console.Write("Se subio de nivel y mejoraran algunas estadisticas:\nViejas Estadisticas: ");
+                personaje1.MostrarUnPersonajeDetallado();
+                Console.Write("nSe subio de nivel y mejoraran algunas estadisticas:\nViejas Estadisticas: ");
                 personaje1.MostrarEstadisticas();
                 personaje1.AumentarNivelPersonaje();
-                Console.Write("Nuevas estadisticas: ");
+                Console.Write("Nuevas estadisticas ");
                 personaje1.MostrarEstadisticas();
                 Utils.PresioneKparaContinuar();
                 return rival;
@@ -282,13 +281,13 @@ namespace GameplayClass
             else
             {
                 Console.WriteLine("\nEl siguiente personaje Perdio la batalla: \n");
-                personaje1.MostrarUnPersonajeSencillo();
+                personaje1.MostrarUnPersonajeDetallado();
                 Console.WriteLine("\nPersonaje Ganador: \n");
-                rival.MostrarUnPersonajeSencillo();
-                Console.Write("Se subio de nivel y mejoraran algunas estadisticas:\nViejas Estadisticas: ");
-                rival.AumentarNivelPersonaje();
+                rival.MostrarUnPersonajeDetallado();
+                Console.Write("\nSe subio de nivel y mejoraran algunas estadisticas:\nViejas Estadisticas: ");
                 rival.MostrarEstadisticas();
-                Console.Write("Nuevas estadisticas: ");
+                rival.AumentarNivelPersonaje();
+                Console.Write("Nuevas estadisticas ");
                 rival.MostrarEstadisticas();
                 Utils.PresioneKparaContinuar();
                 return personaje1;

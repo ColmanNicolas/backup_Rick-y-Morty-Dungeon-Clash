@@ -46,8 +46,8 @@ namespace PersonajeClass
             Utils.GenerarPausaDeSegundos(0.0025);
         }
         public void MostrarUnPersonajeSencillo()
-        {
-            Console.Write($"{"ID:" + id,-6} - Nombre: {name} - Especie: {species} - Genero: {gender}  ▸ hp: {hp} - velocidad: {velocidad} - ataque base: {ataquebase} - inteligencia: {inteligencia} - defensa: {defensa}\n");
+        {                                                     // sacar luego
+            Console.Write($"{"ID:" + id,-6} - Nombre: {name} - Nivel: {nivel} - Especie: {species} - Genero: {gender}  ▸ hp: {hp} - velocidad: {velocidad} - ataque base: {ataquebase} - inteligencia: {inteligencia} - defensa: {defensa}\n");
         }
         public void MostrarEstadisticas()
         {
@@ -119,6 +119,7 @@ namespace PersonajeClass
 
             indicesOpciones.Barajar();  // aumento 2 estadisticas al azar
             nivel++;
+            
             for (int i = 0; i < 2; i++)
             {
                 double porcenajeIncrementeo;
