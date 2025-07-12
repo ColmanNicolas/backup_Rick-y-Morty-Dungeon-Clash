@@ -34,9 +34,9 @@ namespace PersonajeClass
         public void inicializarEstadisticas()
         {
             Random rng = new Random();
-            this.hp = rng.Next(800, 1501);
-            this.velocidad = rng.Next(70, 101);
+            this.hp = rng.Next(800, 1300);
             this.ataquebase = rng.Next(80, 150);
+            this.velocidad = rng.Next(70, 101);
             this.inteligencia = rng.Next(10, 41);
             this.defensa = rng.Next(5, 36);
         }

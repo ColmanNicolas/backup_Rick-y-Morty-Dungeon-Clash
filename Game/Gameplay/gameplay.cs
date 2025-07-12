@@ -151,7 +151,7 @@ namespace GameplayClass
                     if (i + 1 < miPartida.PersonajesVivos.Count)
                     {
                         Personaje p1 = miPartida.PersonajesVivos[i];  // ojo con esta parte ***************************************************************
-                        Personaje p2 = miPartida.PersonajesVivos[i+1];
+                        Personaje p2 = miPartida.PersonajesVivos[i + 1];
                         Personaje personajeVencido = EnfrentarDosPersonajes(ref p1, ref p2);
 
                         miPartida.PersonajesQuePerdieron.Add(personajeVencido);
@@ -237,34 +237,47 @@ namespace GameplayClass
 
         private static Personaje EnfrentarDosPersonajes(ref Personaje personaje1, ref Personaje rival)
         {
-            int hpPersonaje1 = personaje1.hp;
-            int hpRival = rival.hp;
+            int hpRestantePersonaje1 = personaje1.hp;
+            int hpRestanteRival = rival.hp;
             //Personaje personajeVencido,personajeGanador;
             int auxContador = 0;
+
+            Console.WriteLine($"Personaje: {personaje1.name}");
+            UIUX.BarraDeVidaUI(personaje1.hp, hpRestantePersonaje1);
+            Console.WriteLine($"Personaje: {rival.name}");
+            UIUX.BarraDeVidaUI(rival.hp, hpRestanteRival);
+            Utils.GenerarPausaDeSegundos(1);
             do
             {
                 if (personaje1.velocidad > rival.velocidad)     // ataca primero personaje 1
                 {
-                    hpRival = Personaje.RecibirDaño(hpRival, personaje1.CalcularAtaque());
+                    hpRestanteRival = Personaje.RecibirDaño(hpRestanteRival, personaje1.CalcularAtaque());
 
-                    if (hpRival >= 0)
+                    if (hpRestanteRival >= 0)
                     {
-                        hpPersonaje1 = Personaje.RecibirDaño(hpPersonaje1, rival.CalcularAtaque());
+                        hpRestantePersonaje1 = Personaje.RecibirDaño(hpRestantePersonaje1, rival.CalcularAtaque());
                     }
                 }
                 else            // ataca primero el rival
                 {
-                    hpPersonaje1 = Personaje.RecibirDaño(hpPersonaje1, rival.CalcularAtaque());
+                    hpRestantePersonaje1 = Personaje.RecibirDaño(hpRestantePersonaje1, rival.CalcularAtaque());
 
-                    if (hpRival >= 0)
+                    if (hpRestanteRival >= 0)
                     {
-                        hpRival = Personaje.RecibirDaño(hpRival, personaje1.CalcularAtaque());
+                        hpRestanteRival = Personaje.RecibirDaño(hpRestanteRival, personaje1.CalcularAtaque());
                     }
                 }
                 Console.WriteLine("FIN DEl TURNO: " + ++auxContador);
-            } while (hpRival > 0 && hpPersonaje1 > 0);
+                Utils.GenerarPausaDeSegundos(1);
 
-            if (hpRival <= 0)
+                Console.WriteLine($"\n\nPersonaje: {personaje1.name}");
+                UIUX.BarraDeVidaUI(personaje1.hp, hpRestantePersonaje1);
+                Console.WriteLine($"Personaje: {rival.name}");
+                UIUX.BarraDeVidaUI(rival.hp, hpRestanteRival);
+                Utils.GenerarPausaDeSegundos(1);
+            } while (hpRestanteRival > 0 && hpRestantePersonaje1 > 0);
+
+            if (hpRestanteRival <= 0)
             {
                 Personaje.MostrarResultadoEnfrentamiento(personaje1, rival);
                 Console.Write("\nSe subió de nivel y mejorarán algunas estadisticas:\nViejas Estadisticas ");
