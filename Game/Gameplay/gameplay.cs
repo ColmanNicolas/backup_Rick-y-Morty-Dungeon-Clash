@@ -266,10 +266,7 @@ namespace GameplayClass
 
             if (hpRival <= 0)
             {
-                Console.WriteLine("\nEl siguiente personaje Perdio la batalla: \n");
-                rival.MostrarUnPersonajeDetallado();
-                Console.WriteLine("\nPersonaje Ganador: \n");
-                personaje1.MostrarUnPersonajeDetallado();
+                Personaje.MostrarResultadoEnfrentamiento(personaje1, rival);
                 Console.Write("nSe subio de nivel y mejoraran algunas estadisticas:\nViejas Estadisticas: ");
                 personaje1.MostrarEstadisticas();
                 personaje1.AumentarNivelPersonaje();
@@ -280,10 +277,7 @@ namespace GameplayClass
             }
             else
             {
-                Console.WriteLine("\nEl siguiente personaje Perdio la batalla: \n");
-                personaje1.MostrarUnPersonajeDetallado();
-                Console.WriteLine("\nPersonaje Ganador: \n");
-                rival.MostrarUnPersonajeDetallado();
+                Personaje.MostrarResultadoEnfrentamiento(rival, personaje1);
                 Console.Write("\nSe subio de nivel y mejoraran algunas estadisticas:\nViejas Estadisticas: ");
                 rival.MostrarEstadisticas();
                 rival.AumentarNivelPersonaje();

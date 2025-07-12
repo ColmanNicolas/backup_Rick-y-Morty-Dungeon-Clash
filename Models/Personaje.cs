@@ -67,6 +67,23 @@ namespace PersonajeClass
             Console.WriteLine($"║ Defensa: {defensa,-4} | Inteligencia: {inteligencia,-4}                          ║");
             Console.WriteLine("╚═════════════════════════════════════════════════════════════╝");
         }
+        public static void MostrarResultadoEnfrentamiento(Personaje p1, Personaje p2)
+        {
+            {
+                Console.WriteLine("                    ..::<GANADOR>::..                                                   ..::<PERDEDOR>::..                          ");
+                Console.WriteLine("╔═════════════════════════════════════════════════════════════╗     ╔═════════════════════════════════════════════════════════════╗");
+                Console.WriteLine($"║ <DETALLE PERSONAJE>            NIVEL: {p1.nivel}                     ║     ║ <DETALLE PERSONAJE>            NIVEL: {p2.nivel}                     ║");
+                Console.WriteLine("╠═════════════════════════════════════════════════════════════╣     ╠═════════════════════════════════════════════════════════════╣");
+                Console.WriteLine($"║ ID: {p1.id,-3} | Nombre: {p1.name,-41} ║     ║ ID: {p1.id,-3} | Nombre: {p2.name,-41} ║");
+                Console.WriteLine($"║ Especie: {p1.species,-26} | Género: {p1.gender,-13} ║     ║ Especie: {p2.species,-26} | Género: {p2.gender,-13} ║");
+                Console.WriteLine("╠═════════════════════════════════════════════════════════════╣     ╠═════════════════════════════════════════════════════════════╣");
+                Console.WriteLine($"║ [ESTADISTICAS]                                              ║     ║ [ESTADISTICAS]                                              ║");
+                Console.WriteLine("╠═════════════════════════════════════════════════════════════╣     ╠═════════════════════════════════════════════════════════════╣");
+                Console.WriteLine($"║ HP: {p1.hp,-4} | Velocidad: {p1.velocidad,-4} | Ataque: {p1.ataquebase,-4}                   ║     ║ HP: {p2.hp,-4} | Velocidad: {p2.velocidad,-4} | Ataque: {p2.ataquebase,-4}                   ║");
+                Console.WriteLine($"║ Defensa: {p1.defensa,-4} | Inteligencia: {p1.inteligencia,-4}                          ║     ║ Defensa: {p2.defensa,-4} | Inteligencia: {p2.inteligencia,-4}                          ║");
+                Console.WriteLine("╚═════════════════════════════════════════════════════════════╝     ╚═════════════════════════════════════════════════════════════╝");
+            }
+        }
         public int CalcularAtaque()
         {
             //logica de cantidad de daño
@@ -119,7 +136,7 @@ namespace PersonajeClass
 
             indicesOpciones.Barajar();  // aumento 2 estadisticas al azar
             nivel++;
-            
+
             for (int i = 0; i < 2; i++)
             {
                 double porcenajeIncrementeo;
