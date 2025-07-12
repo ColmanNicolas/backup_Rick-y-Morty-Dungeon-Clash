@@ -17,9 +17,9 @@ namespace GameplayClass
             do //empieza la partida. logica iterativa de menu
             {
                 UIUX.MenuPrincipalUI(partidaActual.NombreJugador, partidaActual.PersonajesVivos.Count);
-                opcionTerciaria = Utils.ValidarOpcionMenu(0, 7, "\nSu opcion: ");
+                opcionTerciaria = Utils.ValidarOpcionMenu(0, 7,"\n Seleccione una opción y presione ENTER ▸ ");
                 Console.Clear();
-                
+
                 switch (opcionTerciaria)
                 {
                     case 1:
@@ -76,7 +76,7 @@ namespace GameplayClass
 
             UIUX.ElegirNuevoPersonajeUI();
 
-            opcionSecundaria = Utils.ValidarOpcionMenu(1, 3, "\nSu opcion: ");
+            opcionSecundaria = Utils.ValidarOpcionMenu(1, 3, "\n Seleccione una opción y presione ENTER ▸ ");
 
             taminioPartida = Utils.ValidarTamanioPartida();
 

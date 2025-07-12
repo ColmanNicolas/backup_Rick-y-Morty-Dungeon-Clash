@@ -1,5 +1,6 @@
 using System;
 using System.Drawing; // Necesitás instalar System.Drawing.Common si usás .NET Core
+using ASCIIcolorClass;
 using UtilsClass;
 
 namespace ImageClass
@@ -11,10 +12,12 @@ namespace ImageClass
         {
             int id = Utils.ValidarOpcionMenu(1, 826, "\nIngrese el identificador(ID) de un personaje(1 al 826): ");
             int anchoMaximo = Utils.ValidarOpcionMenu(150, 350, "\nIngrese el ancho maximo que tendra la imagen (150 al 350): ");
+            int imagenAcolor = Utils.ValidarOpcionMenu(0, 1, "\n[0] Mostrar imagen en blanco y negro\n[1] Mostrar imagen con color\n\nSu opcion: ");
             Console.Clear();
-            await MostrarImagenComoASCII($"https://rickandmortyapi.com/api/character/avatar/{id}.jpeg", anchoMaximo);
+
+            await MostrarImagenComoASCII($"https://rickandmortyapi.com/api/character/avatar/{id}.jpeg", anchoMaximo, imagenAcolor);
         }
-        private static async Task MostrarImagenComoASCII(string url, int anchoMaximo)
+        private static async Task MostrarImagenComoASCII(string url, int anchoMaximo, int imagenAcolor)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -23,7 +26,7 @@ namespace ImageClass
                     byte[] datos = await client.GetByteArrayAsync(url);
 
                     using (MemoryStream ms = new MemoryStream(datos))
-                    {   
+                    {
                         using (Bitmap bmp = new Bitmap(ms))
                         {
                             int nuevoAncho = anchoMaximo;
@@ -37,11 +40,23 @@ namespace ImageClass
                                     for (int x = 0; x < reducida.Width; x++)
                                     {
                                         Color pixel = reducida.GetPixel(x, y);
+
+                                        if (imagenAcolor == 1) // colorear 
+                                        {
+                                            // Obtener el ConsoleColor más parecido
+                                            ConsoleColor closestConsoleColor = AdvancedConsoleColorMapper.GetClosestConsoleColor(pixel);
+
+                                            // Establecer el color de primer plano de la consola
+                                            Console.ForegroundColor = closestConsoleColor;
+                                        }
+
                                         int gris = (pixel.R + pixel.G + pixel.B) / 3;
+
                                         Console.Write(GrisAASCII(gris));
                                     }
                                     Console.WriteLine();
                                 }
+                                Console.ResetColor(); //Restablecer el color al final
                             }
                         }
                     }
@@ -72,7 +87,6 @@ namespace ImageClass
                 }
             }
         }
-
         private static char GrisAASCII(int gris)
         {
             string escala = "@%#*+=-:. "; // del más oscuro al más claro
@@ -80,4 +94,5 @@ namespace ImageClass
             return escala[index];
         }
     }
+
 }

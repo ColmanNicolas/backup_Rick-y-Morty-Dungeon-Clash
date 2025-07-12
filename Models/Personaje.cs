@@ -51,7 +51,7 @@ namespace PersonajeClass
         }
         public void MostrarUnPersonajeDetallado()
         {
-            Console.WriteLine("╠═════════════════════════════════════════════════════════════╣");
+            Console.WriteLine("╔════════════════════════════════════════════════════════════ ╗");
             Console.WriteLine($"║ <DETALLE PERSONAJE>                                         ║");
             Console.WriteLine("╠═════════════════════════════════════════════════════════════╣");
             Console.WriteLine($"║ ID: {id,-3} | Nombre: {name,-41} ║");
@@ -61,7 +61,7 @@ namespace PersonajeClass
             Console.WriteLine("╠═════════════════════════════════════════════════════════════╣");
             Console.WriteLine($"║ HP: {hp,-4} | Velocidad: {velocidad,-4} | Ataque: {ataquebase,-4}                   ║");
             Console.WriteLine($"║ Defensa: {defensa,-4} | Inteligencia: {inteligencia,-4}                          ║");
-            Console.WriteLine("╠═════════════════════════════════════════════════════════════╣");
+            Console.WriteLine("╚═════════════════════════════════════════════════════════════╝");
         }
         public int CalcularAtaque()
         {

@@ -50,20 +50,52 @@ namespace UIclass
             return nombre;
         }
 
-        public static void MenuPrincipalUI(string? nombreJugador, int rivalesRestantes)
+        public static void MenuPrincipalUI(string nombreJugador, int rivalesRestantes)
         {
             Console.Clear();
-            Console.WriteLine($"Jugador: {nombreJugador}        ▸ Rivales restantes: {rivalesRestantes}");
-            Console.WriteLine("──────────────────────────────────────────────");
-            Console.WriteLine("[1] Ver mi personaje");
-            Console.WriteLine("[2] Consultar tabla de ventajas por especie");
-            Console.WriteLine("[3] Comenzar con la ronda de enfrentamientos");
-            Console.WriteLine("[4] Ver emparejamientos de batallas de esta ronda");
-            Console.WriteLine("[5] Ver detalle de partida actual");
-            Console.WriteLine("[6] Ver imagen de un personaje");
-            Console.WriteLine("[7] Guardar Partida actual");
-            Console.WriteLine("[0] Salir de la partida actual");
 
+            // -- Encabezado y Status --
+            Console.ForegroundColor = ConsoleColor.White; // Color para el marco y título
+            Console.WriteLine("╔═════════════════════════════════════════════════════════╗");
+            Console.WriteLine("║                *** SALON DEL TRONO ***                  ║");
+            Console.WriteLine("╠═════════════════════════════════════════════════════════╣");
+            Console.ForegroundColor = ConsoleColor.White; // Cambiamos a blanco para la info
+            Console.Write("║");
+            Console.ForegroundColor = ConsoleColor.Cyan; // Color para el nombre del jugador
+            Console.Write($" Jugador: {nombreJugador.PadRight(20)}");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" | ");
+            Console.ForegroundColor = ConsoleColor.Red; // Color para los rivales
+            Console.Write($"Rivales: {rivalesRestantes.ToString().PadRight(15)}");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("║");
+            Console.WriteLine("╠═════════════════════════════════════════════════════════╣");
+
+            // -- Opciones Principales --
+            Console.ForegroundColor = ConsoleColor.Gray; // Un color suave para las opciones
+            Console.WriteLine("║                                                         ║");
+            Console.WriteLine("║ [1] Ver mi personaje                                    ║");
+            Console.WriteLine("║ [2] Consultar tabla de ventajas por especie             ║");
+            Console.WriteLine("║ [3] Comenzar con la ronda de enfrentamientos            ║");
+            Console.WriteLine("║ [4] Ver emparejamientos de esta ronda                   ║");
+            Console.WriteLine("║ [5] Ver detalle de partida actual                       ║");
+            Console.WriteLine("║ [6] Ver imagen de un personaje                          ║");
+            Console.WriteLine("║                                                         ║");
+
+            // -- Opciones Secundarias y Salida --
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("╟─────────────────────────────────────────────────────────╢");
+            Console.ForegroundColor = ConsoleColor.Green; // Color para la opción de guardar
+            Console.WriteLine("║ [7] Guardar Partida actual                              ║");
+            Console.ForegroundColor = ConsoleColor.Red; // Color para la opción de salir
+            Console.WriteLine("║ [0] Salir de la partida actual                          ║");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("╚═════════════════════════════════════════════════════════╝");
+
+            // -- Prompt para el usuario --
+            Console.ForegroundColor = ConsoleColor.White;
+            // Resetea el color para que el resto de la aplicación no se vea afectada
+            Console.ResetColor();
         }
         public static void BarraDeVidaUI(int vidaTotal, int vidaRestante)
         {

@@ -33,7 +33,7 @@ namespace RickAndMortyDC
             do
             {
                 UIUX.MenuInicialUI();
-                opcionPrimaria = Utils.ValidarOpcionMenu(0, 3, "\nSu opcion: ");
+                opcionPrimaria = Utils.ValidarOpcionMenu(0, 3, "\n Seleccione una opción y presione ENTER ▸ ");
 
                 switch (opcionPrimaria)
                 {
