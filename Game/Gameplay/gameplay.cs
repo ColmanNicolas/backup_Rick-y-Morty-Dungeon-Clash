@@ -267,7 +267,7 @@ namespace GameplayClass
             if (hpRival <= 0)
             {
                 Personaje.MostrarResultadoEnfrentamiento(personaje1, rival);
-                Console.Write("nSe subio de nivel y mejoraran algunas estadisticas:\nViejas Estadisticas: ");
+                Console.Write("\nSe subió de nivel y mejorarán algunas estadisticas:\nViejas Estadisticas ");
                 personaje1.MostrarEstadisticas();
                 personaje1.AumentarNivelPersonaje();
                 Console.Write("Nuevas estadisticas ");

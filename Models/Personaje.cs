@@ -42,47 +42,47 @@ namespace PersonajeClass
         }
         public void MostrarMasivamentePersonaje()
         {
-            Console.Write($"{"ID:" + id,-6} - Nombre: {name,-41} - Especie: {species,-21} - Genero: {gender,-10}  ▸  hp: {hp,5} - velocidad: {velocidad,4} - ataque base: {ataquebase,4} - inteligencia: {inteligencia,3} - defensa: {defensa,3}\n");
+            Console.Write($"{"ID:" + id,-6} - Nombre: {name,-41} - Especie: {species,-21} - Genero: {gender,-10}  ▸  hp: {hp,5} - ataque base: {ataquebase,4} - velocidad: {velocidad,4} - inteligencia: {inteligencia,3} - defensa: {defensa,3}\n");
             Utils.GenerarPausaDeSegundos(0.0025);
         }
         public void MostrarUnPersonajeSencillo()
         {                                                     // sacar luego
-            Console.Write($"{"ID:" + id,-6} - Nombre: {name} - Nivel: {nivel} - Especie: {species} - Genero: {gender}  ▸ hp: {hp} - velocidad: {velocidad} - ataque base: {ataquebase} - inteligencia: {inteligencia} - defensa: {defensa}\n");
+            Console.Write($"{"ID:" + id,-6} - Nombre: {name} - Nivel: {nivel} - Especie: {species} - Genero: {gender}  ▸ hp: {hp} - ataque base: {ataquebase} - velocidad: {velocidad} - inteligencia: {inteligencia} - defensa: {defensa}\n");
         }
         public void MostrarEstadisticas()
         {
-            Console.Write($" ▸ nivel: {nivel} - hp: {hp} - velocidad: {velocidad} - ataque base: {ataquebase} - inteligencia: {inteligencia} - defensa: {defensa}\n");
+            Console.Write($" ▸ nivel: {nivel} - hp: {hp} - ataque base: {ataquebase} - velocidad: {velocidad} - inteligencia: {inteligencia} - defensa: {defensa}\n");
         }
         public void MostrarUnPersonajeDetallado()
         {
             Console.WriteLine("╔═════════════════════════════════════════════════════════════╗");
-            Console.WriteLine($"║ <DETALLE PERSONAJE>            NIVEL: {nivel}                     ║");
+            Console.WriteLine($"║ <DETALLE PERSONAJE>            NIVEL: {nivel,-12}          ║");
             Console.WriteLine("╠═════════════════════════════════════════════════════════════╣");
             Console.WriteLine($"║ ID: {id,-3} | Nombre: {name,-41} ║");
             Console.WriteLine($"║ Especie: {species,-26} | Género: {gender,-13} ║");
             Console.WriteLine("╠═════════════════════════════════════════════════════════════╣");
             Console.WriteLine($"║ [ESTADISTICAS]                                              ║");
             Console.WriteLine("╠═════════════════════════════════════════════════════════════╣");
-            Console.WriteLine($"║ HP: {hp,-4} | Velocidad: {velocidad,-4} | Ataque: {ataquebase,-4}                   ║");
-            Console.WriteLine($"║ Defensa: {defensa,-4} | Inteligencia: {inteligencia,-4}                          ║");
+            Console.WriteLine($"║ HP: {hp,-4} | Velocidad: {velocidad,-4} | Ataque: {ataquebase,-23}║");
+            Console.WriteLine($"║ Defensa: {defensa,-4} | Inteligencia: {inteligencia,-30}║");
             Console.WriteLine("╚═════════════════════════════════════════════════════════════╝");
         }
         public static void MostrarResultadoEnfrentamiento(Personaje p1, Personaje p2)
         {
-            {
+            
                 Console.WriteLine("                    ..::<GANADOR>::..                                                   ..::<PERDEDOR>::..                          ");
                 Console.WriteLine("╔═════════════════════════════════════════════════════════════╗     ╔═════════════════════════════════════════════════════════════╗");
-                Console.WriteLine($"║ <DETALLE PERSONAJE>            NIVEL: {p1.nivel}                     ║     ║ <DETALLE PERSONAJE>            NIVEL: {p2.nivel}                     ║");
+                Console.WriteLine($"║ <DETALLE PERSONAJE>            NIVEL: {p1.nivel,-15}       ║     ║ <DETALLE PERSONAJE>            NIVEL: {p2.nivel,-14}        ║");
                 Console.WriteLine("╠═════════════════════════════════════════════════════════════╣     ╠═════════════════════════════════════════════════════════════╣");
                 Console.WriteLine($"║ ID: {p1.id,-3} | Nombre: {p1.name,-41} ║     ║ ID: {p1.id,-3} | Nombre: {p2.name,-41} ║");
                 Console.WriteLine($"║ Especie: {p1.species,-26} | Género: {p1.gender,-13} ║     ║ Especie: {p2.species,-26} | Género: {p2.gender,-13} ║");
                 Console.WriteLine("╠═════════════════════════════════════════════════════════════╣     ╠═════════════════════════════════════════════════════════════╣");
                 Console.WriteLine($"║ [ESTADISTICAS]                                              ║     ║ [ESTADISTICAS]                                              ║");
                 Console.WriteLine("╠═════════════════════════════════════════════════════════════╣     ╠═════════════════════════════════════════════════════════════╣");
-                Console.WriteLine($"║ HP: {p1.hp,-4} | Velocidad: {p1.velocidad,-4} | Ataque: {p1.ataquebase,-4}                   ║     ║ HP: {p2.hp,-4} | Velocidad: {p2.velocidad,-4} | Ataque: {p2.ataquebase,-4}                   ║");
-                Console.WriteLine($"║ Defensa: {p1.defensa,-4} | Inteligencia: {p1.inteligencia,-4}                          ║     ║ Defensa: {p2.defensa,-4} | Inteligencia: {p2.inteligencia,-4}                          ║");
+                Console.WriteLine($"║ HP: {p1.hp,-4} | Velocidad: {p1.velocidad,-4} | Ataque: {p1.ataquebase,-23}║     ║ HP: {p2.hp,-4} | Velocidad: {p2.velocidad,-4} | Ataque: {p2.ataquebase,-4}                   ║");
+                Console.WriteLine($"║ Defensa: {p1.defensa,-4} | Inteligencia: {p1.inteligencia,-30}║     ║ Defensa: {p2.defensa,-4} | Inteligencia: {p2.inteligencia,-30}║");
                 Console.WriteLine("╚═════════════════════════════════════════════════════════════╝     ╚═════════════════════════════════════════════════════════════╝");
-            }
+            
         }
         public int CalcularAtaque()
         {
