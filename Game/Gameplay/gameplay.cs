@@ -271,7 +271,12 @@ namespace GameplayClass
 
                 Console.WriteLine("\nPersonaje Ganador: \n");
                 personaje1.MostrarUnPersonajeSencillo();
-
+                Console.Write("Se subio de nivel y mejoraran algunas estadisticas:\nViejas Estadisticas: ");
+                personaje1.MostrarEstadisticas();
+                personaje1.AumentarNivelPersonaje();
+                Console.Write("Nuevas estadisticas: ");
+                personaje1.MostrarEstadisticas();
+                Utils.PresioneKparaContinuar();
                 return rival;
             }
             else
@@ -280,7 +285,12 @@ namespace GameplayClass
                 personaje1.MostrarUnPersonajeSencillo();
                 Console.WriteLine("\nPersonaje Ganador: \n");
                 rival.MostrarUnPersonajeSencillo();
-
+                Console.Write("Se subio de nivel y mejoraran algunas estadisticas:\nViejas Estadisticas: ");
+                rival.AumentarNivelPersonaje();
+                rival.MostrarEstadisticas();
+                Console.Write("Nuevas estadisticas: ");
+                rival.MostrarEstadisticas();
+                Utils.PresioneKparaContinuar();
                 return personaje1;
             }
 
