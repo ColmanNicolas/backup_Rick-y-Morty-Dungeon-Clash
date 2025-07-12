@@ -240,41 +240,30 @@ namespace GameplayClass
             int hpRestantePersonaje1 = personaje1.hp;
             int hpRestanteRival = rival.hp;
             //Personaje personajeVencido,personajeGanador;
-            int auxContador = 0;
-
-            Console.WriteLine($"Personaje: {personaje1.name}");
-            UIUX.BarraDeVidaUI(personaje1.hp, hpRestantePersonaje1);
-            Console.WriteLine($"Personaje: {rival.name}");
-            UIUX.BarraDeVidaUI(rival.hp, hpRestanteRival);
-            Utils.GenerarPausaDeSegundos(1);
+            Console.WriteLine("FIGHT!!");
+            MostrarEstadoCombate(personaje1, hpRestantePersonaje1, rival, hpRestanteRival);
             do
             {
                 if (personaje1.velocidad > rival.velocidad)     // ataca primero personaje 1
                 {
                     hpRestanteRival = Personaje.RecibirDaño(hpRestanteRival, personaje1.CalcularAtaque());
-
+                    MostrarEstadoCombate(personaje1, hpRestantePersonaje1, rival, hpRestanteRival);
                     if (hpRestanteRival >= 0)
                     {
+                        MostrarEstadoCombate(personaje1, hpRestantePersonaje1, rival, hpRestanteRival);
                         hpRestantePersonaje1 = Personaje.RecibirDaño(hpRestantePersonaje1, rival.CalcularAtaque());
                     }
                 }
                 else            // ataca primero el rival
                 {
                     hpRestantePersonaje1 = Personaje.RecibirDaño(hpRestantePersonaje1, rival.CalcularAtaque());
-
+                    MostrarEstadoCombate(personaje1, hpRestantePersonaje1, rival, hpRestanteRival);
                     if (hpRestanteRival >= 0)
                     {
                         hpRestanteRival = Personaje.RecibirDaño(hpRestanteRival, personaje1.CalcularAtaque());
+                        MostrarEstadoCombate(personaje1, hpRestantePersonaje1, rival, hpRestanteRival);
                     }
                 }
-                Console.WriteLine("FIN DEl TURNO: " + ++auxContador);
-                Utils.GenerarPausaDeSegundos(1);
-
-                Console.WriteLine($"\n\nPersonaje: {personaje1.name}");
-                UIUX.BarraDeVidaUI(personaje1.hp, hpRestantePersonaje1);
-                Console.WriteLine($"Personaje: {rival.name}");
-                UIUX.BarraDeVidaUI(rival.hp, hpRestanteRival);
-                Utils.GenerarPausaDeSegundos(1);
             } while (hpRestanteRival > 0 && hpRestantePersonaje1 > 0);
 
             if (hpRestanteRival <= 0)
@@ -312,6 +301,21 @@ namespace GameplayClass
             {
                 miPartida.PersonajesVivos.Add(personajesDisponibles[i]);
             }
+        }
+        public static void MostrarEstadoCombate(Personaje personaje1, int hpOriginalPersonaje1, Personaje rival, int hpOriginalRival)
+        {
+            Console.Clear();
+            Console.WriteLine($"\n\nPersonaje: {personaje1.name}");
+            // UIUX.BarraDeVidaUI necesita el HP actual y el HP máximo (o el HP antes de ese ataque, si hpRestantePersonaje1 es eso)
+            // Asumo que 'hpOriginalPersonaje1' es el HP total o el HP al inicio del turno.
+            // Si 'hpRestantePersonaje1' es el HP actual del personaje1 después de recibir daño, entonces está bien.
+            // Necesitas aclararme qué representa exactamente hpRestantePersonaje1 y hpRestanteRival
+            // para asegurar que BarraDeVidaUI reciba los valores correctos (HP actual, HP máximo).
+            UIUX.BarraDeVidaUI(personaje1.hp, hpOriginalPersonaje1);
+
+            UIUX.BarraDeVidaUI(rival.hp, hpOriginalRival);
+            Console.WriteLine($"Personaje: {rival.name}");
+            Utils.GenerarPausaDeSegundos(1.7);
         }
     }
 }

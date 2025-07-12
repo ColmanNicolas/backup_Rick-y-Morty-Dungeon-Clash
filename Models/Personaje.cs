@@ -139,6 +139,7 @@ namespace PersonajeClass
 
             for (int i = 0; i < 2; i++)
             {
+                Console.WriteLine($"***Mejoro en el switch: {indicesOpciones[i]}****");
                 double porcenajeIncrementeo;
                 switch (indicesOpciones[i])
                 {
@@ -161,7 +162,7 @@ namespace PersonajeClass
                         break;
                     case 5:   // mejora velocidad 0.2  **afecta varias habilidades puede genear desbalanceo
                         porcenajeIncrementeo = 0.2;
-                        inteligencia = (int)Math.Round(inteligencia + (inteligencia * porcenajeIncrementeo));
+                        velocidad = (int)Math.Round(velocidad + (velocidad * porcenajeIncrementeo));
                         break;
                     default:
                         break;
