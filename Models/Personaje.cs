@@ -74,7 +74,7 @@ namespace PersonajeClass
                 Console.WriteLine("╔═════════════════════════════════════════════════════════════╗     ╔═════════════════════════════════════════════════════════════╗");
                 Console.WriteLine($"║ <DETALLE PERSONAJE>            NIVEL: {p1.nivel,-15}       ║     ║ <DETALLE PERSONAJE>            NIVEL: {p2.nivel,-14}        ║");
                 Console.WriteLine("╠═════════════════════════════════════════════════════════════╣     ╠═════════════════════════════════════════════════════════════╣");
-                Console.WriteLine($"║ ID: {p1.id,-3} | Nombre: {p1.name,-41} ║     ║ ID: {p1.id,-3} | Nombre: {p2.name,-41} ║");
+                Console.WriteLine($"║ ID: {p1.id,-3} | Nombre: {p1.name,-41} ║     ║ ID: {p2.id,-3} | Nombre: {p2.name,-41} ║");
                 Console.WriteLine($"║ Especie: {p1.species,-26} | Género: {p1.gender,-13} ║     ║ Especie: {p2.species,-26} | Género: {p2.gender,-13} ║");
                 Console.WriteLine("╠═════════════════════════════════════════════════════════════╣     ╠═════════════════════════════════════════════════════════════╣");
                 Console.WriteLine($"║ [ESTADISTICAS]                                              ║     ║ [ESTADISTICAS]                                              ║");

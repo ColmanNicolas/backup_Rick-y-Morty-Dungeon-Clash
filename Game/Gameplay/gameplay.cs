@@ -153,7 +153,7 @@ namespace GameplayClass
                     {
                         Personaje p1 = miPartida.PersonajesVivos[i];  // ok
                         Personaje p2 = miPartida.PersonajesVivos[i + 1];
-                        Personaje personajeVencido = EnfrentarDosPersonajes(ref p1, ref p2);
+                        Personaje personajeVencido = EnfrentarDosPersonajes(ref p1, ref p2, ref miPartida);
 
                         miPartida.PersonajesQuePerdieron.Add(personajeVencido);
                         personajesVencidosTemporal.Add(personajeVencido);
@@ -236,59 +236,96 @@ namespace GameplayClass
             return personajeJugador;
         }
 
-        private static Personaje EnfrentarDosPersonajes(ref Personaje personaje1, ref Personaje rival)
+        private static Personaje EnfrentarDosPersonajes(ref Personaje personaje1, ref Personaje rival, ref Partida partidaActual)
         {
-            int hpRestantePersonaje1 = personaje1.hp;
-            int hpRestanteRival = rival.hp;
-            //Personaje personajeVencido,personajeGanador;
-            Console.WriteLine("FIGHT!!");
-            MostrarEstadoCombate(personaje1, hpRestantePersonaje1, rival, hpRestanteRival);
-            do
-            {
-                if (personaje1.velocidad > rival.velocidad)     // ataca primero personaje 1
-                {
-                    hpRestanteRival = Personaje.RecibirDaño(hpRestanteRival, personaje1.CalcularAtaque());
-                    MostrarEstadoCombate(personaje1, hpRestantePersonaje1, rival, hpRestanteRival);
-                    if (hpRestanteRival > 0)
-                    {
-                        MostrarEstadoCombate(personaje1, hpRestantePersonaje1, rival, hpRestanteRival);
-                        hpRestantePersonaje1 = Personaje.RecibirDaño(hpRestantePersonaje1, rival.CalcularAtaque());
-                    }
-                }
-                else            // ataca primero el rival
-                {
-                    hpRestantePersonaje1 = Personaje.RecibirDaño(hpRestantePersonaje1, rival.CalcularAtaque());
-                    MostrarEstadoCombate(personaje1, hpRestantePersonaje1, rival, hpRestanteRival);
-                    if (hpRestanteRival > 0)
-                    {
-                        hpRestanteRival = Personaje.RecibirDaño(hpRestanteRival, personaje1.CalcularAtaque());
-                        MostrarEstadoCombate(personaje1, hpRestantePersonaje1, rival, hpRestanteRival);
-                    }
-                }
-            } while (hpRestanteRival > 0 && hpRestantePersonaje1 > 0);
+            Console.Clear();
 
-            if (hpRestanteRival <= 0)
+            Console.WriteLine("3");
+            Utils.GenerarPausaDeSegundos(0.5);
+            Console.Clear();
+
+            Console.WriteLine("2");
+            Utils.GenerarPausaDeSegundos(0.5);
+            Console.Clear();
+
+            Console.WriteLine("1");
+            Utils.GenerarPausaDeSegundos(0.5);
+            Console.Clear();
+
+            Console.WriteLine("FIGHT!!");
+            Utils.GenerarPausaDeSegundos(1);
+            Console.Clear();
+
+
+            // Determino quién ataca primero y en el bucle invierto roles
+            Personaje atacante = (personaje1.velocidad >= rival.velocidad) ? personaje1 : rival;
+            Personaje defensor = (atacante == personaje1) ? rival : personaje1;
+
+            int hpAtacante = atacante.hp;
+            int hpDefensor = defensor.hp;
+
+            int turno = 1;
+
+            MostrarBarrasDeHp(personaje1, (personaje1 == atacante) ? hpAtacante : hpDefensor, rival, (rival == atacante) ? hpAtacante : hpDefensor, turno);
+            Utils.GenerarPausaDeSegundos(1.5);
+
+            Console.WriteLine("ATACA: " + atacante.name.ToUpper() + "========> SE DEFIENDE: " + defensor.name.ToUpper());
+            Utils.GenerarPausaDeSegundos(2);
+
+            // combate
+            while (hpAtacante > 0 && hpDefensor > 0)
             {
-                Personaje.MostrarResultadoEnfrentamiento(personaje1, rival);
-                Console.Write("\nSe subió de nivel y mejorarán algunas estadisticas:\nViejas Estadisticas ");
-                personaje1.MostrarEstadisticas();
-                personaje1.AumentarNivelPersonaje();
-                Console.Write("Nuevas estadisticas ");
-                personaje1.MostrarEstadisticas();
-                Utils.PresioneKparaContinuar();
-                return rival;
+
+                int danioRealizado = atacante.CalcularAtaque();
+
+                hpDefensor = Personaje.RecibirDaño(hpDefensor, danioRealizado);
+
+                MostrarBarrasDeHp(personaje1, (personaje1 == atacante) ? hpAtacante : hpDefensor, rival, (rival == atacante) ? hpAtacante : hpDefensor, turno);
+                Utils.GenerarPausaDeSegundos(1.5);
+
+                if (hpAtacante > 0 && hpDefensor > 0)
+                {
+                    Console.WriteLine("ATACA: " + defensor.name.ToUpper() + "========> SE DEFIENDE: " + atacante.name.ToUpper());   // quedó invertido, funciona (corregir codigo en caso de necesidad)
+                    Utils.GenerarPausaDeSegundos(2);
+                }
+
+                // Si el defensor sigue vivo, intercambio roles
+                if (hpDefensor > 0)
+                {
+                    Personaje temp = atacante;
+                    atacante = defensor;
+                    defensor = temp;
+
+                    int hpTemp = hpAtacante;
+                    hpAtacante = hpDefensor;
+                    hpDefensor = hpTemp;
+                }
+                turno++;
             }
-            else
+
+            Personaje ganador = (hpAtacante > 0) ? atacante : defensor;
+            Personaje perdedor = (ganador == personaje1) ? rival : personaje1;
+
+            ProcesarVictoria(ganador, perdedor, ref partidaActual);
+
+            return perdedor;
+        }
+        private static void ProcesarVictoria(Personaje ganador, Personaje perdedor, ref Partida partidaActual)
+        {
+            Personaje.MostrarResultadoEnfrentamiento(ganador, perdedor);
+            Console.Write("\n¡El ganador sube de nivel y mejorarán sus estadísticas!\n\nEstadísticas Anteriores: ");
+            ganador.MostrarEstadisticas();
+
+            ganador.AumentarNivelPersonaje();
+
+            if (partidaActual.PersonajeJugador.id == ganador.id)
             {
-                Personaje.MostrarResultadoEnfrentamiento(rival, personaje1);
-                Console.Write("\nSe subio de nivel y mejoraran algunas estadisticas:\nViejas Estadisticas: ");
-                rival.MostrarEstadisticas();
-                rival.AumentarNivelPersonaje();
-                Console.Write("Nuevas estadisticas ");
-                rival.MostrarEstadisticas();
-                Utils.PresioneKparaContinuar();
-                return personaje1;
+                partidaActual.PersonajeJugador = ganador;
             }
+
+            Console.Write("Nuevas Estadísticas: ");
+            ganador.MostrarEstadisticas();
+            Utils.PresioneKparaContinuar();
         }
 
         private static void FiltrarPersonajesParaNuevaPartida(List<Personaje> personajesDisponibles, ref Partida miPartida, int cantidadPersonajes)
@@ -302,15 +339,15 @@ namespace GameplayClass
                 miPartida.PersonajesVivos.Add(personajesDisponibles[i]);
             }
         }
-        private static void MostrarEstadoCombate(Personaje personaje1, int hpRestantePersonaje1, Personaje rival, int hpRestanteRival)
+        private static void MostrarBarrasDeHp(Personaje personaje1, int hpRestantePersonaje1, Personaje rival, int hpRestanteRival, int turno)
         {
             Console.Clear();
-            Console.WriteLine($"\n\nPersonaje: {personaje1.name.ToUpper()}");
+            Console.WriteLine($"TURNO: {turno}");
+            Console.WriteLine($"\nPersonaje: {personaje1.name.ToUpper()}");
             UIUX.BarraDeVidaUI(personaje1.hp, hpRestantePersonaje1);
 
             UIUX.BarraDeVidaUI(rival.hp, hpRestanteRival);
-            Console.WriteLine($"Personaje: {rival.name.ToUpper()}");
-            Utils.GenerarPausaDeSegundos(1.7);
+            Console.WriteLine($"Personaje: {rival.name.ToUpper()}\n");
         }
     }
 }
