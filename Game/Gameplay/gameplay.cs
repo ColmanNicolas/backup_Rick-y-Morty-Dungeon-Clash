@@ -63,7 +63,7 @@ namespace GameplayClass
         }
         public static async Task<Partida> GenerarUnaNuevaPartida(Partida partidaActual)
         {
-            List<Personaje> personajes = await API.ObtenerPersonajesAPI(812, false);   //comunicacion con la API
+            List<Personaje> personajes = await API.ObtenerPersonajesAPI(813, false);   //comunicacion con la API
             int opcionSecundaria, taminioPartida;
 
             personajes.ForEach(p =>
@@ -93,7 +93,7 @@ namespace GameplayClass
 
             Almacenamiento.MostrarPartidasGuardadas();
 
-            nombrePartida = UIUX.ElegirNombreJugador("\nIngrese el nombre de la partida: ");  // reutilizo esta funcion para tener las mismas restricciones de nombre
+            nombrePartida = UIUX.ElegirNombreJugador("\nIngrese el nombre de la partida: ");  // reutilizo esta funcion porque comparten las mismas restricciones
 
             partidaActual = Almacenamiento.BuscarUnaPartida(nombrePartida.Trim());
 
@@ -129,7 +129,7 @@ namespace GameplayClass
                     Console.Write($"\n  [DUELO #{(i / 2) + 1:D2}]: ");
                     Console.Write($"{jugador1Nombre,-60}  vs                        ");
                     Console.WriteLine($"<IA> {jugador2Nombre.ToUpper()} ▸ {jugador2Especie} ");
-                    Utils.GenerarPausaDeSegundos(0.01); // Pausa rápida
+                    Utils.GenerarPausaDeSegundos(0.02); // Pausa rápida
                 }
 
                 Console.WriteLine("\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
@@ -141,6 +141,7 @@ namespace GameplayClass
                 partidaActual.PersonajesVivos[0].MostrarUnPersonajeDetallado();
             }
         }
+
         private static void EjecutarCombatesDeLaRonda(int cantJugadoresRestantes, ref Partida miPartida)
         {
             if (cantJugadoresRestantes > 1)
@@ -150,7 +151,7 @@ namespace GameplayClass
                 {
                     if (i + 1 < miPartida.PersonajesVivos.Count)
                     {
-                        Personaje p1 = miPartida.PersonajesVivos[i];  // ojo con esta parte ***************************************************************
+                        Personaje p1 = miPartida.PersonajesVivos[i];  // ok
                         Personaje p2 = miPartida.PersonajesVivos[i + 1];
                         Personaje personajeVencido = EnfrentarDosPersonajes(ref p1, ref p2);
 
@@ -175,7 +176,7 @@ namespace GameplayClass
                 miPartida.PersonajesVivos[0].MostrarUnPersonajeDetallado();
             }
         }
-        private static Personaje UsuarioEligeSuPersonaje(int opcionElegirPersonaje, ref List<Personaje> personajes, int cantidadPersonajes)
+        private static Personaje UsuarioEligeSuPersonaje(int opcionElegirPersonaje, ref List<Personaje> personajes, int tamanioPArtida)
         {
             Personaje? personajeJugador;
             int auxContador = 0, identificadorPersonaje;
@@ -192,7 +193,7 @@ namespace GameplayClass
                 if (opcionElegirPersonaje == 2) //mezclar y limitar lista de personajes solo para opcion 2
                 {
                     personajes.Barajar();
-                    personajes = personajes.Take(cantidadPersonajes).ToList();
+                    personajes = personajes.Take(tamanioPArtida).ToList();
                 }
 
                 do  // logica para elegir el personaje
@@ -221,10 +222,10 @@ namespace GameplayClass
                 Console.Write("\nPersonaje elegido: \n\n");
             }
 
-            if (opcionElegirPersonaje == 1) //mezclar y limitar lista de personajes al final solo para opcion 3
+            if (opcionElegirPersonaje == 1) //mezclar y limitar lista de personajes al final solo para opcion 1
             {
                 personajes.Barajar();
-                personajes = personajes.Take(cantidadPersonajes).ToList();
+                personajes = personajes.Take(tamanioPArtida).ToList();
             }
 
             personajeJugador.MostrarUnPersonajeDetallado();
@@ -248,7 +249,7 @@ namespace GameplayClass
                 {
                     hpRestanteRival = Personaje.RecibirDaño(hpRestanteRival, personaje1.CalcularAtaque());
                     MostrarEstadoCombate(personaje1, hpRestantePersonaje1, rival, hpRestanteRival);
-                    if (hpRestanteRival >= 0)
+                    if (hpRestanteRival > 0)
                     {
                         MostrarEstadoCombate(personaje1, hpRestantePersonaje1, rival, hpRestanteRival);
                         hpRestantePersonaje1 = Personaje.RecibirDaño(hpRestantePersonaje1, rival.CalcularAtaque());
@@ -258,7 +259,7 @@ namespace GameplayClass
                 {
                     hpRestantePersonaje1 = Personaje.RecibirDaño(hpRestantePersonaje1, rival.CalcularAtaque());
                     MostrarEstadoCombate(personaje1, hpRestantePersonaje1, rival, hpRestanteRival);
-                    if (hpRestanteRival >= 0)
+                    if (hpRestanteRival > 0)
                     {
                         hpRestanteRival = Personaje.RecibirDaño(hpRestanteRival, personaje1.CalcularAtaque());
                         MostrarEstadoCombate(personaje1, hpRestantePersonaje1, rival, hpRestanteRival);
@@ -288,7 +289,6 @@ namespace GameplayClass
                 Utils.PresioneKparaContinuar();
                 return personaje1;
             }
-
         }
 
         private static void FiltrarPersonajesParaNuevaPartida(List<Personaje> personajesDisponibles, ref Partida miPartida, int cantidadPersonajes)
@@ -302,19 +302,14 @@ namespace GameplayClass
                 miPartida.PersonajesVivos.Add(personajesDisponibles[i]);
             }
         }
-        public static void MostrarEstadoCombate(Personaje personaje1, int hpOriginalPersonaje1, Personaje rival, int hpOriginalRival)
+        private static void MostrarEstadoCombate(Personaje personaje1, int hpRestantePersonaje1, Personaje rival, int hpRestanteRival)
         {
             Console.Clear();
-            Console.WriteLine($"\n\nPersonaje: {personaje1.name}");
-            // UIUX.BarraDeVidaUI necesita el HP actual y el HP máximo (o el HP antes de ese ataque, si hpRestantePersonaje1 es eso)
-            // Asumo que 'hpOriginalPersonaje1' es el HP total o el HP al inicio del turno.
-            // Si 'hpRestantePersonaje1' es el HP actual del personaje1 después de recibir daño, entonces está bien.
-            // Necesitas aclararme qué representa exactamente hpRestantePersonaje1 y hpRestanteRival
-            // para asegurar que BarraDeVidaUI reciba los valores correctos (HP actual, HP máximo).
-            UIUX.BarraDeVidaUI(personaje1.hp, hpOriginalPersonaje1);
+            Console.WriteLine($"\n\nPersonaje: {personaje1.name.ToUpper()}");
+            UIUX.BarraDeVidaUI(personaje1.hp, hpRestantePersonaje1);
 
-            UIUX.BarraDeVidaUI(rival.hp, hpOriginalRival);
-            Console.WriteLine($"Personaje: {rival.name}");
+            UIUX.BarraDeVidaUI(rival.hp, hpRestanteRival);
+            Console.WriteLine($"Personaje: {rival.name.ToUpper()}");
             Utils.GenerarPausaDeSegundos(1.7);
         }
     }

@@ -36,8 +36,7 @@ namespace UtilsClass
                 if (int.TryParse(opcion, out opcionEntero) && valoresAceptados.Contains(opcionEntero)) return opcionEntero;
                 else
                 {
-                    Console.WriteLine($"Error. La opción ingresada ({opcion}) no es válida. Por favor, ingrese un número del siguiente listado (2, 4, 8, 16, 32, 64, 128, 256, 512).");
-                    Console.Write("Su opcion: ");
+                    Console.Write($"Error. La opción ingresada ({opcion}) no es válida. Por favor, ingrese un número del siguiente listado (2, 4, 8, 16, 32, 64, 128, 256, 512): ");
                 }
             }
         }

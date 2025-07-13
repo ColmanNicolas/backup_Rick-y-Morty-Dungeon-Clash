@@ -12,7 +12,7 @@ namespace APIClass
 
             if (cantidad < 1) return [];
 
-            if (cantidad > 812) cantidad = 812;
+            if (cantidad > 813) cantidad = 813;
 
             using (HttpClient client = new HttpClient())
             {
