@@ -100,30 +100,30 @@ namespace UIUXclass
         }
         public static void IniciarCuentaAtras()
         {
+            Console.Clear();
             for (int i = 3; i > 0; i--)
             {
-                Console.SetCursorPosition((Console.WindowWidth / 2) - 1, (Console.WindowHeight / 2) - 7);
+                Console.SetCursorPosition((Console.WindowWidth / 2) - 8, (Console.WindowHeight / 2) - 7);
                 Console.ForegroundColor = ConsoleColor.Cyan;
 
                 Console.WriteLine("╔═══════════╗");
-                Console.SetCursorPosition((Console.WindowWidth / 2) - 1, (Console.WindowHeight / 2) - 6);
+                Console.SetCursorPosition((Console.WindowWidth / 2) - 8, (Console.WindowHeight / 2) - 6);
 
                 Console.WriteLine($"║     {i}     ║");
-                Console.SetCursorPosition((Console.WindowWidth / 2) - 1, (Console.WindowHeight / 2) - 5);
+                Console.SetCursorPosition((Console.WindowWidth / 2) - 8, (Console.WindowHeight / 2) - 5);
 
                 Console.WriteLine("╚═══════════╝");
                 Utils.GenerarPausaDeSegundos(1);
-                Console.Clear();
             }
 
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.SetCursorPosition((Console.WindowWidth / 2) - 3, (Console.WindowHeight / 2) - 7);
+            Console.SetCursorPosition((Console.WindowWidth / 2) - 8, (Console.WindowHeight / 2) - 7);
             Console.WriteLine("╔══════════════╗");
 
-            Console.SetCursorPosition((Console.WindowWidth / 2) - 3, (Console.WindowHeight / 2) - 6);
+            Console.SetCursorPosition((Console.WindowWidth / 2) - 8, (Console.WindowHeight / 2) - 6);
             Console.WriteLine("║    FIGHT!!   ║");
 
-            Console.SetCursorPosition((Console.WindowWidth / 2) - 3, (Console.WindowHeight / 2) - 5);
+            Console.SetCursorPosition((Console.WindowWidth / 2) - 8, (Console.WindowHeight / 2) - 5);
             Console.WriteLine("╚══════════════╝");
 
             Utils.GenerarPausaDeSegundos(1.5);
@@ -137,11 +137,11 @@ namespace UIUXclass
             int barritas = (int)Math.Ceiling(hpRestante * largoBordes);
 
             string barra = new string('█', barritas).PadRight(largoBordes, '░');
-            string lineaBarraInermedia = $"*{barra}*  {Math.Round(hpRestante * 100)}%";
+            string lineaBarraInermedia = $"*{barra}*  {Math.Ceiling(hpRestante * 100),-3}";
 
             Console.WriteLine(new string('*', largoBordes + 2));
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(lineaBarraInermedia);
+            Console.WriteLine(lineaBarraInermedia + $"% ({vidaRestante+"/"+vidaTotal})");
             Console.ResetColor();
             Console.WriteLine(new string('*', largoBordes + 2));
         }

@@ -325,7 +325,7 @@ namespace GameplayClass
         }
         private static void MostrarBarrasDeHp(Personaje personaje1, int hpRestantePersonaje1, Personaje rival, int hpRestanteRival, int turno)
         {
-            Console.Clear();
+            Console.SetCursorPosition(0,0);
             Console.WriteLine($"TURNO: {turno}");
             Console.WriteLine($"\nPersonaje: {personaje1.name.ToUpper()}");
             UIUX.BarraDeVidaUI(personaje1.hp, hpRestantePersonaje1);
