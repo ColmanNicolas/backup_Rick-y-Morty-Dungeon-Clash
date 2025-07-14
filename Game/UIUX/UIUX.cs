@@ -151,7 +151,7 @@ namespace UIUXclass
 
             Console.WriteLine(new string('*', largoBordes + 2));
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(lineaBarraInermedia + $"% ({vidaRestante + "/" + vidaTotal})");
+            Console.WriteLine(lineaBarraInermedia + $"% ({vidaRestante, 4}/{vidaTotal, -4})");
             Console.ResetColor();
             Console.WriteLine(new string('*', largoBordes + 2));
         }
