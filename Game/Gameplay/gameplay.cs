@@ -238,24 +238,8 @@ namespace GameplayClass
 
         private static Personaje EnfrentarDosPersonajes(ref Personaje personaje1, ref Personaje rival, ref Partida partidaActual)
         {
-            Console.Clear();
 
-            Console.WriteLine("3");
-            Utils.GenerarPausaDeSegundos(0.5);
-            Console.Clear();
-
-            Console.WriteLine("2");
-            Utils.GenerarPausaDeSegundos(0.5);
-            Console.Clear();
-
-            Console.WriteLine("1");
-            Utils.GenerarPausaDeSegundos(0.5);
-            Console.Clear();
-
-            Console.WriteLine("FIGHT!!");
-            Utils.GenerarPausaDeSegundos(1);
-            Console.Clear();
-
+            UIUX.IniciarCuentaAtras();
 
             // Determino quién ataca primero y en el bucle invierto roles
             Personaje atacante = (personaje1.velocidad >= rival.velocidad) ? personaje1 : rival;

@@ -1,6 +1,7 @@
 using System.Reflection.PortableExecutable;
 using System.Text.RegularExpressions;
 using PersonajeClass;
+using UtilsClass;
 
 namespace UIUXclass
 {
@@ -72,7 +73,7 @@ namespace UIUXclass
             Console.WriteLine("╠═════════════════════════════════════════════════════════╣");
 
             // -- Opciones Principales --
-            Console.ForegroundColor = ConsoleColor.Gray; // Un color suave para las opciones
+            Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("║                                                         ║");
             Console.WriteLine("║ [1] Ver mi personaje                                    ║");
             Console.WriteLine("║ [2] Consultar tabla de ventajas por especie             ║");
@@ -85,29 +86,63 @@ namespace UIUXclass
             // -- Opciones Secundarias y Salida --
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("╟─────────────────────────────────────────────────────────╢");
-            Console.ForegroundColor = ConsoleColor.Green; // Color para la opción de guardar
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("║ [7] Guardar Partida actual                              ║");
-            Console.ForegroundColor = ConsoleColor.Red; // Color para la opción de salir
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("║ [0] Salir de la partida actual                          ║");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("╚═════════════════════════════════════════════════════════╝");
 
-            // -- Prompt para el usuario --
+
             Console.ForegroundColor = ConsoleColor.White;
-            // Resetea el color para que el resto de la aplicación no se vea afectada
+
             Console.ResetColor();
+        }
+        public static void IniciarCuentaAtras()
+        {
+            for (int i = 3; i > 0; i--)
+            {
+                Console.SetCursorPosition((Console.WindowWidth / 2) - 1, (Console.WindowHeight / 2) - 7);
+                Console.ForegroundColor = ConsoleColor.Cyan;
+
+                Console.WriteLine("╔═══════════╗");
+                Console.SetCursorPosition((Console.WindowWidth / 2) - 1, (Console.WindowHeight / 2) - 6);
+
+                Console.WriteLine($"║     {i}     ║");
+                Console.SetCursorPosition((Console.WindowWidth / 2) - 1, (Console.WindowHeight / 2) - 5);
+
+                Console.WriteLine("╚═══════════╝");
+                Utils.GenerarPausaDeSegundos(1);
+                Console.Clear();
+            }
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition((Console.WindowWidth / 2) - 3, (Console.WindowHeight / 2) - 7);
+            Console.WriteLine("╔══════════════╗");
+
+            Console.SetCursorPosition((Console.WindowWidth / 2) - 3, (Console.WindowHeight / 2) - 6);
+            Console.WriteLine("║    FIGHT!!   ║");
+
+            Console.SetCursorPosition((Console.WindowWidth / 2) - 3, (Console.WindowHeight / 2) - 5);
+            Console.WriteLine("╚══════════════╝");
+
+            Utils.GenerarPausaDeSegundos(1.5);
+            Console.ResetColor();
+            Console.Clear();
         }
         public static void BarraDeVidaUI(int vidaTotal, int vidaRestante)
         {
             double hpRestante = vidaRestante / (double)vidaTotal;
-            int largoBordes = 200;
+            int largoBordes = 150;
             int barritas = (int)Math.Ceiling(hpRestante * largoBordes);
 
             string barra = new string('█', barritas).PadRight(largoBordes, '░');
             string lineaBarraInermedia = $"*{barra}*  {Math.Round(hpRestante * 100)}%";
 
             Console.WriteLine(new string('*', largoBordes + 2));
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(lineaBarraInermedia);
+            Console.ResetColor();
             Console.WriteLine(new string('*', largoBordes + 2));
         }
     }
