@@ -98,6 +98,16 @@ namespace UIUXclass
 
             Console.ResetColor();
         }
+        public static void MostrarBarrasDeHp(Personaje personaje1, int hpRestantePersonaje1, Personaje rival, int hpRestanteRival, int turno)
+        {
+            Console.SetCursorPosition(0, 0);
+            Console.WriteLine($"TURNO: {turno}");
+            Console.WriteLine($"\nPersonaje: {personaje1.name.ToUpper()}");
+            UIUX.BarraDeVidaUI(personaje1.hp, hpRestantePersonaje1);
+
+            UIUX.BarraDeVidaUI(rival.hp, hpRestanteRival);
+            Console.WriteLine($"Personaje: {rival.name.ToUpper()}\n");
+        }
         public static void IniciarCuentaAtras()
         {
             Console.Clear();
@@ -130,7 +140,7 @@ namespace UIUXclass
             Console.ResetColor();
             Console.Clear();
         }
-        public static void BarraDeVidaUI(int vidaTotal, int vidaRestante)
+        private static void BarraDeVidaUI(int vidaTotal, int vidaRestante)
         {
             double hpRestante = vidaRestante / (double)vidaTotal;
             int largoBordes = 150;
@@ -141,7 +151,7 @@ namespace UIUXclass
 
             Console.WriteLine(new string('*', largoBordes + 2));
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(lineaBarraInermedia + $"% ({vidaRestante+"/"+vidaTotal})");
+            Console.WriteLine(lineaBarraInermedia + $"% ({vidaRestante + "/" + vidaTotal})");
             Console.ResetColor();
             Console.WriteLine(new string('*', largoBordes + 2));
         }

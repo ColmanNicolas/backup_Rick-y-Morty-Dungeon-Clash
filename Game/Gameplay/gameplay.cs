@@ -144,6 +144,8 @@ namespace GameplayClass
 
         private static void EjecutarCombatesDeLaRonda(int cantJugadoresRestantes, ref Partida miPartida)
         {
+            bool omitirEnfrentamientos = false;
+
             if (cantJugadoresRestantes > 1)
             {
                 List<Personaje> personajesVencidosTemporal = [];
@@ -153,21 +155,17 @@ namespace GameplayClass
                     {
                         Personaje p1 = miPartida.PersonajesVivos[i];  // ok
                         Personaje p2 = miPartida.PersonajesVivos[i + 1];
-                        Personaje personajeVencido = EnfrentarDosPersonajes(ref p1, ref p2, ref miPartida);
+                        Personaje personajeVencido = EnfrentarDosPersonajes(ref p1, ref p2, ref miPartida, omitirEnfrentamientos);
 
                         miPartida.PersonajesQuePerdieron.Add(personajeVencido);
                         personajesVencidosTemporal.Add(personajeVencido);
+
                     }
                     else break;
+                    omitirEnfrentamientos = true; // omito enfrentamientos luego de la primera ronda
                 }
-
-                for (int i = miPartida.PersonajesVivos.Count - 1; i >= 0; i--)
-                {
-                    if (personajesVencidosTemporal.Contains(miPartida.PersonajesVivos[i]))
-                    {
-                        miPartida.PersonajesVivos.RemoveAt(i);
-                    }
-                }
+                
+                EliminarPersonajesVencidos(ref miPartida, personajesVencidosTemporal);
 
             }
             else if (cantJugadoresRestantes == 1)
@@ -236,80 +234,131 @@ namespace GameplayClass
             return personajeJugador;
         }
 
-        private static Personaje EnfrentarDosPersonajes(ref Personaje personaje1, ref Personaje rival, ref Partida partidaActual)
+        private static Personaje EnfrentarDosPersonajes(ref Personaje personaje1, ref Personaje rival, ref Partida partidaActual, bool omitirEnfrentamientoUI)
         {
-
-            UIUX.IniciarCuentaAtras();
-
             // Determino quién ataca primero y en el bucle invierto roles
             Personaje atacante = (personaje1.velocidad >= rival.velocidad) ? personaje1 : rival;
             Personaje defensor = (atacante == personaje1) ? rival : personaje1;
 
             int hpAtacante = atacante.hp;
             int hpDefensor = defensor.hp;
-
             int turno = 1;
 
-            MostrarBarrasDeHp(personaje1, (personaje1 == atacante) ? hpAtacante : hpDefensor, rival, (rival == atacante) ? hpAtacante : hpDefensor, turno);
-            Utils.GenerarPausaDeSegundos(1.5);
+            if (omitirEnfrentamientoUI) //logica secuencial sin UI
+            {
+                while (hpAtacante > 0 && hpDefensor > 0)
+                {
 
-            Console.WriteLine("ATACA: " + atacante.name.ToUpper() + "========> SE DEFIENDE: " + defensor.name.ToUpper());
-            Utils.GenerarPausaDeSegundos(2);
+                    int danioRealizado = atacante.CalcularAtaque();
+                    hpDefensor = Personaje.RecibirDaño(hpDefensor, danioRealizado);
+                    // Si el defensor sigue vivo, intercambio roles
+                    if (hpDefensor > 0)
+                    {
+                        Personaje temp = atacante;
+                        atacante = defensor;
+                        defensor = temp;
 
-            // combate
-            while (hpAtacante > 0 && hpDefensor > 0)
+                        int hpTemp = hpAtacante;
+                        hpAtacante = hpDefensor;
+                        hpDefensor = hpTemp;
+                    }
+                    turno++;
+                }
+            }
+            else //logica secuencial con UI
             {
 
-                int danioRealizado = atacante.CalcularAtaque();
-
-                hpDefensor = Personaje.RecibirDaño(hpDefensor, danioRealizado);
-
-                MostrarBarrasDeHp(personaje1, (personaje1 == atacante) ? hpAtacante : hpDefensor, rival, (rival == atacante) ? hpAtacante : hpDefensor, turno);
+                UIUX.IniciarCuentaAtras();
+                UIUX.MostrarBarrasDeHp(personaje1, (personaje1 == atacante) ? hpAtacante : hpDefensor, rival, (rival == atacante) ? hpAtacante : hpDefensor, turno);
                 Utils.GenerarPausaDeSegundos(1.5);
 
-                if (hpAtacante > 0 && hpDefensor > 0)
+                Console.WriteLine("ATACA: " + atacante.name.ToUpper() + "========> SE DEFIENDE: " + defensor.name.ToUpper());
+                Utils.GenerarPausaDeSegundos(2);
+
+                // combate
+                while (hpAtacante > 0 && hpDefensor > 0)
                 {
-                    Console.WriteLine("ATACA: " + defensor.name.ToUpper() + "========> SE DEFIENDE: " + atacante.name.ToUpper());   // quedó invertido, funciona (corregir codigo en caso de necesidad)
-                    Utils.GenerarPausaDeSegundos(2);
+
+                    int danioRealizado = atacante.CalcularAtaque();
+
+                    hpDefensor = Personaje.RecibirDaño(hpDefensor, danioRealizado);
+
+                    UIUX.MostrarBarrasDeHp(personaje1, (personaje1 == atacante) ? hpAtacante : hpDefensor, rival, (rival == atacante) ? hpAtacante : hpDefensor, turno);
+                    Utils.GenerarPausaDeSegundos(1.5);
+
+                    if (hpAtacante > 0 && hpDefensor > 0)
+                    {
+                        Console.WriteLine("ATACA: " + defensor.name.ToUpper() + "========> SE DEFIENDE: " + atacante.name.ToUpper());   // quedó invertido, funciona (corregir codigo en caso de necesidad)
+                        Utils.GenerarPausaDeSegundos(2);
+                    }
+
+                    // Si el defensor sigue vivo, intercambio roles
+                    if (hpDefensor > 0)
+                    {
+                        Personaje temp = atacante;
+                        atacante = defensor;
+                        defensor = temp;
+
+                        int hpTemp = hpAtacante;
+                        hpAtacante = hpDefensor;
+                        hpDefensor = hpTemp;
+                    }
+                    turno++;
                 }
 
-                // Si el defensor sigue vivo, intercambio roles
-                if (hpDefensor > 0)
-                {
-                    Personaje temp = atacante;
-                    atacante = defensor;
-                    defensor = temp;
-
-                    int hpTemp = hpAtacante;
-                    hpAtacante = hpDefensor;
-                    hpDefensor = hpTemp;
-                }
-                turno++;
             }
 
             Personaje ganador = (hpAtacante > 0) ? atacante : defensor;
             Personaje perdedor = (ganador == personaje1) ? rival : personaje1;
 
-            ProcesarVictoria(ganador, perdedor, ref partidaActual);
+            ProcesarVictoria(ganador, perdedor, ref partidaActual, omitirEnfrentamientoUI);
 
             return perdedor;
         }
-        private static void ProcesarVictoria(Personaje ganador, Personaje perdedor, ref Partida partidaActual)
+
+        private static void EliminarPersonajesVencidos(ref Partida miPartida, List<Personaje> personajesVencidosTemporal)
         {
-            Personaje.MostrarResultadoEnfrentamiento(ganador, perdedor);
-            Console.Write("\n¡El ganador sube de nivel y mejorarán sus estadísticas!\n\nEstadísticas Anteriores: ");
-            ganador.MostrarEstadisticas();
-
-            ganador.AumentarNivelPersonaje();
-
-            if (partidaActual.PersonajeJugador.id == ganador.id)
+            for (int i = miPartida.PersonajesVivos.Count - 1; i >= 0; i--)
             {
-                partidaActual.PersonajeJugador = ganador;
+                if (personajesVencidosTemporal.Contains(miPartida.PersonajesVivos[i]))
+                {
+                    miPartida.PersonajesVivos.RemoveAt(i);
+                }
+            }
+        }
+
+        private static void ProcesarVictoria(Personaje ganador, Personaje perdedor, ref Partida partidaActual, bool omitirEnfrentamientoUI)
+        {
+            if (omitirEnfrentamientoUI)
+            {
+                ganador.AumentarNivelPersonaje();
+
+                if (partidaActual.PersonajeJugador.id == ganador.id)  //actualizo partidaActual.PersonajeJugador si el jugador paso a la siguiente ronda
+                {
+                    partidaActual.PersonajeJugador = ganador;
+                }
+
+            }
+            else
+            {
+                Personaje.MostrarResultadoEnfrentamiento(ganador, perdedor);
+                Console.Write("\n¡El ganador sube de nivel y mejorarán sus estadísticas!\n\nEstadísticas Anteriores: ");
+                ganador.MostrarEstadisticas();
+
+                ganador.AumentarNivelPersonaje();
+
+                if (partidaActual.PersonajeJugador.id == ganador.id)  //actualizo partidaActual.PersonajeJugador si el jugador paso a la siguiente ronda
+                {
+                    partidaActual.PersonajeJugador = ganador;
+                }
+
+                Console.Write("Nuevas Estadísticas: ");
+                ganador.MostrarEstadisticas();
+
+                Utils.PresioneKparaContinuar();
             }
 
-            Console.Write("Nuevas Estadísticas: ");
-            ganador.MostrarEstadisticas();
-            Utils.PresioneKparaContinuar();
+
         }
 
         private static void FiltrarPersonajesParaNuevaPartida(List<Personaje> personajesDisponibles, ref Partida miPartida, int cantidadPersonajes)
@@ -323,15 +372,6 @@ namespace GameplayClass
                 miPartida.PersonajesVivos.Add(personajesDisponibles[i]);
             }
         }
-        private static void MostrarBarrasDeHp(Personaje personaje1, int hpRestantePersonaje1, Personaje rival, int hpRestanteRival, int turno)
-        {
-            Console.SetCursorPosition(0,0);
-            Console.WriteLine($"TURNO: {turno}");
-            Console.WriteLine($"\nPersonaje: {personaje1.name.ToUpper()}");
-            UIUX.BarraDeVidaUI(personaje1.hp, hpRestantePersonaje1);
 
-            UIUX.BarraDeVidaUI(rival.hp, hpRestanteRival);
-            Console.WriteLine($"Personaje: {rival.name.ToUpper()}\n");
-        }
     }
 }
