@@ -32,7 +32,7 @@ namespace RickAndMortyDC
                         break;
                     case 2:
                         partidaActual = new Partida("", new Personaje(), [], [], []);
-                        partidaActual = Gameplay.CargarUnaPartidaGuardada(partidaActual);
+                        partidaActual = Almacenamiento.CargarUnaPartidaGuardada(partidaActual);
 
                         if (partidaActual != null) await Gameplay.RunGameLoop(partidaActual);
                         else Utils.GenerarPausaDeSegundos(2.5);

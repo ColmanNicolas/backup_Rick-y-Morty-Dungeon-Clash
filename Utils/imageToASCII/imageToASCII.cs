@@ -13,11 +13,19 @@ namespace ImageClass
             int id = Utils.ValidarOpcionMenu(1, 826, "\nIngrese el identificador(ID) de un personaje(1 al 826): ");
             int anchoMaximo = Utils.ValidarOpcionMenu(150, 350, "\nIngrese el ancho maximo que tendra la imagen (150 al 350): ");
             int imagenAcolor = Utils.ValidarOpcionMenu(0, 1, "\n[0] Mostrar imagen en blanco y negro\n[1] Mostrar imagen con color\n\nSu opcion: ");
-            Console.Clear();
+            while (true)
+            {
+                int diseño = Utils.ValidarOpcionMenu(0, 4, "\n[1] Diseño 1\n[2] Diseño 2\n[3] Diseño 3\n[4] Diseño 4\n[0] Salir 0\n\nSu opcion: ");
 
-            await MostrarImagenComoASCII($"https://rickandmortyapi.com/api/character/avatar/{id}.jpeg", anchoMaximo, imagenAcolor);
+                if (diseño == 0) return;
+
+                await MostrarImagenComoASCII($"https://rickandmortyapi.com/api/character/avatar/{id}.jpeg", anchoMaximo, imagenAcolor, diseño);
+                Utils.PresioneKparaContinuar();
+                Console.Clear();
+            }
+
         }
-        private static async Task MostrarImagenComoASCII(string url, int anchoMaximo, int imagenAcolor)
+        private static async Task MostrarImagenComoASCII(string url, int anchoMaximo, int imagenAcolor, int diseño)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -52,11 +60,11 @@ namespace ImageClass
 
                                         int gris = (pixel.R + pixel.G + pixel.B) / 3;
 
-                                        Console.Write(GrisAASCII(gris));
+                                        Console.Write(GrisAASCII(gris, diseño));
                                     }
                                     Console.WriteLine();
                                 }
-                                Console.ResetColor(); //Restablecer el color al final
+                                Console.ResetColor();
                             }
                         }
                     }
@@ -87,9 +95,27 @@ namespace ImageClass
                 }
             }
         }
-        private static char GrisAASCII(int gris)
+        private static char GrisAASCII(int gris, int diseño)
         {
-            string escala = "@%#*+=-:. "; // del más oscuro al más claro
+            string escala = "";  //rampa de caracteres
+            switch (diseño)
+            {
+                case 1:
+                    escala = "@%#*+=-:. ";
+                    break;
+                case 2:
+                    escala = "█▓▒░ ";
+                    break;
+                case 3:
+                    escala = "10_ ";
+                    break;
+                case 4:
+                    escala = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. ";
+                    break;
+                default:
+                    escala = "@%#*+=-:. ";
+                    break;
+            }
             int index = gris * (escala.Length - 1) / 255;
             return escala[index];
         }

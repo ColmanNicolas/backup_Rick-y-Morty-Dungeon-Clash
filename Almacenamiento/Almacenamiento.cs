@@ -2,7 +2,8 @@ using System.Text.Json;
 using PersonajeClass;
 using PartidaClass;
 using System;
-using System.IO; // Necesario para Directory y File
+using System.IO;
+using UIUXclass; // Necesario para Directory y File
 
 
 namespace AlmacenamientoClass
@@ -94,12 +95,12 @@ namespace AlmacenamientoClass
                     if (rutasArchivos.Length == 0)
                     {
                         Console.WriteLine($"No hay partidas guardadas en '{rutaAlmacenamiento}'.");
-                        return null; 
+                        return null;
                     }
 
                     foreach (var unaRuta in rutasArchivos)
                     {
-                        Partida unaPartida = null; 
+                        Partida unaPartida = null;
 
                         try
                         {
@@ -111,7 +112,7 @@ namespace AlmacenamientoClass
                                 if (string.Equals(unaPartida.NombreJugador, nombreBuscado))
                                 {
                                     Console.WriteLine($"¡Partida '{nombreBuscado}' encontrada!");
-                                    return unaPartida; 
+                                    return unaPartida;
                                 }
                             }
                             else
@@ -123,7 +124,7 @@ namespace AlmacenamientoClass
                         {
                             Console.WriteLine($"Error de formato JSON al leer '{unaRuta}': {ex.Message}");
                         }
-                        catch (IOException ex) 
+                        catch (IOException ex)
                         {
                             Console.WriteLine($"Error de E/S al leer '{unaRuta}': {ex.Message}");
                         }
@@ -149,6 +150,18 @@ namespace AlmacenamientoClass
                 Console.WriteLine($"Ocurrió un error general al buscar partidas: {ex.Message}");
                 return null;
             }
+        }
+        public static Partida CargarUnaPartidaGuardada(Partida partidaActual)
+        {
+            string nombrePartida;
+
+            Almacenamiento.MostrarPartidasGuardadas();
+
+            nombrePartida = UIUX.ElegirNombreJugador("\nIngrese el nombre de la partida: ");  // reutilizo esta funcion porque comparten las mismas restricciones
+
+            partidaActual = Almacenamiento.BuscarUnaPartida(nombrePartida.Trim());
+
+            return partidaActual;
         }
     }
 }

@@ -34,8 +34,8 @@ namespace PersonajeClass
         public void inicializarEstadisticas()
         {
             Random rng = new Random();
-            this.hp = rng.Next(800, 1300);
-            this.ataquebase = rng.Next(80, 150);
+            this.hp = rng.Next(800, 1200);
+            this.ataquebase = rng.Next(80, 140);
             this.velocidad = rng.Next(70, 101);
             this.inteligencia = rng.Next(10, 41);
             this.defensa = rng.Next(5, 36);
@@ -69,20 +69,20 @@ namespace PersonajeClass
         }
         public static void MostrarResultadoEnfrentamiento(Personaje p1, Personaje p2)
         {
-            
-                Console.WriteLine("                    ..::<GANADOR>::..                                                   ..::<PERDEDOR>::..                          ");
-                Console.WriteLine("╔═════════════════════════════════════════════════════════════╗     ╔═════════════════════════════════════════════════════════════╗");
-                Console.WriteLine($"║ <DETALLE PERSONAJE>            NIVEL: {p1.nivel,-15}       ║     ║ <DETALLE PERSONAJE>            NIVEL: {p2.nivel,-14}        ║");
-                Console.WriteLine("╠═════════════════════════════════════════════════════════════╣     ╠═════════════════════════════════════════════════════════════╣");
-                Console.WriteLine($"║ ID: {p1.id,-3} | Nombre: {p1.name,-41} ║     ║ ID: {p2.id,-3} | Nombre: {p2.name,-41} ║");
-                Console.WriteLine($"║ Especie: {p1.species,-26} | Género: {p1.gender,-13} ║     ║ Especie: {p2.species,-26} | Género: {p2.gender,-13} ║");
-                Console.WriteLine("╠═════════════════════════════════════════════════════════════╣     ╠═════════════════════════════════════════════════════════════╣");
-                Console.WriteLine($"║ [ESTADISTICAS]                                              ║     ║ [ESTADISTICAS]                                              ║");
-                Console.WriteLine("╠═════════════════════════════════════════════════════════════╣     ╠═════════════════════════════════════════════════════════════╣");
-                Console.WriteLine($"║ HP: {p1.hp,-4} | Velocidad: {p1.velocidad,-4} | Ataque: {p1.ataquebase,-23}║     ║ HP: {p2.hp,-4} | Velocidad: {p2.velocidad,-4} | Ataque: {p2.ataquebase,-4}                   ║");
-                Console.WriteLine($"║ Defensa: {p1.defensa,-4} | Inteligencia: {p1.inteligencia,-30}║     ║ Defensa: {p2.defensa,-4} | Inteligencia: {p2.inteligencia,-30}║");
-                Console.WriteLine("╚═════════════════════════════════════════════════════════════╝     ╚═════════════════════════════════════════════════════════════╝");
-            
+
+            Console.WriteLine("                    ..::<GANADOR>::..                                                   ..::<PERDEDOR>::..                          ");
+            Console.WriteLine("╔═════════════════════════════════════════════════════════════╗     ╔═════════════════════════════════════════════════════════════╗");
+            Console.WriteLine($"║ <DETALLE PERSONAJE>            NIVEL: {p1.nivel,-15}       ║     ║ <DETALLE PERSONAJE>            NIVEL: {p2.nivel,-14}        ║");
+            Console.WriteLine("╠═════════════════════════════════════════════════════════════╣     ╠═════════════════════════════════════════════════════════════╣");
+            Console.WriteLine($"║ ID: {p1.id,-3} | Nombre: {p1.name,-41} ║     ║ ID: {p2.id,-3} | Nombre: {p2.name,-41} ║");
+            Console.WriteLine($"║ Especie: {p1.species,-26} | Género: {p1.gender,-13} ║     ║ Especie: {p2.species,-26} | Género: {p2.gender,-13} ║");
+            Console.WriteLine("╠═════════════════════════════════════════════════════════════╣     ╠═════════════════════════════════════════════════════════════╣");
+            Console.WriteLine($"║ [ESTADISTICAS]                                              ║     ║ [ESTADISTICAS]                                              ║");
+            Console.WriteLine("╠═════════════════════════════════════════════════════════════╣     ╠═════════════════════════════════════════════════════════════╣");
+            Console.WriteLine($"║ HP: {p1.hp,-4} | Velocidad: {p1.velocidad,-4} | Ataque: {p1.ataquebase,-23}║     ║ HP: {p2.hp,-4} | Velocidad: {p2.velocidad,-4} | Ataque: {p2.ataquebase,-4}                   ║");
+            Console.WriteLine($"║ Defensa: {p1.defensa,-4} | Inteligencia: {p1.inteligencia,-30}║     ║ Defensa: {p2.defensa,-4} | Inteligencia: {p2.inteligencia,-30}║");
+            Console.WriteLine("╚═════════════════════════════════════════════════════════════╝     ╚═════════════════════════════════════════════════════════════╝");
+
         }
         public int CalcularAtaque()
         {
@@ -120,14 +120,6 @@ namespace PersonajeClass
         }*/
 
 
-        public class Multiplicadores
-        {
-            public double Hp { get; set; } = 1.0;
-            public double Ataque { get; set; } = 1.0;
-            public double Inteligencia { get; set; } = 1.0;
-            public double Velocidad { get; set; } = 1.0;
-            public double Defensa { get; set; } = 1.0;
-        }
 
         public void AumentarNivelPersonaje()
         {
@@ -139,12 +131,12 @@ namespace PersonajeClass
 
             for (int i = 0; i < 2; i++)
             {
-                Console.WriteLine($"***Mejoro en el switch: {indicesOpciones[i]}****");
+                Console.WriteLine($"***Mejoro en el switch: {indicesOpciones[i]}****");  // A BORRAR LUEGO
                 double porcenajeIncrementeo;
                 switch (indicesOpciones[i])
                 {
-                    case 1:  // 1 mejoro hp entre 0.2 y 0.5
-                        porcenajeIncrementeo = rng.Next(2, 6) / 10.0;
+                    case 1:  // 1 mejoro hp entre 0.2 y 0.4
+                        porcenajeIncrementeo = rng.Next(2, 5) / 10.0;
 
                         hp = (int)Math.Round(hp + (hp * porcenajeIncrementeo));
                         break;
@@ -168,6 +160,15 @@ namespace PersonajeClass
                         break;
                 }
             }
+
+        }
+        private class Multiplicadores
+        {
+            public double Hp { get; set; } = 1.0;
+            public double Ataque { get; set; } = 1.0;
+            public double Inteligencia { get; set; } = 1.0;
+            public double Velocidad { get; set; } = 1.0;
+            public double Defensa { get; set; } = 1.0;
         }
         public void BalancearEstadisticasPorEspecie()
         {
@@ -190,6 +191,7 @@ namespace PersonajeClass
                 this.ataquebase = (int)Math.Floor(this.ataquebase * mult.Ataque);
                 this.inteligencia = (int)Math.Floor(this.inteligencia * mult.Inteligencia);
                 this.velocidad = (int)Math.Floor(this.velocidad * mult.Velocidad);
+                this.defensa = (int)Math.Floor(this.defensa * mult.Defensa);
             }
         }
         private static readonly Dictionary<string, List<string>> ventajas = new()
@@ -220,13 +222,10 @@ namespace PersonajeClass
             Console.WriteLine("/---------------------------------------------------------------------\\");
             foreach (var unaVentaja in ventajas)
             {
-                string clave = unaVentaja.Key.ToUpper(); // Convertimos a mayúsculas para un look más de terminal
+                string clave = unaVentaja.Key.ToUpper(); 
                 List<string> valores = unaVentaja.Value;
-
-                // Preparamos la línea de salida con un formato específico
                 string lineaVentaja = $"| {clave.PadRight(21)} > VENTAJA SOBRE: {string.Join(", ", valores)}";
 
-                // Nos aseguramos de que la línea se ajuste al marco
                 Console.WriteLine(lineaVentaja.PadRight(70) + "|");
             }
             Console.WriteLine("\\---------------------------------------------------------------------/");

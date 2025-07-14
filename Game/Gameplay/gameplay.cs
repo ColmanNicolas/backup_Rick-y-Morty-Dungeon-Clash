@@ -87,18 +87,7 @@ namespace GameplayClass
             return partidaActual;
         }
 
-        public static Partida CargarUnaPartidaGuardada(Partida partidaActual)
-        {
-            string nombrePartida;
 
-            Almacenamiento.MostrarPartidasGuardadas();
-
-            nombrePartida = UIUX.ElegirNombreJugador("\nIngrese el nombre de la partida: ");  // reutilizo esta funcion porque comparten las mismas restricciones
-
-            partidaActual = Almacenamiento.BuscarUnaPartida(nombrePartida.Trim());
-
-            return partidaActual;
-        }
 
         private static void MostrarCombatesDeLaRonda(int cantJugadoresRestante, Partida partidaActual)
         {
@@ -164,7 +153,7 @@ namespace GameplayClass
                     else break;
                     omitirEnfrentamientos = true; // omito enfrentamientos luego de la primera ronda
                 }
-                
+
                 EliminarPersonajesVencidos(ref miPartida, personajesVencidosTemporal);
 
             }
