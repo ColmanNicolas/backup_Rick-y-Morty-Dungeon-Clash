@@ -39,15 +39,15 @@ namespace ImageClass
                         {
                             int nuevoAncho = anchoMaximo;
 
-                            int nuevoAlto = (int)(bmp.Height / (double)bmp.Width * nuevoAncho * 0.42);
+                            int nuevoAlto = (int)(bmp.Height / (double)bmp.Width * nuevoAncho * 0.33);
 
-                            using (Bitmap reducida = new Bitmap(bmp, new Size(nuevoAncho, nuevoAlto)))
+                            using (Bitmap ajustado = new Bitmap(bmp, new Size(nuevoAncho, nuevoAlto)))
                             {
-                                for (int y = 0; y < reducida.Height; y++)
+                                for (int y = 0; y < ajustado.Height; y++)
                                 {
-                                    for (int x = 0; x < reducida.Width; x++)
+                                    for (int x = 0; x < ajustado.Width; x++)
                                     {
-                                        Color pixel = reducida.GetPixel(x, y);
+                                        Color pixel = ajustado.GetPixel(x, y);
 
                                         if (imagenAcolor == 1) // colorear 
                                         {

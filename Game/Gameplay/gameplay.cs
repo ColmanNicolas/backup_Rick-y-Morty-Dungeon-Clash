@@ -142,7 +142,7 @@ namespace GameplayClass
                 {
                     if (i + 1 < miPartida.PersonajesVivos.Count)
                     {
-                        Personaje p1 = miPartida.PersonajesVivos[i];  // ok
+                        Personaje p1 = miPartida.PersonajesVivos[i];
                         Personaje p2 = miPartida.PersonajesVivos[i + 1];
                         Personaje personajeVencido = EnfrentarDosPersonajes(ref p1, ref p2, ref miPartida, omitirEnfrentamientos);
 
@@ -261,7 +261,9 @@ namespace GameplayClass
                 UIUX.MostrarBarrasDeHp(personaje1, (personaje1 == atacante) ? hpAtacante : hpDefensor, rival, (rival == atacante) ? hpAtacante : hpDefensor, turno);
                 Utils.GenerarPausaDeSegundos(1.5);
 
-                Console.WriteLine("ATACA: " + atacante.name.ToUpper() + "========> SE DEFIENDE: " + defensor.name.ToUpper());
+                Console.WriteLine("╔═════════════════════════════════════════════════════════╗           ╔═════════════════════════════════════════════════════════╗");
+                Console.WriteLine($"║ ATACA: {defensor.name.ToUpper(),-48} ║ ========> ║ DEFIENDE: {atacante.name.ToUpper(),-46}║");                             // quedó invertido, funciona (corregir codigo en caso de necesidad)
+                Console.WriteLine("╚═════════════════════════════════════════════════════════╝           ╚═════════════════════════════════════════════════════════╝");
                 Utils.GenerarPausaDeSegundos(2);
 
                 // combate
@@ -277,7 +279,9 @@ namespace GameplayClass
 
                     if (hpAtacante > 0 && hpDefensor > 0)
                     {
-                        Console.WriteLine("ATACA: " + defensor.name.ToUpper() + "========> SE DEFIENDE: " + atacante.name.ToUpper());   // quedó invertido, funciona (corregir codigo en caso de necesidad)
+                        Console.WriteLine("╔═════════════════════════════════════════════════════════╗           ╔═════════════════════════════════════════════════════════╗");
+                        Console.WriteLine($"║ ATACA: {defensor.name.ToUpper(),-48} ║ ========> ║ DEFIENDE: {atacante.name.ToUpper(),-46}║");                             // quedó invertido, funciona (corregir codigo en caso de necesidad)
+                        Console.WriteLine("╚═════════════════════════════════════════════════════════╝           ╚═════════════════════════════════════════════════════════╝");
                         Utils.GenerarPausaDeSegundos(2);
                     }
 
@@ -299,6 +303,10 @@ namespace GameplayClass
 
             Personaje ganador = (hpAtacante > 0) ? atacante : defensor;
             Personaje perdedor = (ganador == personaje1) ? rival : personaje1;
+
+            //muestro resultado final limpio incluyendo barra de hp
+            Console.Clear();
+            UIUX.MostrarBarrasDeHp(personaje1, (personaje1 == atacante) ? hpAtacante : hpDefensor, rival, (rival == atacante) ? hpAtacante : hpDefensor, turno);
 
             ProcesarVictoria(ganador, perdedor, ref partidaActual, omitirEnfrentamientoUI);
 
