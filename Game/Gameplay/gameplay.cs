@@ -289,7 +289,6 @@ namespace GameplayClass
                 Console.SetCursorPosition(0, Console.CursorTop - 6); // luego retorno puntero 6 lugares
                 Utils.GenerarPausaDeSegundos(2);
 
-
                 // combate
                 while (hpAtacante > 0 && hpDefensor > 0)
                 {
