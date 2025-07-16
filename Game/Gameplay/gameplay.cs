@@ -232,14 +232,33 @@ namespace GameplayClass
             int hpAtacante = atacante.hp;
             int hpDefensor = defensor.hp;
             int turno = 1;
+            bool critico, evasion;
 
             if (omitirEnfrentamientoUI) //logica secuencial sin UI
             {
                 while (hpAtacante > 0 && hpDefensor > 0)
                 {
+                    critico = false;
+                    evasion = false;
 
                     int danioRealizado = atacante.CalcularAtaque();
-                    hpDefensor = Personaje.RecibirDaño(hpDefensor, danioRealizado);
+                    critico = atacante.RealizaGolpeCritico();
+
+                    if (critico)  // aumenta daño con critico
+                    {
+                        danioRealizado = (int)Math.Round(danioRealizado * 1.3);
+                        hpDefensor = Personaje.RecibirDaño(hpDefensor, danioRealizado);
+                    }
+                    else
+                    {
+                        evasion = defensor.RealizaEvasion_Bloqueo();
+
+                        if (!evasion) hpDefensor = Personaje.RecibirDaño(hpDefensor, danioRealizado); //si no evade/bloquea recibe el daño calculado
+
+                        // si evade no recibe daño
+                    }
+
+
                     // Si el defensor sigue vivo, intercambio roles
                     if (hpDefensor > 0)
                     {
@@ -262,17 +281,49 @@ namespace GameplayClass
                 Utils.GenerarPausaDeSegundos(1.5);
 
                 Console.WriteLine("╔═════════════════════════════════════════════════════════╗           ╔═════════════════════════════════════════════════════════╗");
-                Console.WriteLine($"║ ATACA: {defensor.name.ToUpper(),-48} ║ ========> ║ DEFIENDE: {atacante.name.ToUpper(),-46}║");                             // quedó invertido, funciona (corregir codigo en caso de necesidad)
+                Console.WriteLine($"║ ATACA: {defensor.name.ToUpper(),-48} ║ ========> ║ DEFIENDE: {atacante.name.ToUpper(),-46}║");                             // quedó invertido, funciona
                 Console.WriteLine("╚═════════════════════════════════════════════════════════╝           ╚═════════════════════════════════════════════════════════╝");
+
+                for (int i = 0; i < 6; i++) Console.WriteLine(new string(' ', 120));  // "limpio" parcialemente la consola 
+
+                Console.SetCursorPosition(0, Console.CursorTop - 6); // luego retorno puntero 6 lugares
                 Utils.GenerarPausaDeSegundos(2);
+
 
                 // combate
                 while (hpAtacante > 0 && hpDefensor > 0)
                 {
+                    critico = false;
+                    evasion = false;
 
                     int danioRealizado = atacante.CalcularAtaque();
+                    critico = atacante.RealizaGolpeCritico();
 
-                    hpDefensor = Personaje.RecibirDaño(hpDefensor, danioRealizado);
+                    if (critico)  // aumenta daño con critico
+                    {
+                        danioRealizado = (int)Math.Round(danioRealizado * 1.3);
+                        hpDefensor = Personaje.RecibirDaño(hpDefensor, danioRealizado);
+
+                        Console.WriteLine($"\n GOLPE CRITICO!                                                          -{danioRealizado,-4} HP");
+                        Utils.GenerarPausaDeSegundos(2);
+
+                    }
+                    else
+                    {
+                        evasion = defensor.RealizaEvasion_Bloqueo();
+
+                        if (!evasion)
+                        {
+                            hpDefensor = Personaje.RecibirDaño(hpDefensor, danioRealizado); //si no evade/bloquea recibe el daño calculado
+                            Console.WriteLine($"\n ATAQUE EFECTIVO                                                          -{danioRealizado,-4} HP");
+                            Utils.GenerarPausaDeSegundos(2);
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\n FALLÓ!!                                                                  ESQUIVA EL ATAQUE");
+                            Utils.GenerarPausaDeSegundos(2);
+                        }
+                    }
 
                     UIUX.MostrarBarrasDeHp(personaje1, (personaje1 == atacante) ? hpAtacante : hpDefensor, rival, (rival == atacante) ? hpAtacante : hpDefensor, turno);
                     Utils.GenerarPausaDeSegundos(1.5);
@@ -280,8 +331,12 @@ namespace GameplayClass
                     if (hpAtacante > 0 && hpDefensor > 0)
                     {
                         Console.WriteLine("╔═════════════════════════════════════════════════════════╗           ╔═════════════════════════════════════════════════════════╗");
-                        Console.WriteLine($"║ ATACA: {defensor.name.ToUpper(),-48} ║ ========> ║ DEFIENDE: {atacante.name.ToUpper(),-46}║");                             // quedó invertido, funciona (corregir codigo en caso de necesidad)
+                        Console.WriteLine($"║ ATACA: {defensor.name.ToUpper(),-48} ║ ========> ║ DEFIENDE: {atacante.name.ToUpper(),-46}║");                             // quedó invertido, funciona
                         Console.WriteLine("╚═════════════════════════════════════════════════════════╝           ╚═════════════════════════════════════════════════════════╝");
+
+                        for (int i = 0; i < 6; i++) Console.WriteLine(new string(' ', 120));  // "limpio" parcialemente la consola 
+
+                        Console.SetCursorPosition(0, Console.CursorTop - 6); // luego retorno puntero 6 lugares
                         Utils.GenerarPausaDeSegundos(2);
                     }
 
@@ -298,15 +353,13 @@ namespace GameplayClass
                     }
                     turno++;
                 }
-
+                //muestro resultado final limpio incluyendo barra de hp
+                Console.Clear();
+                UIUX.MostrarBarrasDeHp(personaje1, (personaje1 == atacante) ? hpAtacante : hpDefensor, rival, (rival == atacante) ? hpAtacante : hpDefensor, turno);
             }
 
             Personaje ganador = (hpAtacante > 0) ? atacante : defensor;
             Personaje perdedor = (ganador == personaje1) ? rival : personaje1;
-
-            //muestro resultado final limpio incluyendo barra de hp
-            Console.Clear();
-            UIUX.MostrarBarrasDeHp(personaje1, (personaje1 == atacante) ? hpAtacante : hpDefensor, rival, (rival == atacante) ? hpAtacante : hpDefensor, turno);
 
             ProcesarVictoria(ganador, perdedor, ref partidaActual, omitirEnfrentamientoUI);
 

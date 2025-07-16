@@ -97,7 +97,7 @@ namespace PersonajeClass
             if (hpRestante < 0) hpRestante = 0;
             return hpRestante;
         }
-        public bool CalcularGolpeCritico()  // puedo recibir boolean de tiene ventaja o no
+        public bool RealizaGolpeCritico()  // puedo recibir boolean de tiene ventaja o no
         {
             double coef = (inteligencia * 0.3 + velocidad * 0.1) / 100.0;
             coef = Math.Min(coef, 0.2);
@@ -105,7 +105,7 @@ namespace PersonajeClass
             Random rng = new Random();
             return rng.NextDouble() < coef;
         }
-        public bool CalcularEvasion_Bloqueo()
+        public bool RealizaEvasion_Bloqueo()
         {
             double coef = (defensa * 0.3 + velocidad * 0.15) / 100.0;
             coef = Math.Min(coef, 0.3);
