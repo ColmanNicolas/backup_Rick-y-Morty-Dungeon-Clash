@@ -303,9 +303,7 @@ namespace GameplayClass
                         danioRealizado = (int)Math.Round(danioRealizado * 1.3);
                         hpDefensor = Personaje.RecibirDaño(hpDefensor, danioRealizado);
 
-                        Console.WriteLine($"\n GOLPE CRITICO!                                                          -{danioRealizado,-4} HP");
-                        Utils.GenerarPausaDeSegundos(2);
-
+                        UIUX.ResultadoDeAtaqueUI($"              ║  GOLPE CRITICO!!   ║                                                 ║        -{danioRealizado,-4}HP        ║");
                     }
                     else
                     {
@@ -314,13 +312,13 @@ namespace GameplayClass
                         if (!evasion)
                         {
                             hpDefensor = Personaje.RecibirDaño(hpDefensor, danioRealizado); //si no evade/bloquea recibe el daño calculado
-                            Console.WriteLine($"\n ATAQUE EFECTIVO                                                          -{danioRealizado,-4} HP");
-                            Utils.GenerarPausaDeSegundos(2);
+
+                            UIUX.ResultadoDeAtaqueUI($"              ║  ATAQUE EFECTIVO   ║                                                 ║        -{danioRealizado,-4}HP        ║");
                         }
                         else
                         {
-                            Console.WriteLine($"\n FALLÓ!!                                                                  ESQUIVA EL ATAQUE");
-                            Utils.GenerarPausaDeSegundos(2);
+                            UIUX.ResultadoDeAtaqueUI($"              ║      FALLÓ!!       ║                                                 ║  ESQUIVA EL ATAQUE!!  ║");
+
                         }
                     }
 
@@ -329,6 +327,7 @@ namespace GameplayClass
 
                     if (hpAtacante > 0 && hpDefensor > 0)
                     {
+
                         Console.WriteLine("╔═════════════════════════════════════════════════════════╗           ╔═════════════════════════════════════════════════════════╗");
                         Console.WriteLine($"║ ATACA: {defensor.name.ToUpper(),-48} ║ ========> ║ DEFIENDE: {atacante.name.ToUpper(),-46}║");                             // quedó invertido, funciona
                         Console.WriteLine("╚═════════════════════════════════════════════════════════╝           ╚═════════════════════════════════════════════════════════╝");

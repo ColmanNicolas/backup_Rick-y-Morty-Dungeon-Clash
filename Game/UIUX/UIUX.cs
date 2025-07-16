@@ -151,9 +151,16 @@ namespace UIUXclass
 
             Console.WriteLine(new string('*', largoBordes + 2));
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(lineaBarraInermedia + $"% ({vidaRestante, 4}/{vidaTotal, -4})");
+            Console.WriteLine(lineaBarraInermedia + $"% ({vidaRestante,4}/{vidaTotal,-4})");
             Console.ResetColor();
             Console.WriteLine(new string('*', largoBordes + 2));
+        }
+        public static void ResultadoDeAtaqueUI(string mensaje)
+        {
+            Console.WriteLine("\n              ╔════════════════════╗                                                 ╔═══════════════════════╗");
+            Console.WriteLine(mensaje);
+            Console.WriteLine("              ╚════════════════════╝                                                 ╚═══════════════════════╝");
+            Utils.GenerarPausaDeSegundos(2);
         }
     }
 }
