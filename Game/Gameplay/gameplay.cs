@@ -281,7 +281,7 @@ namespace GameplayClass
                 Utils.GenerarPausaDeSegundos(1.5);
 
                 Console.WriteLine("╔═════════════════════════════════════════════════════════╗           ╔═════════════════════════════════════════════════════════╗");
-                Console.WriteLine($"║ ATACA: {defensor.name.ToUpper(),-48} ║ ========> ║ DEFIENDE: {atacante.name.ToUpper(),-46}║");                             // quedó invertido, funciona
+                Console.WriteLine($"║ ATACA: {atacante.name.ToUpper(),-48} ║ ========> ║ DEFIENDE: {defensor.name.ToUpper(),-46}║");                             
                 Console.WriteLine("╚═════════════════════════════════════════════════════════╝           ╚═════════════════════════════════════════════════════════╝");
 
                 for (int i = 0; i < 6; i++) Console.WriteLine(new string(' ', 120));  // "limpio" parcialemente la consola 

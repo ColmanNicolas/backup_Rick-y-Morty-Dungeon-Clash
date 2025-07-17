@@ -101,12 +101,18 @@ namespace PersonajeClass
             if (hpRestante < 0) hpRestante = 0;
             return hpRestante;
         }
-        public bool RealizaGolpeCritico(bool TieneVentajaAtacante)  
+        public bool RealizaGolpeCritico(bool TieneVentajaAtacante)
         {
             double coef = (inteligencia * 0.33 + velocidad * 0.12) / 100.0;
             coef = Math.Min(coef, 0.35);
 
-            if (TieneVentajaAtacante) coef += 0.10 + (this.nivel * 2) /10 ; // ( 10 + nivel * 2 ) % mas de chances de hacer critico
+            if (TieneVentajaAtacante)
+            {
+                if (_rng.NextDouble() < 0.50)   // 50% de chances de aumentar chances de hacer golpe critico
+                {
+                    coef += 0.15 + (this.nivel * 2) / 10; // ( 15 + nivel * 2 ) % mas de chances de hacer critico
+                }
+            }
 
             return _rng.NextDouble() < coef;
         }
@@ -116,7 +122,14 @@ namespace PersonajeClass
             coef = Math.Min(coef, 0.35);
 
 
-            if (TieneVentajaAtacante) coef -= 0.02 + (this.nivel *2 ) / 10  ; // (2 + nivel * 2) % menos de chances de esquivar/bloquear golpe
+            if (TieneVentajaAtacante)
+            {
+                if (_rng.NextDouble() < 0.50)   // 50% de chances de disminuir chances de esquivar/bloquear golpe
+                {
+                    coef -= 0.07 + (this.nivel * 2) / 10; // (7 + nivel * 2) % menos de chances de esquivar/bloquear golpe
+                }
+            }
+
 
             coef = Math.Max(0, coef); // aseguro que no sea negativo
 
@@ -143,20 +156,20 @@ namespace PersonajeClass
                 switch (indicesOpciones[i])
                 {
                     case 1:  // 1 mejoro hp entre 0.2 y 0.4
-                        porcenajeIncrementeo = _rng.Next(2, 5) / 10.0;
+                        porcenajeIncrementeo = _rng.Next(20, 41) / 100.0;
 
                         hp = (int)Math.Round(hp + (hp * porcenajeIncrementeo));
                         break;
                     case 2:  // 2 mejoro ataquebase entre 0.2 y 0.5
-                        porcenajeIncrementeo = _rng.Next(2, 6) / 10.0;
+                        porcenajeIncrementeo = _rng.Next(20, 51) / 100.0;
                         ataquebase = (int)Math.Round(ataquebase + (ataquebase * porcenajeIncrementeo));
                         break;
-                    case 3:   // 3 mejora inteligencia entre 0.2 y 0.3
-                        porcenajeIncrementeo = _rng.Next(2, 4) / 10.0;
+                    case 3:   // 3 mejora inteligencia entre 0.2 y 0.35
+                        porcenajeIncrementeo = _rng.Next(20, 36) / 100.0;
                         inteligencia = (int)Math.Round(inteligencia + (inteligencia * porcenajeIncrementeo));
                         break;
-                    case 4:   // mejora defensa entre 0.2 y 0.3
-                        porcenajeIncrementeo = _rng.Next(2, 4) / 10.0;
+                    case 4:   // mejora defensa entre 0.2 y 0.35
+                        porcenajeIncrementeo = _rng.Next(20, 36) / 100.0;
                         defensa = (int)Math.Round(defensa + (defensa * porcenajeIncrementeo));
                         break;
                     case 5:   // mejora velocidad 0.2  **afecta varias habilidades puede genear desbalanceo
