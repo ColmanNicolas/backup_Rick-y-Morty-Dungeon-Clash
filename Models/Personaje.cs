@@ -228,28 +228,28 @@ namespace PersonajeClass
         };
         public static void MostrarTablaDeVentajas()
         {
-            Console.WriteLine("              ..::[ TABLA DE VENTAJAS ESTRATEGICAS ]::..");
-            Console.WriteLine(" =====================================================================");
+            Console.WriteLine("                 ..::[ TABLA DE VENTAJAS ESTRATEGICAS ]::..");
+            Console.WriteLine(" =========================================================================");
 
             if (ventajas.Count == 0)
             {
-                Console.WriteLine("|          EL SISTEMA NO             |");
-                Console.WriteLine("|      DETECTA DATOS DE VENTAJA        |");
-                Console.WriteLine(" =====================================================================");
+                Console.WriteLine("|             EL SISTEMA NO                |");
+                Console.WriteLine("|        DETECTA DATOS DE VENTAJA          |");
+                Console.WriteLine(" =========================================================================");
                 return;
             }
 
-            Console.WriteLine("/---------------------------------------------------------------------\\");
+            Console.WriteLine("/-------------------------------------------------------------------------\\");
             foreach (var unaVentaja in ventajas)
             {
                 string clave = unaVentaja.Key.ToUpper();
                 List<string> valores = unaVentaja.Value;
                 string lineaVentaja = $"| {clave.PadRight(21)} > VENTAJA SOBRE: {string.Join(", ", valores)}";
 
-                Console.WriteLine(lineaVentaja.PadRight(70) + "|");
+                Console.WriteLine(lineaVentaja.PadRight(74) + "|");
             }
-            Console.WriteLine("\\---------------------------------------------------------------------/");
-            Console.WriteLine("                     [ TRANSMISION FINALIZADA ]");
+            Console.WriteLine("\\-------------------------------------------------------------------------/");
+            Console.WriteLine("                       [ TRANSMISION FINALIZADA ]");
         }
     }
 

@@ -31,7 +31,18 @@ namespace AlmacenamientoClass
             try
             {
                 File.WriteAllText(rutaCompletaArchivoPartida, jsonString);
-                Console.WriteLine($"Partida guardada exitosamente en: {rutaCompletaArchivoPartida}");
+                Console.WriteLine("\n                  ..::[ INFORME DE OPERACION ]::..");
+                Console.WriteLine(" =====================================================================");
+
+                Console.WriteLine("/---------------------------------------------------------------------\\");
+                Console.WriteLine("|                                                                     |");
+                Console.WriteLine($"| Jugador: {miPartida.NombreJugador,-31}                            |");
+                Console.WriteLine("|                                                                     |");
+                Console.WriteLine("| Resultado: Partida de guardada con éxito                            |");
+                Console.WriteLine("|                                                                     |");
+                Console.WriteLine("\\---------------------------------------------------------------------/");
+                Console.WriteLine("                     [ TRANSMISION FINALIZADA ]\n");
+
             }
             catch (Exception ex)
             {
@@ -39,13 +50,7 @@ namespace AlmacenamientoClass
             }
         }
 
-        /*public static Partida CargarUnaPartida(string nombrePartida)
-        {
-            //logica para traer la partida
-            Partida partidaCargada = new Partida();
-            return partidaCargada;
-        }*/
-        public static void MostrarPartidasGuardadas()
+        private static void MostrarPartidasGuardadas()
         {
             string rutaBase = Directory.GetCurrentDirectory();
             string rutaAlmacenamiento = Path.Combine(rutaBase, "partidasGuardadas");
@@ -81,7 +86,7 @@ namespace AlmacenamientoClass
             else Console.WriteLine("No existe la carpeta partidasGuardadas. Cree una nueva partida para poder empezar a jugar");
 
         }
-        public static Partida BuscarUnaPartida(string nombreBuscado)
+        private static Partida BuscarUnaPartida(string nombreBuscado)
         {
             string rutaBase = Directory.GetCurrentDirectory();
             string rutaAlmacenamiento = Path.Combine(rutaBase, "partidasGuardadas");
@@ -155,11 +160,11 @@ namespace AlmacenamientoClass
         {
             string nombrePartida;
 
-            Almacenamiento.MostrarPartidasGuardadas();
+            MostrarPartidasGuardadas();
 
             nombrePartida = UIUX.ElegirNombreJugador("\nIngrese el nombre de la partida: ");  // reutilizo esta funcion porque comparten las mismas restricciones
 
-            partidaActual = Almacenamiento.BuscarUnaPartida(nombrePartida.Trim());
+            partidaActual = BuscarUnaPartida(nombrePartida.Trim());
 
             return partidaActual;
         }
