@@ -246,7 +246,7 @@ namespace GameplayClass
 
                     if (critico)  // aumenta daño con critico
                     {
-                        danioRealizado = (int)Math.Round(danioRealizado * 1.3);
+                        danioRealizado = (int)Math.Round(danioRealizado * 1.5);
                         hpDefensor = Personaje.RecibirDaño(hpDefensor, danioRealizado);
                     }
                     else
@@ -299,10 +299,10 @@ namespace GameplayClass
 
                     if (critico)  // aumenta daño con critico
                     {
-                        danioRealizado = (int)Math.Round(danioRealizado * 1.3);
+                        danioRealizado = (int)Math.Round(danioRealizado * 1.5);
                         hpDefensor = Personaje.RecibirDaño(hpDefensor, danioRealizado);
 
-                        UIUX.ResultadoDeAtaqueUI($"              ║  GOLPE CRITICO!!   ║                                                 ║        -{danioRealizado,-4}HP        ║", 2);
+                        UIUX.ResultadoDeAtaqueUI($"              ║  GOLPE CRITICO !!  ║                                                 ║        -{danioRealizado,-4}HP        ║", 2);
                     }
                     else
                     {
@@ -312,11 +312,11 @@ namespace GameplayClass
                         {
                             hpDefensor = Personaje.RecibirDaño(hpDefensor, danioRealizado); //si no evade/bloquea recibe el daño calculado
 
-                            UIUX.ResultadoDeAtaqueUI($"              ║  ATAQUE EFECTIVO   ║                                                 ║        -{danioRealizado,-4}HP        ║",1);
+                            UIUX.ResultadoDeAtaqueUI($"              ║  ATAQUE EFECTIVO   ║                                                 ║        -{danioRealizado,-4}HP        ║", 1);
                         }
                         else
                         {
-                            UIUX.ResultadoDeAtaqueUI($"              ║      FALLÓ!!       ║                                                 ║  ESQUIVA EL ATAQUE!!  ║",3);
+                            UIUX.ResultadoDeAtaqueUI($"              ║      FALLÓ !!      ║                                                 ║  ESQUIVA EL ATAQUE !! ║", 3);
 
                         }
                     }

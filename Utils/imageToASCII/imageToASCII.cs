@@ -22,6 +22,7 @@ namespace ImageClass
                 await MostrarImagenComoASCII($"https://rickandmortyapi.com/api/character/avatar/{id}.jpeg", anchoMaximo, imagenAcolor, diseño);
                 Utils.PresioneKparaContinuar();
                 Console.Clear();
+                Console.SetCursorPosition(0, 0);
             }
 
         }

@@ -35,11 +35,11 @@ namespace PersonajeClass
         }
         public void inicializarEstadisticas()
         {
-            this.hp = _rng.Next(800, 1200);
-            this.ataquebase = _rng.Next(80, 140);
+            this.hp = _rng.Next(800, 1201);
+            this.ataquebase = _rng.Next(80, 141);
             this.velocidad = _rng.Next(70, 101);
             this.inteligencia = _rng.Next(10, 41);
-            this.defensa = _rng.Next(5, 36);
+            this.defensa = _rng.Next(5, 41);
         }
         public void MostrarMasivamentePersonaje()
         {
@@ -87,8 +87,12 @@ namespace PersonajeClass
         }
         public int CalcularAtaque()
         {
-            //logica de cantidad de daño
-            return this.ataquebase * _rng.Next(1, 3); // cambiar en el futuro
+            double porcentajeVariacion = 0.10;
+
+            int minDanio = (int)(this.ataquebase * (1 - porcentajeVariacion));
+            int maxDanio = (int)(this.ataquebase * (1 + porcentajeVariacion));
+
+            return _rng.Next(minDanio, maxDanio + 1);
         }
         public static int RecibirDaño(int hpRestante, int danio)
         {
@@ -97,18 +101,24 @@ namespace PersonajeClass
             if (hpRestante < 0) hpRestante = 0;
             return hpRestante;
         }
-        public bool RealizaGolpeCritico(bool TieneVentajaAtacante)  // puedo recibir boolean de tiene ventaja o no
+        public bool RealizaGolpeCritico(bool TieneVentajaAtacante)  
         {
-            double coef = (inteligencia * 0.3 + velocidad * 0.1) / 100.0;
-            coef = Math.Min(coef, 0.3);
+            double coef = (inteligencia * 0.33 + velocidad * 0.12) / 100.0;
+            coef = Math.Min(coef, 0.35);
 
+            if (TieneVentajaAtacante) coef += 0.10 + (this.nivel * 2) /10 ; // ( 10 + nivel * 2 ) % mas de chances de hacer critico
 
             return _rng.NextDouble() < coef;
         }
         public bool RealizaEvasion_Bloqueo(bool TieneVentajaAtacante)
         {
-            double coef = (defensa * 0.3 + velocidad * 0.15) / 100.0;
-            coef = Math.Min(coef, 0.3);
+            double coef = (defensa * 0.30 + velocidad * 0.15) / 100.0;
+            coef = Math.Min(coef, 0.35);
+
+
+            if (TieneVentajaAtacante) coef -= 0.02 + (this.nivel *2 ) / 10  ; // (2 + nivel * 2) % menos de chances de esquivar/bloquear golpe
+
+            coef = Math.Max(0, coef); // aseguro que no sea negativo
 
             return _rng.NextDouble() < coef;
         }
@@ -128,7 +138,7 @@ namespace PersonajeClass
 
             for (int i = 0; i < 2; i++)
             {
-                Console.WriteLine($"***Mejoro en el switch: {indicesOpciones[i]}****");  // A BORRAR LUEGO
+                //Console.WriteLine($"***Mejoro en el switch: {indicesOpciones[i]}****");  // A BORRAR LUEGO
                 double porcenajeIncrementeo;
                 switch (indicesOpciones[i])
                 {
@@ -219,7 +229,7 @@ namespace PersonajeClass
             Console.WriteLine("/---------------------------------------------------------------------\\");
             foreach (var unaVentaja in ventajas)
             {
-                string clave = unaVentaja.Key.ToUpper(); 
+                string clave = unaVentaja.Key.ToUpper();
                 List<string> valores = unaVentaja.Value;
                 string lineaVentaja = $"| {clave.PadRight(21)} > VENTAJA SOBRE: {string.Join(", ", valores)}";
 
