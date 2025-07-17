@@ -17,6 +17,8 @@ namespace PersonajeClass
         public int defensa { get; set; }  //para calcular evasion
         public int nivel { get; set; }  //inicia en 1, se incrementa en 1 por ronda
 
+        private Random _rng = new Random();
+
         public Personaje() // contructor de clase
         {
             id = 0;
@@ -33,12 +35,11 @@ namespace PersonajeClass
         }
         public void inicializarEstadisticas()
         {
-            Random rng = new Random();
-            this.hp = rng.Next(800, 1200);
-            this.ataquebase = rng.Next(80, 140);
-            this.velocidad = rng.Next(70, 101);
-            this.inteligencia = rng.Next(10, 41);
-            this.defensa = rng.Next(5, 36);
+            this.hp = _rng.Next(800, 1200);
+            this.ataquebase = _rng.Next(80, 140);
+            this.velocidad = _rng.Next(70, 101);
+            this.inteligencia = _rng.Next(10, 41);
+            this.defensa = _rng.Next(5, 36);
         }
         public void MostrarMasivamentePersonaje()
         {
@@ -87,8 +88,7 @@ namespace PersonajeClass
         public int CalcularAtaque()
         {
             //logica de cantidad de daño
-            Random rng = new Random();
-            return this.ataquebase * rng.Next(1, 2); // cambiar en el futuro
+            return this.ataquebase * _rng.Next(1, 3); // cambiar en el futuro
         }
         public static int RecibirDaño(int hpRestante, int danio)
         {
@@ -97,33 +97,30 @@ namespace PersonajeClass
             if (hpRestante < 0) hpRestante = 0;
             return hpRestante;
         }
-        public bool RealizaGolpeCritico()  // puedo recibir boolean de tiene ventaja o no
+        public bool RealizaGolpeCritico(bool TieneVentajaAtacante)  // puedo recibir boolean de tiene ventaja o no
         {
             double coef = (inteligencia * 0.3 + velocidad * 0.1) / 100.0;
-            coef = Math.Min(coef, 0.2);
+            coef = Math.Min(coef, 0.3);
 
-            Random rng = new Random();
-            return rng.NextDouble() < coef;
+
+            return _rng.NextDouble() < coef;
         }
-        public bool RealizaEvasion_Bloqueo()
+        public bool RealizaEvasion_Bloqueo(bool TieneVentajaAtacante)
         {
             double coef = (defensa * 0.3 + velocidad * 0.15) / 100.0;
             coef = Math.Min(coef, 0.3);
 
-            Random rng = new Random();
-            return rng.NextDouble() < coef;
+            return _rng.NextDouble() < coef;
         }
 
-        /*bool TieneVentaja(string atacante, string defensor)
+        public static bool TieneVentaja(string atacante, string defensor)
         {
             return ventajas.ContainsKey(atacante) && ventajas[atacante].Contains(defensor);
-        }*/
-
-
+        }
 
         public void AumentarNivelPersonaje()
         {
-            Random rng = new Random();
+
             int[] indicesOpciones = [1, 2, 3, 4, 5];
 
             indicesOpciones.Barajar();  // aumento 2 estadisticas al azar
@@ -136,20 +133,20 @@ namespace PersonajeClass
                 switch (indicesOpciones[i])
                 {
                     case 1:  // 1 mejoro hp entre 0.2 y 0.4
-                        porcenajeIncrementeo = rng.Next(2, 5) / 10.0;
+                        porcenajeIncrementeo = _rng.Next(2, 5) / 10.0;
 
                         hp = (int)Math.Round(hp + (hp * porcenajeIncrementeo));
                         break;
                     case 2:  // 2 mejoro ataquebase entre 0.2 y 0.5
-                        porcenajeIncrementeo = rng.Next(2, 6) / 10.0;
+                        porcenajeIncrementeo = _rng.Next(2, 6) / 10.0;
                         ataquebase = (int)Math.Round(ataquebase + (ataquebase * porcenajeIncrementeo));
                         break;
                     case 3:   // 3 mejora inteligencia entre 0.2 y 0.3
-                        porcenajeIncrementeo = rng.Next(2, 4) / 10.0;
+                        porcenajeIncrementeo = _rng.Next(2, 4) / 10.0;
                         inteligencia = (int)Math.Round(inteligencia + (inteligencia * porcenajeIncrementeo));
                         break;
                     case 4:   // mejora defensa entre 0.2 y 0.3
-                        porcenajeIncrementeo = rng.Next(2, 4) / 10.0;
+                        porcenajeIncrementeo = _rng.Next(2, 4) / 10.0;
                         defensa = (int)Math.Round(defensa + (defensa * porcenajeIncrementeo));
                         break;
                     case 5:   // mejora velocidad 0.2  **afecta varias habilidades puede genear desbalanceo

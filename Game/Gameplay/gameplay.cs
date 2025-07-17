@@ -232,17 +232,17 @@ namespace GameplayClass
             int hpAtacante = atacante.hp;
             int hpDefensor = defensor.hp;
             int turno = 1;
-            bool critico, evasion;
+            bool critico, evasion, TieneVentajaAtacante;
 
             if (omitirEnfrentamientoUI) //logica secuencial sin UI
             {
                 while (hpAtacante > 0 && hpDefensor > 0)
                 {
-                    critico = false;
-                    evasion = false;
+
+                    TieneVentajaAtacante = Personaje.TieneVentaja(atacante.species, defensor.species);
 
                     int danioRealizado = atacante.CalcularAtaque();
-                    critico = atacante.RealizaGolpeCritico();
+                    critico = atacante.RealizaGolpeCritico(TieneVentajaAtacante);
 
                     if (critico)  // aumenta daño con critico
                     {
@@ -251,7 +251,7 @@ namespace GameplayClass
                     }
                     else
                     {
-                        evasion = defensor.RealizaEvasion_Bloqueo();
+                        evasion = defensor.RealizaEvasion_Bloqueo(TieneVentajaAtacante);
 
                         if (!evasion) hpDefensor = Personaje.RecibirDaño(hpDefensor, danioRealizado); //si no evade/bloquea recibe el daño calculado
 
@@ -292,11 +292,10 @@ namespace GameplayClass
                 // combate
                 while (hpAtacante > 0 && hpDefensor > 0)
                 {
-                    critico = false;
-                    evasion = false;
+                    TieneVentajaAtacante = Personaje.TieneVentaja(atacante.species, defensor.species);
 
                     int danioRealizado = atacante.CalcularAtaque();
-                    critico = atacante.RealizaGolpeCritico();
+                    critico = atacante.RealizaGolpeCritico(TieneVentajaAtacante);
 
                     if (critico)  // aumenta daño con critico
                     {
@@ -307,7 +306,7 @@ namespace GameplayClass
                     }
                     else
                     {
-                        evasion = defensor.RealizaEvasion_Bloqueo();
+                        evasion = defensor.RealizaEvasion_Bloqueo(TieneVentajaAtacante);
 
                         if (!evasion)
                         {
