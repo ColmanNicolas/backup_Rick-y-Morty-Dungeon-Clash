@@ -155,11 +155,28 @@ namespace UIUXclass
             Console.ResetColor();
             Console.WriteLine(new string('*', largoBordes + 2));
         }
-        public static void ResultadoDeAtaqueUI(string mensaje)
+        public static void ResultadoDeAtaqueUI(string mensaje, int colorRecuadro)
         {
+            switch (colorRecuadro)
+            {
+                case 1:
+                    Console.ForegroundColor = ConsoleColor.White;
+                    break;
+                case 2:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    break;
+                case 3:
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    break;
+                default:
+                    Console.ForegroundColor = ConsoleColor.White;
+                    break;
+            }
             Console.WriteLine("\n              ╔════════════════════╗                                                 ╔═══════════════════════╗");
             Console.WriteLine(mensaje);
             Console.WriteLine("              ╚════════════════════╝                                                 ╚═══════════════════════╝");
+
+            Console.ResetColor();
             Utils.GenerarPausaDeSegundos(2);
         }
     }
