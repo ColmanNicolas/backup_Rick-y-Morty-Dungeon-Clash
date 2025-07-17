@@ -218,13 +218,13 @@ namespace PersonajeClass
         {
             { "Human", new List<string> { "Robot", "Disease" } },
             { "Robot", new List<string> { "Animal", "Humanoid" } },
-            { "Alien", new List<string> { "Human", "Mythological Creature" } },
-            { "Poopybutthole", new List<string> { "Cronenberg", "Disease" } },
-            { "Mythological Creature", new List<string> { "Animal", "Human" } },
+            { "Alien", new List<string> { "robot", "Mythological Creature" } },
+            { "Poopybutthole", new List<string> { "Cronenberg", "Mythological Creature" } },
+            { "Mythological Creature", new List<string> { "Animal", "Cronenberg" } },
             { "Animal", new List<string> { "Disease", "Poopybutthole" } },
             { "Disease", new List<string> { "Alien", "Humanoid" } },
             { "Humanoid", new List<string> { "Poopybutthole", "Human" } },
-            { "Cronenberg", new List<string> { "Robot", "Alien" } }
+            { "Cronenberg", new List<string> { "human", "Alien" } }
         };
         public static void MostrarTablaDeVentajas()
         {
