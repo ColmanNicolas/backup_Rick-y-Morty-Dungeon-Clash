@@ -73,7 +73,7 @@ namespace AlmacenamientoClass
                         Console.WriteLine($"Partida de Jugador: <{unaPartida.NombreJugador}>");
                         Console.Write("Personaje: ");
                         unaPartida.PersonajeJugador.MostrarUnPersonajeSencillo();
-                        Console.WriteLine("Avance:  **  50%  **");
+                        Console.WriteLine($"Avance: {(1.0 / unaPartida.PersonajesVivos.Count * 100):F1} %");
                         Console.WriteLine(new string('=', 180));
 
                     }

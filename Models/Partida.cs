@@ -17,7 +17,7 @@ namespace PartidaClass
             PersonajesVivos = new List<Personaje>();
             PersonajesDerrotadosPorElJugador = new List<Personaje>();
             PersonajesQuePerdieron = new List<Personaje>();
-            
+
         }
         public Partida(string nombre, Personaje jugador, List<Personaje> Pvivos, List<Personaje> PderrotadosPorJugaodr, List<Personaje> Pvencidos)
         {
@@ -42,20 +42,32 @@ namespace PartidaClass
             {
                 foreach (var p in PersonajesVivos)
                 {
-                    p.MostrarMasivamentePersonaje(); 
+                    if (p.id == this.PersonajeJugador.id)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Green;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        p.MostrarMasivamentePersonaje();
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        p.MostrarMasivamentePersonaje();
+                    }
                 }
             }
-            else{ Console.WriteLine("No hay personajes vivos en esta lista.");}
+            else { Console.WriteLine("No hay personajes vivos en esta lista."); }
 
             Console.WriteLine("\n--- Personajes Derrotados por el Jugador ---");
             if (PersonajesDerrotadosPorElJugador != null && PersonajesDerrotadosPorElJugador.Count > 0)
             {
                 foreach (var p in PersonajesDerrotadosPorElJugador)
                 {
-                    p.MostrarMasivamentePersonaje(); 
+
+                        p.MostrarMasivamentePersonaje();
+
                 }
             }
-            
+
             else { Console.WriteLine("El jugador no ha derrotado a ningún personaje en esta lista."); }
 
             Console.WriteLine("\n--- Personajes que Perdieron (Vencidos) ---");
@@ -63,10 +75,21 @@ namespace PartidaClass
             {
                 foreach (var p in PersonajesQuePerdieron)
                 {
-                    p.MostrarMasivamentePersonaje(); 
+                    if (p.id == this.PersonajeJugador.id)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        p.MostrarMasivamentePersonaje();
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        p.MostrarMasivamentePersonaje();
+                    }
                 }
             }
-            
+
             else { Console.WriteLine("No hay personajes vencidos en esta lista."); }
 
             Console.WriteLine("-----------------------------");
