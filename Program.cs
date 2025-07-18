@@ -41,8 +41,7 @@ namespace RickAndMortyDC
                     case 3:
                         //pendientes
                         /* 1) BORRAR PARTIDA
-                           2) PAGINAR LA LISTA DE 813 PERSONAJES
-                           3) ELEGIR QUE HABILIDADES QUIERO MEJORAR PARA PERSONAJE PRINCIPAL. SEPARAR ENTRE PORCENTAJE Y VALOR FIJO .
+                           2) ELEGIR QUE HABILIDADES QUIERO MEJORAR PARA PERSONAJE PRINCIPAL. SEPARAR ENTRE PORCENTAJE Y VALOR FIJO .
 
                         */
                         break;

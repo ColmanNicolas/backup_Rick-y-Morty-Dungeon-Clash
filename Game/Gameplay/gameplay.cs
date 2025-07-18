@@ -355,7 +355,7 @@ namespace GameplayClass
         {
             if (omitirEnfrentamientoUI)
             {
-                ganador.AumentarNivelPersonaje();
+                ganador.AumentarNivelPersonajeAleatoreamente();
 
                 if (partidaActual.PersonajeJugador.id == ganador.id)  //actualizo partidaActual.PersonajeJugador si el jugador paso a la siguiente ronda
                 {
@@ -369,7 +369,7 @@ namespace GameplayClass
                 Console.Write("\n¡El ganador sube de nivel y mejorarán sus estadísticas!\n\nEstadísticas Anteriores: ");
                 ganador.MostrarEstadisticas();
 
-                ganador.AumentarNivelPersonaje();
+                ganador.AumentarNivelPersonajeAleatoreamente();
 
                 if (partidaActual.PersonajeJugador.id == ganador.id)  //actualizo partidaActual.PersonajeJugador si el jugador paso a la siguiente ronda
                 {

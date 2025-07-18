@@ -177,7 +177,7 @@ namespace UIUXclass
             Console.WriteLine("              ╚════════════════════╝                                                 ╚═══════════════════════╝");
 
             Console.ResetColor();
-            Utils.GenerarPausaDeSegundos(2);
+            Utils.GenerarPausaDeSegundos(1.3);
         }
     }
 }

@@ -141,29 +141,18 @@ namespace PersonajeClass
             return ventajas.ContainsKey(atacante) && ventajas[atacante].Contains(defensor);
         }
 
-        public void AumentarNivelPersonaje()
+        public void AumentarNivelPersonajeAleatoreamente()
         {
 
-            int[] indicesOpciones = [1, 2, 3, 4, 5];
+            int[] indicesOpciones = [3, 4, 5];
 
-            indicesOpciones.Barajar();  // aumento 2 estadisticas al azar
-            nivel++;
+            indicesOpciones.Barajar();
+            double porcenajeIncrementeo;
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 2; i++) // aumento 2 de 3 estadisticas al azar (descartando hp y ataquebase)
             {
-                //Console.WriteLine($"***Mejoro en el switch: {indicesOpciones[i]}****");  // A BORRAR LUEGO
-                double porcenajeIncrementeo;
                 switch (indicesOpciones[i])
                 {
-                    case 1:  // 1 mejoro hp entre 0.2 y 0.4
-                        porcenajeIncrementeo = _rng.Next(20, 41) / 100.0;
-
-                        hp = (int)Math.Round(hp + (hp * porcenajeIncrementeo));
-                        break;
-                    case 2:  // 2 mejoro ataquebase entre 0.2 y 0.5
-                        porcenajeIncrementeo = _rng.Next(20, 51) / 100.0;
-                        ataquebase = (int)Math.Round(ataquebase + (ataquebase * porcenajeIncrementeo));
-                        break;
                     case 3:   // 3 mejora inteligencia entre 0.2 y 0.35
                         porcenajeIncrementeo = _rng.Next(20, 36) / 100.0;
                         inteligencia = (int)Math.Round(inteligencia + (inteligencia * porcenajeIncrementeo));
@@ -181,7 +170,24 @@ namespace PersonajeClass
                 }
             }
 
+            if (_rng.NextDouble() < 0.50)  //Dos posibles variantes de mejora con igual probabilidad
+            {
+                hp += _rng.Next(450, 551);
+
+                porcenajeIncrementeo = _rng.Next(25, 36) / 100.0;
+                ataquebase = (int)Math.Round(ataquebase + (ataquebase * porcenajeIncrementeo));
+            }
+            else
+            {
+                ataquebase += _rng.Next(40, 60);
+
+                porcenajeIncrementeo = _rng.Next(35, 46) / 100.0;
+                hp = (int)Math.Round(hp + (hp * porcenajeIncrementeo));
+
+            }
+            nivel++;
         }
+
         private class Multiplicadores
         {
             public double Hp { get; set; } = 1.0;
