@@ -408,6 +408,7 @@ namespace GameplayClass
             do
             {
                 Console.WriteLine("\nPERSONAJES Y CARACTERISICAS (las caracteristicas varian en cada nueva partida)\n");
+                Utils.GenerarPausaDeSegundos(1.5);
 
                 if (paginar)
                 {
