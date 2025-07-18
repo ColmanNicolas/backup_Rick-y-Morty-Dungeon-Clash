@@ -1,4 +1,5 @@
 
+using System.Drawing.Text;
 using AlmacenamientoClass;
 using APIClass;
 using ImageClass;
@@ -166,7 +167,6 @@ namespace GameplayClass
         private static Personaje UsuarioEligeSuPersonaje(int opcionElegirPersonaje, ref List<Personaje> personajes, int tamanioPArtida)
         {
             Personaje? personajeJugador;
-            int auxContador = 0, identificadorPersonaje;
 
             if (opcionElegirPersonaje == 3) //para opcion 3 retorno un personaje al azar
             {
@@ -181,40 +181,17 @@ namespace GameplayClass
                 {
                     personajes.Barajar();
                     personajes = personajes.Take(tamanioPArtida).ToList();
+                    personajeJugador = opcion2ElegirPersonaje(personajes);
                 }
-
-                do  // logica para elegir el personaje
+                else    //para opcion 1
                 {
-                    Console.WriteLine("\nPERSONAJES Y CARACTERISICAS (las caracteristicas varian en cada nueva partida)\n");
-                    Utils.GenerarPausaDeSegundos(1.5);
+                    personajeJugador = opcion1ElegirPersonaje(personajes);
+                    personajes.Barajar();
+                    personajes = personajes.Take(tamanioPArtida).ToList();
 
-                    personajes.ForEach(personaje =>
-                    {
-                        Console.Write($"{"[" + (auxContador + 1) + "]",-7}");
-                        personaje.MostrarMasivamentePersonaje();
-                        auxContador++;
-                    });
-                    auxContador = 0; // no borrar
-                    identificadorPersonaje = Utils.ValidarOpcionMenu(1, 825, "\nIngrese el identificador(ID) del personaje que quiera usar: ");
-                    personajeJugador = personajes.Find(p => p.id == identificadorPersonaje);
-
-                    if (personajeJugador == null)
-                    {
-                        Console.WriteLine($"\nError: No se encontró el personaje con el ID: ({identificadorPersonaje}), intente nuevamente...");
-                        Utils.GenerarPausaDeSegundos(2);
-                    }
-
-                } while (personajeJugador == null);
-
+                }
                 Console.Write("\nPersonaje elegido: \n\n");
             }
-
-            if (opcionElegirPersonaje == 1) //mezclar y limitar lista de personajes al final solo para opcion 1
-            {
-                personajes.Barajar();
-                personajes = personajes.Take(tamanioPArtida).ToList();
-            }
-
             personajeJugador.MostrarUnPersonajeDetallado();
             Console.WriteLine("\n\nProcesando.... ");
 
@@ -281,7 +258,7 @@ namespace GameplayClass
                 Utils.GenerarPausaDeSegundos(1.5);
 
                 Console.WriteLine("╔═════════════════════════════════════════════════════════╗           ╔═════════════════════════════════════════════════════════╗");
-                Console.WriteLine($"║ ATACA: {atacante.name.ToUpper(),-48} ║ ========> ║ DEFIENDE: {defensor.name.ToUpper(),-46}║");                             
+                Console.WriteLine($"║ ATACA: {atacante.name.ToUpper(),-48} ║ ========> ║ DEFIENDE: {defensor.name.ToUpper(),-46}║");
                 Console.WriteLine("╚═════════════════════════════════════════════════════════╝           ╚═════════════════════════════════════════════════════════╝");
 
                 for (int i = 0; i < 6; i++) Console.WriteLine(new string(' ', 120));  // "limpio" parcialemente la consola 
@@ -420,5 +397,89 @@ namespace GameplayClass
             }
         }
 
+        private static Personaje opcion1ElegirPersonaje(List<Personaje> personajes)
+        {
+            int limiteInf;
+            int limiteSup;
+            int identificadorPersonaje;
+            bool paginar = false;
+            int contador = 0;
+            Personaje? personajeElegido;
+            do
+            {
+                Console.WriteLine("\nPERSONAJES Y CARACTERISICAS (las caracteristicas varian en cada nueva partida)\n");
+
+                if (paginar)
+                {
+                    limiteInf = 400;
+                    limiteSup = 812;
+                }
+                else
+                {
+
+                    limiteInf = 0;
+                    limiteSup = 399;
+                }
+
+                for (int i = limiteInf; limiteInf <= limiteSup; limiteInf++)
+                {
+                    Console.Write($"{"[" + (contador + 1) + "]",-7}");
+                    personajes[limiteInf].MostrarMasivamentePersonaje();
+                    contador++;
+                }
+
+                identificadorPersonaje = Utils.ValidarOpcionMenu(0, 826, "\nPara ver siguiente pagina ingrese 0 \nPara elegir Personaje ingrese su indentificador (ID): ");
+
+                if (identificadorPersonaje == 0)
+                {
+                    paginar = !paginar;
+                    personajeElegido = null;
+                }
+                else
+                {
+                    personajeElegido = personajes.Find(p => p.id == identificadorPersonaje);
+
+                    if (personajeElegido == null)
+                    {
+                        Console.WriteLine($"\nError: No se encontró el personaje con el ID: ({identificadorPersonaje}), intente nuevamente...");
+                        Utils.GenerarPausaDeSegundos(2);
+                    }
+                }
+                contador = 0;
+            } while (personajeElegido == null);
+
+            return personajeElegido;
+        }
+        private static Personaje opcion2ElegirPersonaje(List<Personaje> personajes)
+        {
+            int auxContador = 0;
+            int identificadorPersonaje;
+            Personaje? personajeElegido = null;
+            do  // logica para elegir el personaje
+            {
+                Console.WriteLine("\nPERSONAJES Y CARACTERISICAS (las caracteristicas varian en cada nueva partida)\n");
+                Utils.GenerarPausaDeSegundos(1.5);
+                personajes.ForEach(personaje =>
+                {
+                    Console.Write($"{"[" + (auxContador + 1) + "]",-7}");
+                    personaje.MostrarMasivamentePersonaje();
+                    auxContador++;
+                });
+                auxContador = 0; // no borrar
+                identificadorPersonaje = Utils.ValidarOpcionMenu(1, 826, "\nIngrese el identificador(ID) del personaje que quiera usar: ");
+                personajeElegido = personajes.Find(p => p.id == identificadorPersonaje);
+
+                if (personajeElegido == null)
+                {
+                    Console.WriteLine($"\nError: No se encontró el personaje con el ID: ({identificadorPersonaje}), intente nuevamente...");
+                    Utils.GenerarPausaDeSegundos(2);
+                }
+
+            } while (personajeElegido == null);
+
+            return personajeElegido;
+        }
     }
+
 }
+

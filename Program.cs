@@ -43,7 +43,7 @@ namespace RickAndMortyDC
                         /* 1) BORRAR PARTIDA
                            2) PAGINAR LA LISTA DE 813 PERSONAJES
                            3) ELEGIR QUE HABILIDADES QUIERO MEJORAR PARA PERSONAJE PRINCIPAL. SEPARAR ENTRE PORCENTAJE Y VALOR FIJO .
-                           4) MEJORAR INTERFAZ DE GUARDAR PARTIDA
+
                         */
                         break;
                     case 0:
