@@ -58,7 +58,7 @@ namespace GameplayClass
                         break;
                 }
 
-                if (opcionTerciaria != 0) Utils.PresioneKparaContinuar();
+                if (opcionTerciaria != 0 && opcionTerciaria != 3 && opcionTerciaria != 6 ) Utils.PresioneKparaContinuar(); // 3 y 6 son  parche temporario para experiencia de usuario, las opciones ya contienen el metodo PresioneK
 
             } while (opcionTerciaria != 0);
         }
@@ -378,18 +378,13 @@ namespace GameplayClass
                     partidaActual.PersonajeJugador = ganador;
                     partidaActual.PersonajesVivos.Insert(0, ganador); // al ser lista relativamente pequeña no afecta el rendimiento
 
-
-                    Console.WriteLine("Retornado: ");
-                    ganador.MostrarUnPersonajeDetallado();
-
-                    Utils.PresioneKparaContinuar();
                 }
                 else
                 {
                     ganador.AumentarNivelPersonajeAleatoreamente();
                 }
 
-                Console.Write("Nuevas Estadísticas: ");
+                Console.Write("\nNuevas Estadísticas: ");
                 ganador.MostrarEstadisticas();
 
                 Utils.PresioneKparaContinuar();
