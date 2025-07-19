@@ -215,7 +215,7 @@ Console.WriteLine($"El color más cercano es: {colorMasCercano}");
 ```
 
 ## 📂 Estructura del Proyecto
-
+```
 RickAndMortyDungeonClash/
 │
 ├── Program.cs                    # Punto de entrada del programa
@@ -244,7 +244,7 @@ RickAndMortyDungeonClash/
 ├── .gitignore                   # Archivos a ignorar por Git
 │
 └── README.md                    # Documentación del proyecto
-
+```
 ---
 
 © 2025 - Nicolás Colman
