@@ -153,13 +153,34 @@ namespace PersonajeClass
             {
                 switch (indicesOpciones[i])
                 {
-                    case 3:   // 3 mejora inteligencia entre 0.2 y 0.35
-                        porcenajeIncrementeo = _rng.Next(20, 36) / 100.0;
-                        inteligencia = (int)Math.Round(inteligencia + (inteligencia * porcenajeIncrementeo));
+                    case 3:
+
+                        if (_rng.NextDouble() < 0.50) // 50% de probabilidad para esta variante
+                        {
+                            porcenajeIncrementeo = _rng.Next(20, 36) / 100.0;
+                            inteligencia = (int)Math.Round(inteligencia + (inteligencia * porcenajeIncrementeo));
+                        }
+                        else
+                        {
+                            inteligencia += _rng.Next(20, 31);
+                        }
+
                         break;
                     case 4:   // mejora defensa entre 0.2 y 0.35
                         porcenajeIncrementeo = _rng.Next(20, 36) / 100.0;
                         defensa = (int)Math.Round(defensa + (defensa * porcenajeIncrementeo));
+
+                        if (_rng.NextDouble() < 0.50)
+                        {
+                            porcenajeIncrementeo = _rng.Next(20, 36) / 100.0;
+                            defensa = (int)Math.Round(defensa + (defensa * porcenajeIncrementeo));
+                        }
+                        else
+                        {
+                            defensa += _rng.Next(20, 31);
+                        }
+
+
                         break;
                     case 5:   // mejora velocidad 0.2  **afecta varias habilidades puede genear desbalanceo
                         porcenajeIncrementeo = 0.2;
@@ -170,7 +191,7 @@ namespace PersonajeClass
                 }
             }
 
-            if (_rng.NextDouble() < 0.50)  //Dos posibles variantes de mejora con igual probabilidad
+            if (_rng.NextDouble() < 0.50)  //Dos posibles variantes de mejora al azar
             {
                 hp += _rng.Next(450, 551);
 
@@ -256,6 +277,10 @@ namespace PersonajeClass
             }
             Console.WriteLine("\\-------------------------------------------------------------------------/");
             Console.WriteLine("                       [ TRANSMISION FINALIZADA ]");
+        }
+        public Personaje CopiarSuperficialmente()
+        {
+            return (Personaje)this.MemberwiseClone();
         }
     }
 

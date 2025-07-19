@@ -111,7 +111,7 @@ namespace GameplayClass
 
                     if (i == 0)
                     {
-                        if (partidaActual.PersonajesVivos[i] == partidaActual.PersonajeJugador) jugador1Nombre = $"<JUGADOR> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie} ";
+                        if (partidaActual.PersonajesVivos[i].id == partidaActual.PersonajeJugador.id) jugador1Nombre = $"<JUGADOR> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie} ";
                         else jugador1Nombre = $"<IA> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie}";
                     }
                     else jugador1Nombre = $"<IA> {jugador1Nombre.ToUpper()}  ▸ {jugador1Especie}";
@@ -181,11 +181,11 @@ namespace GameplayClass
                 {
                     personajes.Barajar();
                     personajes = personajes.Take(tamanioPArtida).ToList();
-                    personajeJugador = opcion2ElegirPersonaje(personajes);
+                    personajeJugador = Opcion2ElegirPersonaje(personajes);
                 }
                 else    //para opcion 1
                 {
-                    personajeJugador = opcion1ElegirPersonaje(personajes);
+                    personajeJugador = Opcion1ElegirPersonaje(personajes);
                     personajes.Barajar();
                     personajes = personajes.Take(tamanioPArtida).ToList();
 
@@ -369,11 +369,24 @@ namespace GameplayClass
                 Console.Write("\n¡El ganador sube de nivel y mejorarán sus estadísticas!\n\nEstadísticas Anteriores: ");
                 ganador.MostrarEstadisticas();
 
-                ganador.AumentarNivelPersonajeAleatoreamente();
 
                 if (partidaActual.PersonajeJugador.id == ganador.id)  //actualizo partidaActual.PersonajeJugador si el jugador paso a la siguiente ronda
                 {
+
+                    partidaActual.PersonajesVivos.Remove(ganador);  //logica para no tener que reinstanciar el personaje jugador de la lista
+                    ganador = JugadorEligeMejoras(ganador);
                     partidaActual.PersonajeJugador = ganador;
+                    partidaActual.PersonajesVivos.Insert(0, ganador); // al ser lista relativamente pequeña no afecta el rendimiento
+
+
+                    Console.WriteLine("Retornado: ");
+                    ganador.MostrarUnPersonajeDetallado();
+
+                    Utils.PresioneKparaContinuar();
+                }
+                else
+                {
+                    ganador.AumentarNivelPersonajeAleatoreamente();
                 }
 
                 Console.Write("Nuevas Estadísticas: ");
@@ -397,7 +410,7 @@ namespace GameplayClass
             }
         }
 
-        private static Personaje opcion1ElegirPersonaje(List<Personaje> personajes)
+        private static Personaje Opcion1ElegirPersonaje(List<Personaje> personajes)
         {
             int limiteInf;
             int limiteSup;
@@ -451,7 +464,7 @@ namespace GameplayClass
 
             return personajeElegido;
         }
-        private static Personaje opcion2ElegirPersonaje(List<Personaje> personajes)
+        private static Personaje Opcion2ElegirPersonaje(List<Personaje> personajes)
         {
             int auxContador = 0;
             int identificadorPersonaje;
@@ -479,6 +492,29 @@ namespace GameplayClass
             } while (personajeElegido == null);
 
             return personajeElegido;
+        }
+        private static Personaje JugadorEligeMejoras(Personaje jugador)
+        {
+            int opcion;
+            Personaje p1 = jugador.CopiarSuperficialmente();
+            Personaje p2 = jugador.CopiarSuperficialmente();
+            Personaje p3 = jugador.CopiarSuperficialmente();
+
+            p1.AumentarNivelPersonajeAleatoreamente();
+            p2.AumentarNivelPersonajeAleatoreamente();
+            p3.AumentarNivelPersonajeAleatoreamente();
+
+            Console.WriteLine("\nElija las mejoras para su personaje:");
+
+            Console.Write("[1] "); p1.MostrarEstadisticas();
+            Console.Write("[2] "); p2.MostrarEstadisticas();
+            Console.Write("[3] "); p3.MostrarEstadisticas();
+
+            opcion = Utils.ValidarOpcionMenu(1, 3, "\nSu opcion: ");
+
+            if (opcion == 1) return p1;
+            else if (opcion == 2) return p2;
+            else return p3;
         }
     }
 
