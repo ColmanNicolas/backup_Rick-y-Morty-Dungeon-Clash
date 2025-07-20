@@ -50,7 +50,7 @@ Estas estadísticas se balancean según la **clase del personaje**:
 
 ## 🗺️ Desarrollo del juego
 
-1. **Creación de la partida**: se baraja la lista de personajes para definir los enfrentamientos.
+1. **Creación de la partida**: se elige la cantidad de jugadores para la partida y luego se le permite al jugador escoger su personaje.
 2. **Menú principal del salón del trono**:
    - 1. Ver personaje
    - 2. Ver tabla de ventajas entre clases
@@ -118,8 +118,8 @@ Guarda el estado actual de la partida con el nombre del jugador. Si ya existe un
 
 ## 🕹️ Cómo se juega
 
-- Se consulta el personaje propio con opción 1.
-- Se analiza el contrincante con opción 4 y 5.
+- Se consulta el detalle del personaje propio con opción 1.
+- Se analiza el contrincante y demas enfrentamientos con opción 4 y 5.
 - Se visualiza si existe ventaja de clase con opción 2.
 - Se inicia el combate con opción 3.
 
