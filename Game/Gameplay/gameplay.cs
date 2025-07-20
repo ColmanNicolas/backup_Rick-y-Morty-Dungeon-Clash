@@ -58,7 +58,7 @@ namespace GameplayClass
                         break;
                 }
 
-                if (opcionTerciaria != 0 && opcionTerciaria != 3 && opcionTerciaria != 6 ) Utils.PresioneKparaContinuar(); // 3 y 6 son  parche temporario para experiencia de usuario, las opciones ya contienen el metodo PresioneK
+                if (opcionTerciaria != 0 && opcionTerciaria != 3 && opcionTerciaria != 6) Utils.PresioneKparaContinuar(); // 3 y 6 son  parche temporario para experiencia de usuario, las opciones ya contienen el metodo PresioneK
 
             } while (opcionTerciaria != 0);
         }
@@ -162,6 +162,7 @@ namespace GameplayClass
             {
                 Console.WriteLine("PERSONAJE GANADOR DE LA PARTIDA");
                 miPartida.PersonajesVivos[0].MostrarUnPersonajeDetallado();
+                Utils.PresioneKparaContinuar();
             }
         }
         private static Personaje UsuarioEligeSuPersonaje(int opcionElegirPersonaje, ref List<Personaje> personajes, int tamanioPArtida)
@@ -353,14 +354,9 @@ namespace GameplayClass
 
         private static void ProcesarVictoria(Personaje ganador, Personaje perdedor, ref Partida partidaActual, bool omitirEnfrentamientoUI)
         {
-            if (omitirEnfrentamientoUI)
+            if (omitirEnfrentamientoUI)  //el jugador nunca deberia entrar en este IF a menos que su indice en la lista de peleadores se haga diferente del 0. si ese es el caso debe copiarse el mismo comportamiento del else de abajo dentro de este if que no tiene tratamiento adecuado para jugador.
             {
                 ganador.AumentarNivelPersonajeAleatoreamente();
-
-                if (partidaActual.PersonajeJugador.id == ganador.id)  //actualizo partidaActual.PersonajeJugador si el jugador paso a la siguiente ronda
-                {
-                    partidaActual.PersonajeJugador = ganador;
-                }
 
             }
             else
@@ -369,7 +365,6 @@ namespace GameplayClass
                 Console.Write("\n¡El ganador sube de nivel y mejorarán sus estadísticas!\n\nEstadísticas Anteriores: ");
                 ganador.MostrarEstadisticas();
 
-
                 if (partidaActual.PersonajeJugador.id == ganador.id)  //actualizo partidaActual.PersonajeJugador si el jugador paso a la siguiente ronda
                 {
 
@@ -377,6 +372,7 @@ namespace GameplayClass
                     ganador = JugadorEligeMejoras(ganador);
                     partidaActual.PersonajeJugador = ganador;
                     partidaActual.PersonajesVivos.Insert(0, ganador); // al ser lista relativamente pequeña no afecta el rendimiento
+                    partidaActual.PersonajesDerrotadosPorElJugador.Add(perdedor);
 
                 }
                 else

@@ -103,8 +103,8 @@ namespace PersonajeClass
         }
         public bool RealizaGolpeCritico(bool TieneVentajaAtacante)
         {
-            double coef = (inteligencia * 0.33 + velocidad * 0.12) / 100.0;
-            coef = Math.Min(coef, 0.35);
+            double coef = (inteligencia * 0.31 + velocidad * 0.14) / 100.0;
+            coef = Math.Min(coef, 0.40);
 
             if (TieneVentajaAtacante)
             {
@@ -118,8 +118,8 @@ namespace PersonajeClass
         }
         public bool RealizaEvasion_Bloqueo(bool TieneVentajaAtacante)
         {
-            double coef = (defensa * 0.30 + velocidad * 0.15) / 100.0;
-            coef = Math.Min(coef, 0.35);
+            double coef = (defensa * 0.28 + velocidad * 0.15) / 100.0;
+            coef = Math.Min(coef, 0.40);
 
 
             if (TieneVentajaAtacante)
