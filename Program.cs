@@ -39,11 +39,9 @@ namespace RickAndMortyDC
 
                         break;
                     case 3:
-                        //pendientes
-                        /* 1) BORRAR PARTIDA
-                           2) ELEGIR QUE HABILIDADES QUIERO MEJORAR PARA PERSONAJE PRINCIPAL. SEPARAR ENTRE PORCENTAJE Y VALOR FIJO .
-
-                        */
+                        Almacenamiento.BorrarUnaPartida();
+                        Utils.PresioneKparaContinuar();
+                        
                         break;
                     case 0:
                         break;

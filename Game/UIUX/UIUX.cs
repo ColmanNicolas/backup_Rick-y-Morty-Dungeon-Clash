@@ -13,7 +13,7 @@ namespace UIUXclass
             Console.WriteLine("BIEVENIDO A RICK Y MORTY DUNGEON CLASH\n");
             Console.WriteLine("[1] Para iniciar una partida nueva");
             Console.WriteLine("[2] Para cargar una partida");
-            Console.WriteLine("[3] Para borrar una partida (No desarrollada)");
+            Console.WriteLine("[3] Para borrar una partida");
             Console.WriteLine("[0] Para salir");
         }
         public static void ElegirNuevoPersonajeUI()
