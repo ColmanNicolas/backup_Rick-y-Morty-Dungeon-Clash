@@ -4,7 +4,7 @@
 
 ---
 
-## 🎮 Descripción General
+## Descripción General
 
 - **Nombre del juego**: Rick y Morty: Dungeon Clash
 - **Género**: Estrategia por turnos / RPG
@@ -12,14 +12,14 @@
 - **Inspiración**: Serie *Rick and Morty*
 - **Objetivo**: Ser el último personaje en pie tras múltiples rondas de combate.
 
-## 🔧 Tecnologías y Recursos
+## Tecnologías y Recursos
 
 - Lenguaje: **C#**
 - Framework: **.NET**
 - Librerías: Manejo de archivos, Streams binarios, Serialización JSON
 - API utilizada: [Rick and Morty API](https://rickandmortyapi.com/)
 
-## ⚔️ Mecánicas del Juego
+## Mecánicas del Juego
 
 - **Formato del torneo**: Eliminación directa (combates de a 2)
 - **Tamaño de la partida**: 2, 4, 8, 16, 32, 64, 128, 258 o 512 personajes
@@ -28,7 +28,7 @@
   2. Elegir de una lista aleatoria basada en el tamaño de la partida
   3. Selección completamente aleatoria
 
-## 🧬 Estadísticas de los personajes
+## Estadísticas de los personajes
 
 Cada personaje cuenta con estadísticas aleatorias:
 - HP
@@ -48,7 +48,7 @@ Estas estadísticas se balancean según la **clase del personaje**:
 - Cronenberg
 - Animal
 
-## 🗺️ Desarrollo del juego
+## Desarrollo del juego
 
 1. **Creación de la partida**: se elige la cantidad de jugadores para la partida y luego se le permite al jugador escoger su personaje.
 2. **Menú principal del salón del trono**:
@@ -61,7 +61,7 @@ Estas estadísticas se balancean según la **clase del personaje**:
    - 7. Guardar la partida
 
 
-## 📜 Detalle del Menú Principal
+## Detalle del Menú Principal
 
 ### 1. Ver personaje
 Permite visualizar el personaje que controla el jugador en la partida. Muestra estadísticas actuales, especie, nivel y mejoras obtenidas en el transcurso del torneo.
@@ -116,7 +116,7 @@ Para apreciar bien imágenes anchas, se recomienda usar **zoom out** en la conso
 ### 7. Guardar la partida
 Guarda el estado actual de la partida con el nombre del jugador. Si ya existe una partida con ese nombre, se sobrescribe. El guardado es **sensible a mayúsculas y minúsculas**.
 
-## 🕹️ Cómo se juega
+##  Cómo se juega
 
 - Se consulta el detalle del personaje propio con opción 1.
 - Se analiza el contrincante y demas enfrentamientos con opción 4 y 5.
@@ -133,18 +133,18 @@ Guarda el estado actual de la partida con el nombre del jugador. Si ya existe un
 
 El ganador sube de nivel. Si es el jugador, elige entre tres mejoras aleatorias. Si no, la mejora es aleatoria.
 
-## 💾 Guardado y reanudación
+## Guardado y reanudación
 
 - Se puede guardar el estado de la partida en cualquier momento (opción 7).
 - El juego puede reanudarse desde donde se dejó tras cerrar el programa.
 
-## 🏆 Final del juego
+## Final del juego
 
 El juego finaliza cuando solo queda un personaje con vida. Este es coronado con el **Trono de Hierro**.
 
 ---
 
-## 🏫 Contexto académico
+## Contexto académico
 
 Este juego fue desarrollado como proyecto integrador de la materia **Taller de Lenguajes I** de la **FACET - UNT**. Se abordaron los siguientes contenidos:
 
@@ -158,13 +158,13 @@ Este juego fue desarrollado como proyecto integrador de la materia **Taller de L
 
 ## Documentación de `ASCIIcolorClass`
 
-## Resumen General 📝
+## Resumen General
 
 Este namespace contiene la clase estática `AdvancedConsoleColorMapper`, una utilidad diseñada para resolver un problema común en aplicaciones de consola: encontrar el `System.ConsoleColor` más cercano a un `System.Drawing.Color` arbitrario.
 
 La comparación de colores se realiza en el espacio de color **CIELAB (L*a*b*)**, que está diseñado para aproximarse a la percepción visual humana. Esto produce resultados mucho más precisos y naturales que una simple comparación en el espacio RGB.
 
-## Funcionamiento Interno ⚙️
+## Funcionamiento Interno 
 
 El proceso se puede resumir en los siguientes pasos:
 
@@ -178,7 +178,7 @@ El proceso se puede resumir en los siguientes pasos:
     * Se calcula la "distancia" perceptual entre el color de entrada y cada uno de los 16 colores de consola precalculados usando la fórmula de diferencia de color **CIE76 (Delta E)**.
     * Se devuelve el `ConsoleColor` que tenga la distancia (diferencia) mínima.
 
-## 📐 Detalle Matemático: Delta E (CIE76)
+## Detalle Matemático: Delta E (CIE76)
 
 Para determinar qué `ConsoleColor` es perceptualmente más cercano a un color dado, se utiliza una fórmula matemática conocida como **Delta E (CIE76)**. Esta fórmula mide la diferencia entre dos colores en el espacio **CIELAB (L\*a\*b\*)**, un modelo diseñado para representar el color de manera más cercana a la percepción humana.
 
@@ -201,7 +201,7 @@ Esta fórmula es una **distancia euclidiana tridimensional** aplicada al espacio
 Este enfoque es mucho más preciso que comparar colores en el espacio RGB, ya que este último **no es uniforme perceptualmente**: diferencias numéricas iguales no implican diferencias visuales iguales.
 
 
-## Uso Básico 🚀
+## Uso Básico
 
 Para usar la clase, simplemente llama al método estático `GetClosestConsoleColor` y pásale el color que deseas aproximar.
 
@@ -214,7 +214,7 @@ ConsoleColor colorMasCercano = AdvancedConsoleColorMapper.GetClosestConsoleColor
 Console.WriteLine($"El color más cercano es: {colorMasCercano}");
 ```
 
-## 📂 Estructura del Proyecto
+## Estructura del Proyecto
 ```
 RickAndMortyDungeonClash/
 │
