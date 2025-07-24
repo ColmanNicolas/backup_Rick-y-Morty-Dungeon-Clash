@@ -433,7 +433,7 @@ namespace GameplayClass
                     contador++;
                 }
 
-                identificadorPersonaje = Utils.ValidarOpcionMenu(0, 826, "\nPara ver siguiente pagina ingrese 0 \nPara elegir Personaje ingrese su indentificador (ID): ");
+                identificadorPersonaje = Utils.ValidarOpcionMenu(0, 826, "\nPara ver siguiente pagina ingrese (0) \nPara elegir Personaje ingrese su indentificador (ID)\n\nSeleccione una opción y presione ENTER ▸   ");
 
                 if (identificadorPersonaje == 0)
                 {

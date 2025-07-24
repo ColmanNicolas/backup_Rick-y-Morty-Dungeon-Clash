@@ -111,7 +111,7 @@ Muestra una tabla que indica las especies sobre las que cada clase tiene ventaja
 | Humanoid             | Poopybutthole, Human                       |
 | Cronenberg           | Human, Alien                               |
 
-### 3. Iniciar próximo enfrentamiento
+#### 3. Iniciar próximo enfrentamiento
 Inicia el combate entre los dos personajes siguientes en la ronda. El primer enfrentamiento de cada ronda siempre se presenta con una interfaz gráfica y dinámica que incluye:
 - Barras de HP
 - Detalles de ataque y defensa
@@ -119,10 +119,10 @@ Inicia el combate entre los dos personajes siguientes en la ronda. El primer enf
 
 El perdedor queda fuera de la partida. El ganador sube de nivel. Si el jugador gana, puede elegir una de tres variantes de mejoras aleatorias que afectan 4 de sus 5 estadísticas.
 
-### 4. Ver tabla de enfrentamientos
+#### 4. Ver tabla de enfrentamientos
 Permite ver los enfrentamientos programados para la ronda actual. Se muestra el nombre, especie y si el personaje es IA o jugador.
 
-### 5. Ver detalle de la partida
+#### 5. Ver detalle de la partida
 Muestra un resumen completo del estado de la partida, incluyendo:
 - Personaje jugador (estadísticas y logros)
 - Lista de personajes vivos
@@ -130,7 +130,7 @@ Muestra un resumen completo del estado de la partida, incluyendo:
 - Personajes eliminados por el jugador
 - Estadísticas completas de todos los personajes
 
-### 6. Ver imagen de un personaje
+#### 6. Ver imagen de un personaje
 Permite ver la imagen de cualquier personaje existente en la API de Rick and Morty (ID del 1 al 826) en formato ASCII en consola.
 
 Pasos:
@@ -141,7 +141,7 @@ Pasos:
 
 Para apreciar bien imágenes anchas, se recomienda usar **zoom out** en la consola.
 
-### 7. Guardar la partida
+#### 7. Guardar la partida
 Guarda el estado actual de la partida con el nombre del jugador. Si ya existe una partida con ese nombre, se sobrescribe. El guardado es **sensible a mayúsculas y minúsculas**.
 
 ##  Cómo se juega

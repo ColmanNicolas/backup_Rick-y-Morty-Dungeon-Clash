@@ -13,25 +13,24 @@ namespace RickAndMortyDC
     {
         public static async Task Main(string[] args)
         {
-            Partida partidaActual;
+            Partida? partidaActual;
             int opcionPrimaria;
 
             do
             {
+                partidaActual = new Partida();
                 UIUX.MenuInicialUI();
+
                 opcionPrimaria = Utils.ValidarOpcionMenu(0, 3, "\n Seleccione una opción y presione ENTER ▸ ");
 
                 switch (opcionPrimaria)
                 {
                     case 1:   // logica partida nueva
-                        partidaActual = new Partida("", new Personaje(), [], [], []);
                         partidaActual = await Gameplay.GenerarUnaNuevaPartida(partidaActual);
-
                         await Gameplay.RunGameLoop(partidaActual);
 
                         break;
                     case 2:
-                        partidaActual = new Partida("", new Personaje(), [], [], []);
                         partidaActual = Almacenamiento.CargarUnaPartidaGuardada(partidaActual);
 
                         if (partidaActual != null) await Gameplay.RunGameLoop(partidaActual);
@@ -41,7 +40,7 @@ namespace RickAndMortyDC
                     case 3:
                         Almacenamiento.BorrarUnaPartida();
                         Utils.PresioneKparaContinuar();
-                        
+
                         break;
                     case 0:
                         break;
