@@ -148,7 +148,7 @@ El juego finaliza cuando solo queda un personaje con vida. Este es coronado con 
 
 Este juego fue desarrollado como proyecto integrador de la materia **Taller de Lenguajes I** de la **FACET - UNT**. Se abordaron los siguientes contenidos:
 
-- Estructura de programas en C#
+- Estructura de programas en C# y .NET
 - Manipulación de archivos y directorios
 - Streams binarios
 - Serialización y deserialización JSON
