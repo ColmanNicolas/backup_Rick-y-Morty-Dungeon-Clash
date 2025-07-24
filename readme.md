@@ -50,24 +50,52 @@ Estas estadísticas se balancean según la **clase del personaje**:
 
 ## Desarrollo del juego
 
-1. **Creación de la partida**: se elige la cantidad de jugadores para la partida y luego se le permite al jugador escoger su personaje.
-2. **Menú principal del salón del trono**:
-   - 1. Ver personaje
-   - 2. Ver tabla de ventajas entre clases
-   - 3. Iniciar próximo enfrentamiento
-   - 4. Ver tabla de enfrentamientos
-   - 5. Ver detalle de la partida
-   - 6. Ver imagen de personaje en consola (blanco y negro o color)
-   - 7. Guardar la partida
+### Menú inicial del juego
 
+Al iniciar el programa, se presenta un menú con las siguientes opciones:
 
-## Detalle del Menú Principal
+#### 1. Crear nueva partida
+Permite al jugador iniciar una nueva partida personalizada:
+- Primero se elige la **cantidad de personajes** participantes en el torneo (por ejemplo: 2, 4, 8, 16, 32, 64, 128, 256, 512).
+- Luego el jugador puede:
+  - **Elegir manualmente** su personaje de la lista.
+  - **Obtener un personaje aleatorio**, de la lista de todos los personajes.
 
-### 1. Ver personaje
+#### 2. Cargar partida existente
+Permite retomar el progreso de una partida guardada previamente:
+- Se listan las partidas disponibles en el sistema.
+- El jugador debe **ingresar el nombre exacto** de la partida a la que quiere ingresar.
+> *El nombre es sensible a mayúsculas y minúsculas.*
+
+#### 3. Eliminar partida guardada
+Permite al jugador borrar alguna de las partidas almacenadas:
+- Se muestran los nombres de las partidas disponibles.
+- El jugador debe escribir el **nombre exacto** de la partida que desea eliminar.
+> *El nombre es sensible a mayúsculas y minúsculas.*
+
+#### 4. Salir del juego
+Finaliza la ejecución del programa y cierra la consola.
+
+### Menú principal del salón del trono
+
+Al ingresar en una nueva partida o cargar una partida previamente guardada se accede al siguiente menú:
+
+- 1. Ver personaje
+- 2. Ver tabla de ventajas entre clases
+- 3. Iniciar próximo enfrentamiento
+- 4. Ver tabla de enfrentamientos
+- 5. Ver detalle de la partida
+- 6. Ver imagen de personaje en consola (blanco y negro o color)
+- 7. Guardar la partida
+
+### Detalle del Menú Principal
+
+#### 1. Ver personaje
 Permite visualizar el personaje que controla el jugador en la partida. Muestra estadísticas actuales, especie, nivel y mejoras obtenidas en el transcurso del torneo.
 
-### 2. Ver tabla de ventajas
+#### 2. Ver tabla de ventajas
 Muestra una tabla que indica las especies sobre las que cada clase tiene ventaja. Estas ventajas afectan la probabilidad de ataques críticos (más alta) y reducen la capacidad del rival de esquivar o bloquear. Los ataques críticos no pueden ser esquivados.
+
 
 **Ventajas entre especies:**
 
@@ -140,7 +168,7 @@ El ganador sube de nivel. Si es el jugador, elige entre tres mejoras aleatorias.
 
 ## Final del juego
 
-El juego finaliza cuando solo queda un personaje con vida. Este es coronado con el **Trono de Hierro**.
+El juego finaliza cuando solo queda un personaje con vida. Este es coronado con el derecho al **Trono de Hierro**.
 
 ---
 
